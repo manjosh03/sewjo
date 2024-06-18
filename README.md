@@ -87,9 +87,13 @@ used, and steps for future development.
 advanced features if feasible
 
 Project Stories/Scenarios:
+
 ● As a user, I can register and log in to my account.
+
 ● As a user, I can add, edit, and view details of my fabric stash.
+
 ● As a user, I can upload and manage my PDF sewing patterns.
+
 ● As a user, I can create and track the progress of my sewing projects.
 
 Workload Assessment:
