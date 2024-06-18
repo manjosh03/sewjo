@@ -60,29 +60,23 @@ Technical Specifications
 
 Detailed Features
 ● User Account Management
-  ○ Registration/Login :
-    ■ Enable user registration and login functionality.
-    ■ Allow users to create and edit profiles with details like sewing interests
-      and brief bio.
+
+○ Registration/Login : Enable user registration and login functionality. Allow users to create and edit profiles with details like sewing interests
+and brief bio.
 
 ● Fabric Stash Management
-  ○ Inventory Management :
-    ■ Users can add, edit, and delete fabric details fabric details.
-  ○ Image Upload :
-    ■ Ability to upload images of fabrics for better organization
-  ○ Sorting and Filtering :
-    ■ Tools to sort and filter fabrics by various criteria.
+○ Inventory Management : Users can add, edit, and delete fabric details fabric details.
+○ Image Upload : Ability to upload images of fabrics for better organization
+○ Sorting and Filtering : Tools to sort and filter fabrics by various criteria.
     
 ● Project Tracking
-  ○ Create Projects :
-    ■ Users can create new sewing projects.
-  ○ Track Progress :
-    ■ Tools to monitor the progress of each project, including start date, end
-      date,and completion status.
+○ Create Projects : Users can create new sewing projects.
+  
+○ Track Progress : Tools to monitor the progress of each project, including start date, end
+date,and completion status.
 
 ● Optional Advanced Features
-  ○ OCR for Pattern Data Extraction :
-    ■ Use Optical Character Recognition to extract data from uploaded images.
+○ OCR for Pattern Data Extraction : Use Optical Character Recognition to extract data from uploaded images.
 
 Outcome Expectations
 ● Functional Prototype: Deliver a working prototype of Sewjo with core features
