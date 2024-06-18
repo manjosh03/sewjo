@@ -3,7 +3,7 @@ Project Name: Sewjo Web Application Development
 
 Requirements and Specification Document
 
-Team member:  Brady wu,  Jisol Yun
+Team members:  Brady wu,  Jisol Yun
 
 
 
