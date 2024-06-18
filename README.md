@@ -22,12 +22,14 @@ Project Abstract
 
 
 Customer
+
   The primary customers for Sewjo are sewing enthusiasts and hobbyists who need a comprehensive tool to organize their sewing materials and projects. This includes individual sewists, small sewing groups, and fabric stores looking to offer value-added services to their customers.
 
 
 
 
 Competitive Analysis
+
   Existing solutions in the market include various fabric and project management apps, but none offer a fully integrated solution combining fabric management, pattern organization, and project tracking. Sewjo differentiates itself by providing a user-friendly interface, robust fabric and pattern management features, and optional advanced functionalities like OCR and e-commerce integration. This makes Sewjo a unique and comprehensive tool in the sewing community.
   
   
@@ -35,6 +37,7 @@ Competitive Analysis
   
 
   Technical Specifications
+
   Front-End: HTML, CSS, and JavaScript react.js for creating a responsive user interface.
 Back-End: Python with Flask or Node.js for server-side logic
 Database: Use SQLite or MongoDB for storing user, fabric, and pattern data.
