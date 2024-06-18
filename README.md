@@ -38,8 +38,11 @@ Competitive Analysis
 
   Technical Specifications
 
-  Front-End: HTML, CSS, and JavaScript react.js for creating a responsive user interface.
+Front-End: HTML, CSS, and JavaScript react.js for creating a responsive user interface.
+  
 Back-End: Python with Flask or Node.js for server-side logic
+
 Database: Use SQLite or MongoDB for storing user, fabric, and pattern data.
+
 Security: Implement basic security practices for user authentication and data protection.
 
