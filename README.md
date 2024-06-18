@@ -25,6 +25,7 @@ Individual Sewists:
 ● Hobbyists and Home Sewists: Individuals who sew as a hobby or for personal use.
 Sewjo can provide these users with a centralized platform to streamline their sewing
 activities and enhance their productivity.
+
 ● Amateur Sewists: Those who are new to sewing and are looking for a user-friendly tool
 to help them manage their materials and projects efficiently.
 
@@ -32,6 +33,7 @@ Small Sewing Groups:
 ● Community Groups and Clubs: Small groups of sewing enthusiasts who meet regularly
 to share their passion for sewing. Sewjo can help these groups manage their collective
 projects, share resources, and keep track of individual contributions.
+
 ● Sewing Classes and Workshops: Instructors and participants in sewing classes and
 workshops can use Sewjo to manage class projects, share patterns, and track progress.
 
@@ -53,9 +55,12 @@ management features, and optional advanced functionalities like OCR and e-commer
 integration. This makes Sewjo a unique and comprehensive tool in the sewing community.
 
 Technical Specifications
+
 ● Front-End: HTML, CSS, and JavaScript react.js for creating a responsive user interface.
 ● Back-End: Python with Flask or Node.js for server-side logic
+
 ● Database: Use SQLite or MongoDB for storing user, fabric, and pattern data.
+
 ● Security: Implement basic security practices for user authentication and data protection.
 
 Detailed Features
@@ -65,24 +70,31 @@ Detailed Features
 and brief bio.
 
 ● Fabric Stash Management
+
 ○ Inventory Management : Users can add, edit, and delete fabric details fabric details.
+
 ○ Image Upload : Ability to upload images of fabrics for better organization
+
 ○ Sorting and Filtering : Tools to sort and filter fabrics by various criteria.
     
 ● Project Tracking
+
 ○ Create Projects : Users can create new sewing projects.
   
 ○ Track Progress : Tools to monitor the progress of each project, including start date, end
 date,and completion status.
 
 ● Optional Advanced Features
+
 ○ OCR for Pattern Data Extraction : Use Optical Character Recognition to extract data from uploaded images.
 
 Outcome Expectations
 ● Functional Prototype: Deliver a working prototype of Sewjo with core features
 implemented.
+
 ● Documentation: Provide detailed documentation on design decisions, technologies
 used, and steps for future development.
+
 ● Advanced Features: Develop conceptual or prototype-level implementation of optional
 advanced features if feasible
 
@@ -102,6 +114,7 @@ one academic semester.
 
 Next Steps
 ● Conduct research on suitable web REST APIs for integration.
+
 ● Develop initial UI mockups.
 
 
