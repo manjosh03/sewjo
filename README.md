@@ -38,6 +38,7 @@ projects, share resources, and keep track of individual contributions.
 workshops can use Sewjo to manage class projects, share patterns, and track progress.
 
 Fabric Stores:
+
 ● Small and Independent Fabric Stores: Retailers looking to offer value-added services to
 their customers can integrate Sewjo into their business model. By providing customers
 with a tool to manage their fabric purchases, these stores can enhance customer
