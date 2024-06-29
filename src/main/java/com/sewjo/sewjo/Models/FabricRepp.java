@@ -1,4 +1,4 @@
 package com.sewjo.sewjo.Models;
 
-public class Fabric {
+public interface FabricRepp {
 }
