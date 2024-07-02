@@ -12,4 +12,5 @@ public interface FabricRepo extends JpaRepository<Fabric, Integer> {
     Fabric findById(int id);
 
     void deleteById(int id);
+    
 }

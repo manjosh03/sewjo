@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Typography, Grid, Card, CardContent, CardActions, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-export default function FabricsList() {
+export default function FabricList() {
     const [fabrics, setFabrics] = useState([]);
     const navigate = useNavigate();
 
@@ -16,6 +16,18 @@ export default function FabricsList() {
 
     const handleGoBack = () => {
         navigate('/');
+    };
+
+    const handleDelete = (id) => {
+        fetch(`http://localhost:8080/fabric/delete/${id}`, {
+            method: 'DELETE',
+        })
+        .then(() => {
+            // Update fabrics state after deletion
+            //const updatedFabrics = fabrics.filter(fabric => fabric.id !== id);
+            //setFabrics(updatedFabrics);
+        })
+        .catch(error => console.error('Error deleting fabric:', error));
     };
 
     return (
@@ -52,9 +64,9 @@ export default function FabricsList() {
                                     Type: {fabric.type}
                                 </Typography>
                             </CardContent>
-                            <CardActions style={{ justifyContent: 'flex-end' }}>
-                                {/* action button */}
+                            <CardActions style={{ justifyContent: 'space-between' }}>
                                 <Button size="small">Edit</Button>
+                                <Button size="small" onClick={() => handleDelete(fabric.id)}>Delete</Button>
                             </CardActions>
                         </Card>
                     </Grid>
