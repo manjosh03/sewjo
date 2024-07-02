@@ -27,7 +27,7 @@ public class FabricController {
 
     @Autowired
     private FabricRepo fabricRepo;
-    
+
     // making a list for a test purpose for now
     List<Fabric> fabrics = new ArrayList<>();
 
@@ -36,9 +36,6 @@ public class FabricController {
         System.out.println("Getting all fabrics");
 
         // Todo: get all fabrics from database
-        fabrics.add(new Fabric("fabric1", "Blue", 20, 30, 10, "type1"));
-        fabrics.add(new Fabric("fabric2", "Red", 500, 200, 50, "type2"));
-        fabrics.add(new Fabric("fabric3", "Yellow", 150, 310, 40, "type3"));
         // List<Rectangle> fabrics = fabricRepo.findAll();
 
         

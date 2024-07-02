@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -7,6 +8,7 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 
+
 export default function Fabric() {
     const [name, setName] = useState('');
     const [color, setColor] = useState('');
@@ -14,6 +16,7 @@ export default function Fabric() {
     const [height, setHeight] = useState();
     const [price, setPrice] = useState();
     const [type, setType] = useState('');
+    const navigate = useNavigate();
     
     const handleClick = (e) => {
         e.preventDefault();
@@ -31,6 +34,11 @@ export default function Fabric() {
         .catch((error) => console.error('Error:', error));
     };
 
+    const handleViewFabrics = () => {
+        navigate('/fabrics');
+    };
+
+
     return (
         <React.Fragment>
             <CssBaseline />
@@ -40,6 +48,7 @@ export default function Fabric() {
                     justifyContent="center"
                     alignItems="center"
                     minHeight="100vh"
+                    flexDirection="column"
                 >
                     <Stack
                         component="form"
@@ -115,6 +124,9 @@ export default function Fabric() {
                         />
                         <Button variant="contained" onClick={handleClick}>
                             Save
+                        </Button>
+                        <Button variant="contained" onClick={handleViewFabrics} style={{ marginTop: '10px' }}>
+                            View All Fabrics
                         </Button>
                     </Stack>
                 </Box>
