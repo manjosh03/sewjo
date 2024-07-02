@@ -19,8 +19,19 @@ export default function FabricsList() {
     };
 
     return (
-        <Container maxWidth="md" style={{ marginTop: '64px'}}>
-            <Typography variant="h4" gutterBottom style={{ marginBottom: '16px' }}>
+        <Container maxWidth="md" style={{ marginTop: '40px', position: 'relative' }}>
+            <Button 
+                variant="outlined" 
+                onClick={handleGoBack} 
+                style={{
+                    position: 'absolute',
+                    right: '20px',
+                    zIndex: 1,
+                }}
+            >
+                Back to Add Fabric
+            </Button>
+            <Typography variant="h4" gutterBottom style={{ marginBottom: '40px' }}>
                 All Fabrics
             </Typography>
             <Grid container spacing={3}>
@@ -28,7 +39,8 @@ export default function FabricsList() {
                     <Grid item xs={12} sm={6} md={4} key={index}>
                         <Card>
                             {/* Replace with image upload/display components */}
-                            <CardContent>
+                            <img src="http://via.placeholder.com/150" alt="fabric pic" style={{ display: 'block', margin: 'auto', marginTop: '30px'  }} />
+                            <CardContent style={{ textAlign: 'center' }}>
                                 <Typography variant="h5" component="div">
                                     {fabric.name}
                                 </Typography>
@@ -40,7 +52,7 @@ export default function FabricsList() {
                                     Type: {fabric.type}
                                 </Typography>
                             </CardContent>
-                            <CardActions>
+                            <CardActions style={{ justifyContent: 'flex-end' }}>
                                 {/* action button */}
                                 <Button size="small">Edit</Button>
                             </CardActions>
@@ -48,18 +60,7 @@ export default function FabricsList() {
                     </Grid>
                 ))}
             </Grid>
-            <Button 
-                variant="outlined" 
-                onClick={handleGoBack} 
-                style={{
-                    position: 'fixed',
-                    bottom: '20px',
-                    left: '20px',
-                    zIndex: 1,
-                }}
-            >
-                Back to Add Fabric
-            </Button>
+            
         </Container>
     );
 }
