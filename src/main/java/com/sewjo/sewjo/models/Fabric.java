@@ -9,7 +9,7 @@ public class Fabric {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String colour;
+    private String color;
     private int width;
     private int height;
     private int price;
@@ -19,9 +19,9 @@ public class Fabric {
     public Fabric() {
     }
 
-    public Fabric(String name, String colour, int width, int height, int price, String type) {
+    public Fabric(String name, String color, int width, int height, int price, String type) {
         this.name = name;
-        this.colour = colour;
+        this.color = color;
         this.width = width;
         this.height = height;
         this.price = price;
@@ -36,12 +36,12 @@ public class Fabric {
         this.name = name;
     }
 
-    public String getColour() {
-        return colour;
+    public String getColor() {
+        return color;
     }
 
-    public void setColour(String colour) {
-        this.colour = colour;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public int getWidth() {

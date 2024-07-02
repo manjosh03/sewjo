@@ -5,19 +5,30 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import InputAdornment from '@mui/material/InputAdornment';
 
 export default function Fabric() {
     const [name, setName] = useState('');
     const [color, setColor] = useState('');
-    const [width, setWidth] = useState('');
-    const [height, setHeight] = useState('');
-    const [price, setPrice] = useState('');
+    const [width, setWidth] = useState();
+    const [height, setHeight] = useState();
+    const [price, setPrice] = useState();
     const [type, setType] = useState('');
     
     const handleClick = (e) => {
         e.preventDefault();
         const fabric = { name, color, width, height, price, type };
-        console.log(fabric);
+        
+        fetch('http://localhost:8080/fabric/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(fabric)
+        })
+        .then(response => response.json())
+        .then(data => console.log('Success:', data))
+        .catch((error) => console.error('Error:', error));
     };
 
     return (
@@ -64,6 +75,7 @@ export default function Fabric() {
                         <TextField
                             id="outlined-basic"
                             label="Width"
+                            type="number"
                             variant="outlined"
                             fullWidth
                             value={width}
@@ -72,6 +84,7 @@ export default function Fabric() {
                         <TextField
                             id="outlined-basic"
                             label="Height"
+                            type="number"
                             variant="outlined"
                             fullWidth
                             value={height}
@@ -80,10 +93,17 @@ export default function Fabric() {
                         <TextField
                             id="outlined-basic"
                             label="Price"
+                            type="number"
                             variant="outlined"
+                            defaultValue="$"
                             fullWidth
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">$</InputAdornment>
+                                ),
+                            }}
                         />
                         <TextField
                             id="outlined-basic"

@@ -2,32 +2,37 @@ package com.sewjo.sewjo.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.RestController;
 
 import com.sewjo.sewjo.models.Fabric;
 import com.sewjo.sewjo.models.FabricRepo;
 
-import jakarta.servlet.http.HttpServletResponse;
+
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+@RestController
+@RequestMapping("/fabric")
+@CrossOrigin
 public class FabricController {
 
     @Autowired
     private FabricRepo fabricRepo;
+    
     // making a list for a test purpose for now
     List<Fabric> fabrics = new ArrayList<>();
 
-    @GetMapping("/fabric/view")
-    public String getAllFabrics(Model model) {
+    @GetMapping("/view")
+    public List<Fabric> getAllFabrics() {
         System.out.println("Getting all fabrics");
 
         // Todo: get all fabrics from database
@@ -36,29 +41,21 @@ public class FabricController {
         fabrics.add(new Fabric("fabric3", "Yellow", 150, 310, 40, "type3"));
         // List<Rectangle> fabrics = fabricRepo.findAll();
 
-        model.addAttribute("fb", fabrics);
-        return "fabric/showAll";
+        
+        return fabrics;
     }
 
-    @PostMapping("/fabric/add")
-    public String addFabric(@RequestParam Map<String, String> newfabric, HttpServletResponse response) {
-        System.out.println("ADD fabric");
-        String newName = newfabric.get("name");
-        String newColor = newfabric.get("color");
-        int newWidth = Integer.parseInt(newfabric.get("width"));
-        int newHeight = Integer.parseInt(newfabric.get("height"));
-        int newPrice = Integer.parseInt(newfabric.get("price"));
-        String newType = newfabric.get("type");
+    @PostMapping("/add")
+    public Fabric addFabric(@RequestBody Fabric newFabric) {
+        System.out.println("Adding fabric");
 
-        // for test
-        fabrics.add(new Fabric(newName, newColor, newWidth, newHeight, newPrice, newType));
+        // For test
+        fabrics.add(newFabric);
 
-        // fabricRepo.save(new Fabric(newName, newColor, newWidth, newHeight, newPrice,
-        // newType));
+        // Save to the repository (uncomment when using the database)
+        // fabricRepo.save(newFabric);
 
-        response.setStatus(201);
-
-        return "redirect:/fabric/view"; // maybe show detail page
+        return newFabric;
     }
 
 }
