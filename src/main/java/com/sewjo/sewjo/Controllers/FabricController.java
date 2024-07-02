@@ -17,22 +17,8 @@ public class FabricController {
     @Autowired
     private FabricRepo fabricRepo;
 
-    @PostMapping("/fabric/addView")
-    public String addFabricAddView(@RequestParam Map<String, String> fabric, HttpServletResponse response) {
-        Fabric newFabric = new Fabric();
-        newFabric.setName(fabric.get("name"));
-        newFabric.setColour(fabric.get("colour"));
-        newFabric.setWidth(Integer.parseInt(fabric.get("width")));
-        newFabric.setHeight(Integer.parseInt(fabric.get("height")));
-        newFabric.setPrice(Integer.parseInt(fabric.get("price")));
-        newFabric.setType(fabric.get("type"));
-        fabricRepo.save(newFabric);
-        response.setStatus(HttpServletResponse.SC_CREATED);
-        return "redirect:/Test.html";
-    }
-
     @PostMapping("/fabric/add")
-    public void addFabricAdd(@RequestParam Map<String, String> fabric, HttpServletResponse response) {
+    public String addFabricAdd(@RequestParam Map<String, String> fabric, HttpServletResponse response) {
         Fabric newFabric = new Fabric();
         newFabric.setName(fabric.get("name"));
         newFabric.setColour(fabric.get("colour"));
@@ -42,6 +28,7 @@ public class FabricController {
         newFabric.setType(fabric.get("type"));
         fabricRepo.save(newFabric);
         response.setStatus(HttpServletResponse.SC_CREATED);
+        return("redirect:/fabric/view");
     }
 
     @GetMapping("/fabric/view")
