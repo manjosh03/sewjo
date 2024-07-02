@@ -7,17 +7,23 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
-
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 
 export default function Fabric() {
     const [name, setName] = useState('');
     const [color, setColor] = useState('');
-    const [width, setWidth] = useState();
-    const [height, setHeight] = useState();
-    const [price, setPrice] = useState();
+    const [width, setWidth] = useState('');
+    const [height, setHeight] = useState('');
+    const [price, setPrice] = useState('');
     const [type, setType] = useState('');
     const navigate = useNavigate();
-    
+
+    // Define fabric types
+    const fabricTypes = ['Cotton', 'Silk', 'Polyester', 'Wool']; // Add more as needed
+
     const handleClick = (e) => {
         e.preventDefault();
         const fabric = { name, color, width, height, price, type };
@@ -37,7 +43,6 @@ export default function Fabric() {
     const handleViewFabrics = () => {
         navigate('/fabrics');
     };
-
 
     return (
         <React.Fragment>
@@ -114,14 +119,20 @@ export default function Fabric() {
                                 ),
                             }}
                         />
-                        <TextField
-                            id="outlined-basic"
-                            label="Type"
-                            variant="outlined"
-                            fullWidth
-                            value={type}
-                            onChange={(e) => setType(e.target.value)}
-                        />
+                        <FormControl fullWidth variant="outlined">
+                            <InputLabel id="fabric-type-label">Type</InputLabel>
+                            <Select
+                                labelId="fabric-type-label"
+                                id="fabric-type"
+                                value={type}
+                                onChange={(e) => setType(e.target.value)}
+                                label="Type"
+                            >
+                                {fabricTypes.map((type, index) => (
+                                    <MenuItem key={index} value={type}>{type}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                         <Button variant="contained" onClick={handleClick}>
                             Save
                         </Button>
