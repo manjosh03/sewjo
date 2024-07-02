@@ -1,5 +1,7 @@
 package com.sewjo.sewjo.Models;
 import jakarta.persistence.*;
+import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "Fabrics")

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Fabrics</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="d-flex justify-content-center">
+        <span class="align-middle">
+            <h1>All Fabrics</h1>
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                </tr>
+                <tr th:each="fabric : ${fabrics}">
+                    <td th:text="${fabric.name}"></td>
+                </tr>
+            </table>
+            <button>
+                <a href="/Test.html">Add Fabrics</a>
+            </button>
+        </span>
+    </div>
+</body>
+</html>
