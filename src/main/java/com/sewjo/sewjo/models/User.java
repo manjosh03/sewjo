@@ -12,27 +12,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int uid;
-    private String name;
     private String email;
     private String password;
-    private String phoneNumber;
 
     public User() {
     }
 
-    public User(String name, String email, String password, String phoneNumber) {
-        this.name = name;
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getUid() {
@@ -59,11 +47,4 @@ public class User {
         this.password = password;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 }

@@ -43,13 +43,11 @@ public class UserController {
     @PostMapping("/add") // This is when user signs up in the form
     public String addUser(@RequestParam Map<String, String> newuser, HttpServletResponse response) {
         System.out.println("ADD user");
-        String newName = newuser.get("name");
         String newEmail = newuser.get("email");
         String newPwd = newuser.get("password");
-        String newPhoneNumber = newuser.get("phoneNumber");
-        userRepository.save(new User(newName, newEmail, newPhoneNumber, newPwd));
+        userRepository.save(new User(newEmail, newPwd));
         response.setStatus(201);
-        return "users/addedUser";
+        return "users/addedUser"; // need to change the path
     }
 
     @GetMapping("/login") // This is getmapping when we enter in the url to go to login page
@@ -71,11 +69,11 @@ public class UserController {
     public String login(@RequestParam Map<String, String> formData, Model model, HttpServletRequest request,
             HttpSession session) {
         // processing login, when user hits the sign in button
-        String name = formData.get("name");
+        String email = formData.get("email");
         String pwd = formData.get("password");
-        List<User> userlist = userRepository.findByNameAndPassword(name, pwd);
+        List<User> userlist = userRepository.findByEmailAndPassword(email, pwd);
         if (userlist.isEmpty()) {
-            return "users/login"; // re direct back to login if they enter the wrong password or username
+            return "login"; // re direct back to login if they enter the wrong password or username
         } else {
             // success
             User user = userlist.get(0); // getting which user it is who logged in
