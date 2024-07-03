@@ -3,10 +3,8 @@ import "./App.css";
 
 const App: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
-  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   const handleToggle = () => {
     setIsSignUp(!isSignUp);
@@ -14,7 +12,7 @@ const App: React.FC = () => {
 
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
-    const user = { name, email, password, phoneNumber };
+    const user = { email, password };
     console.log(user);
 
     fetch("http://localhost:8080/login/users/add", {
