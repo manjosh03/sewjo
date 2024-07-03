@@ -15,7 +15,7 @@ const App: React.FC = () => {
           <h1 className="basic">Create Account</h1>
           <span className="basic"> use your email for registration</span>
           <input type="text" placeholder="Name" />
-          <input type="email" placeholder="Phone Number" />
+          <input type="tel" placeholder="Phone Number" />
           <input type="email" placeholder="Email" />
           <input type="password" placeholder="Password" />
           <button type="button">Sign Up</button>

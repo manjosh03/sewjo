@@ -33,18 +33,19 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/")
+    @GetMapping("/") // we need to direct it to login page
     public RedirectView process() {
         return new RedirectView("login");
     }
 
-    @PostMapping("/users/add")
+    @PostMapping("/users/add") // This is when user signs up in the form
     public String addUser(@RequestParam Map<String, String> newuser, HttpServletResponse response) {
         System.out.println("ADD user");
         String newName = newuser.get("name");
+        String newEmail = newuser.get("email");
         String newPwd = newuser.get("password");
-        int newSize = Integer.parseInt(newuser.get("size"));
-        userRepository.save(new User(newName, newPwd, newSize));
+        String newPhoneNumber = newuser.get("phoneNumber");
+        userRepository.save(new User(newName, newEmail, newPwd, newPhoneNumber));
         response.setStatus(201);
         return "users/addedUser";
     }
