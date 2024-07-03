@@ -10,6 +10,7 @@ Team members:  Brady wu,  Jisol Yun, Tushar Bector, Manjosh Badla and Ali Naseri
 06/17/2024
 
 Project Abstract
+
 Sewjo is a web application designed to help sewing enthusiasts manage their fabric stashes,
 PDF sewing patterns, and sewing projects. Users can create and edit profiles, manage their
 fabric inventories, upload and organize PDF patterns, and track the progress of their sewing
@@ -17,6 +18,7 @@ projects. The application will also offer optional advanced features like OCR fo
 extraction and e-commerce integration for seamless fabric management from online purchases.
 
 Customer
+
 The primary customers for Sewjo are sewing enthusiasts and hobbyists who need a
 comprehensive tool to organize their sewing materials and projects. This diverse group
 encompasses a wide range of users, each with specific needs and preferences.
