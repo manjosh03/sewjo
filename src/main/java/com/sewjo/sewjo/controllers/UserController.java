@@ -28,13 +28,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
-<<<<<<< HEAD
 @RequestMapping("/login")
 
-=======
-@RequestMapping("/api/users")
-@CrossOrigin
->>>>>>> d2fd3276ba91ed3201623c8171e475c260d07263
 public class UserController {
 
     @Autowired

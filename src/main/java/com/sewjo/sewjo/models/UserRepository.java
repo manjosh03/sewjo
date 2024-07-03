@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-    List<User> findBySize(int size);
+    List<User> findByUid(int uid);
 
     List<User> findByNameAndPassword(String name, String Password); // this gives a list of users by name and password
     // if the name and password matches in the list then that means we have that
