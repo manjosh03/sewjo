@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sewjo.sewjo.models.User;
@@ -22,5 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @CrossOrigin
 public class UserController {
+
+    @GetMapping("/")
+    public RedirectView process() {
+        return new RedirectView("login");
+    }
 
 }
