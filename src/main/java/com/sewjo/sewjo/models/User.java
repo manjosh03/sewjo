@@ -12,7 +12,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int uid;
+<<<<<<< HEAD
     private String name;
+=======
+>>>>>>> 7e4d1780469b4979725da96fc3069276d71d4bc3
     private String email;
     private String password;
     private String phoneNumber;
@@ -20,6 +23,7 @@ public class User {
     public User() {
     }
 
+<<<<<<< HEAD
     public User(String name, String email, String password, String phoneNumber) {
         this.name = name;
         this.email = email;
@@ -67,3 +71,6 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 }
+=======
+}
+>>>>>>> 7e4d1780469b4979725da96fc3069276d71d4bc3
