@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
 @RequestMapping("/login")
-
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -40,14 +40,14 @@ public class UserController {
         return new RedirectView("login");
     }
 
-    @PostMapping("/users/add") // This is when user signs up in the form
+    @PostMapping("/add") // This is when user signs up in the form
     public String addUser(@RequestParam Map<String, String> newuser, HttpServletResponse response) {
         System.out.println("ADD user");
         String newName = newuser.get("name");
         String newEmail = newuser.get("email");
         String newPwd = newuser.get("password");
         String newPhoneNumber = newuser.get("phoneNumber");
-        userRepository.save(new User(newName, newEmail, newPwd, newPhoneNumber));
+        userRepository.save(new User(newName, newEmail, newPhoneNumber, newPwd));
         response.setStatus(201);
         return "users/addedUser";
     }
@@ -81,13 +81,13 @@ public class UserController {
             User user = userlist.get(0); // getting which user it is who logged in
             request.getSession().setAttribute("session_user", user);
             model.addAttribute("user", user); // user logged in
-            return "users/protected";
+            return "users/protected"; // navigate to fabrics page
         }
     }
 
     @GetMapping("/logout")
     public String destroySession(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "/users/login"; // Go back to the initial login page
+        return "login"; // Go back to the initial login page
     }
 }

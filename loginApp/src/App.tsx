@@ -3,28 +3,56 @@ import "./App.css";
 
 const App: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   const handleToggle = () => {
     setIsSignUp(!isSignUp);
   };
 
+  const handleSignup = (e: React.FormEvent) => {
+    e.preventDefault();
+    const user = { name, email, password, phoneNumber };
+    console.log(user);
+
+    fetch("http://localhost:8080/login/users/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log("Success:", data))
+      .catch((error) => console.error("Error:", error));
+  };
+
   return (
     <div className={`container ${isSignUp ? "active" : ""}`} id="container">
       <div className="form-container sign-up">
-        <form>
+        <form onSubmit={handleSignup}>
           <h1 className="basic">Create Account</h1>
           <span className="basic"> use your email for registration</span>
-          <input type="text" placeholder="Name" />
-          <input type="tel" placeholder="Phone Number" />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <button type="button">Sign Up</button>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Sign Up</button>
         </form>
       </div>
       <div className="form-container sign-in">
         <form>
           <h1 className="basic">Sign In</h1>
-
           <span className="basic">use your email and password</span>
           <input type="email" placeholder="Email" />
           <input type="password" placeholder="Password" />
