@@ -2,12 +2,14 @@ package com.sewjo.sewjo.Service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.sewjo.sewjo.Dto.UserDTO;
 import com.sewjo.sewjo.Entity.User;
 import com.sewjo.sewjo.Repo.UserRepository;
 import com.sewjo.sewjo.Service.UserService;
 
+@Service
 public class UserIMPL implements UserService {
 
     @Autowired

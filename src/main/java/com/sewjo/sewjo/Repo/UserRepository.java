@@ -13,8 +13,8 @@ import com.sewjo.sewjo.Entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    Optional<User> findOneEmailAndPassword(String email, String Password); // this gives a list of users by name and
-                                                                           // password
+    Optional<User> findByEmailAndPassword(String email, String Password); // this gives a list of users by name and
+                                                                          // password
     // if the name and password matches then that means we have that
     // user as a registered member already, if it gives us null then the user needs
     // to sign up first
