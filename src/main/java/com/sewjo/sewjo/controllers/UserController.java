@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.sewjo.sewjo.models.User;
 import com.sewjo.sewjo.models.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,64 +27,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
-@RequestMapping("/login")
 @CrossOrigin
+@RequestMapping("api/v1/user")
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/") // we need to direct it to login page
-    public RedirectView process() {
-        return new RedirectView("login");
+    // @GetMapping("/") // we need to direct it to login page
+    // public RedirectView process() {
+    // return new RedirectView("login");
+    // }
+
+    @PostMapping(path = "/save") // This is when user signs up in the form
+    public String saveUser(@RequestBody UserDTO UserDTO) {
+
     }
 
-    @PostMapping("/add") // This is when user signs up in the form
-    public String addUser(@RequestParam Map<String, String> newuser, HttpServletResponse response) {
-        System.out.println("ADD user");
-        String newEmail = newuser.get("email");
-        String newPwd = newuser.get("password");
-        userRepository.save(new User(newEmail, newPwd));
-        response.setStatus(201);
-        return "users/addedUser"; // need to change the path
-    }
-
-    @GetMapping("/login") // This is getmapping when we enter in the url to go to login page
-    public String getLogin(Model model, HttpServletRequest request, HttpSession session) {
-        User user = (User) session.getAttribute("session_user");
-        if (user == null) {
-            return "users/login"; // this is the case when user has not logged in, show the page for log in
-        } else {
-            model.addAttribute("user", user);
-            return "users/protected"; // this is accessible for users who are logged in, need to change the location
-                                      // as we don't have the folder users under templates and no login.html we also
-                                      // don't have the protected.html file which will show the features that the
-                                      // registered users have we can redirect the user to the fabric page
-        } // Above will either take me to the page of login/signUp or will take me to the
-          // page where user can do smthn when logged in
-    }
-
-    @PostMapping("/login")
-    public String login(@RequestParam Map<String, String> formData, Model model, HttpServletRequest request,
-            HttpSession session) {
-        // processing login, when user hits the sign in button
-        String email = formData.get("email");
-        String pwd = formData.get("password");
-        List<User> userlist = userRepository.findByEmailAndPassword(email, pwd);
-        if (userlist.isEmpty()) {
-            return "login"; // re direct back to login if they enter the wrong password or username
-        } else {
-            // success
-            User user = userlist.get(0); // getting which user it is who logged in
-            request.getSession().setAttribute("session_user", user);
-            model.addAttribute("user", user); // user logged in
-            return "users/protected"; // navigate to fabrics page
-        }
-    }
-
-    @GetMapping("/logout")
-    public String destroySession(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return "login"; // Go back to the initial login page
-    }
 }
