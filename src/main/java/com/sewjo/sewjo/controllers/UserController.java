@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sewjo.sewjo.Dto.UserDTO;
+import com.sewjo.sewjo.Repo.UserRepository;
 import com.sewjo.sewjo.Service.UserService;
-import com.sewjo.sewjo.models.UserRepository;
 
 @RestController
 @CrossOrigin
