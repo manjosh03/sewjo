@@ -10,7 +10,11 @@ function Register() {
   const register = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/user/register', { email, password, userName });
+      const response = await axios.post('http://localhost:8080/api/v1/user/register', {
+        email,
+        password,
+        userName
+      });
       alert(response.data);
     } catch (error) {
       alert('Error registering user: ' + error.message);
