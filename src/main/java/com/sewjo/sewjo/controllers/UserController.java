@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sewjo.sewjo.Dto.UserDTO;
+import com.sewjo.sewjo.Service.UserService;
 import com.sewjo.sewjo.models.UserRepository;
 
 @RestController
 @CrossOrigin
 @RequestMapping("api/v1/user")
 public class UserController {
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
