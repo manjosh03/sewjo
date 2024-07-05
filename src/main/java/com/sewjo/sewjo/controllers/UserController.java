@@ -2,7 +2,7 @@ package com.sewjo.sewjo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,19 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sewjo.sewjo.Dto.LoginDTO;
 import com.sewjo.sewjo.Dto.UserDTO;
-import com.sewjo.sewjo.Repo.UserRepository;
 import com.sewjo.sewjo.Service.UserService;
 import com.sewjo.sewjo.response.LoginResponse;
 
 @RestController
-@CrossOrigin
+// @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("api/v1/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserRepository userRepository;
+    // @Autowired
+    // private UserRepository userRepository;
 
     // @GetMapping("/") // we need to direct it to login page
     // public RedirectView process() {
