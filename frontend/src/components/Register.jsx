@@ -6,18 +6,35 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
  
-async function save(event){
-  event.preventDefault();
- // try {
-    await axios.post("http://192.168.56.1:8080/api/v1/user/save" ,( {
-      username : username,
-      email : email,
-      password : password,
-    })).then((response) => console.log(response));
-    alert("User Registeration Success!");
-//  } catch (err) {
- //   alert(err);
-//  }
+  async function save(e) {
+    e.preventDefault();
+    try {
+        const user = {
+            username: username,
+            email: email,
+            password: password
+        };
+
+        const res = await fetch("http://localhost:8080/api/v1/user/save", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+        });
+
+        if (!res.ok) {
+            // Handle the case where the request was not successful
+            const errorData = await res.json();
+            alert('Error: ${errorData.message}');
+            return;
+        }
+
+        const data = await res.json();
+        console.log("User saved successfully:", data);
+    } catch (error) {
+        alert('Network Error: ${error.message}');
+    }
 }
   
 
