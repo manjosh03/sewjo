@@ -7,16 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sewjo.login.models.User;
 import com.sewjo.login.models.UserReopsitory;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UsersController {
@@ -30,7 +28,7 @@ public class UsersController {
             return "users/login";
         } else {
             model.addAttribute("user", user);
-            return "users/protected";
+            return "fabric/addFabric"; // Redirect to the React app
         }
     }
 
@@ -47,25 +45,18 @@ public class UsersController {
             User user = userList.get(0);
             request.getSession().setAttribute("session_user", user);
             model.addAttribute("user", user);
-            return "users/protected";
+            return "fabric/addFabric";  // Redirect to the protected page
         }
     }
 
     @PostMapping("/users/add")
-    public String addUser(@RequestParam Map<String, String> newUser, HttpServletResponse response) {
+    public String addUser(@RequestParam Map<String, String> newUser, Model model) {
         System.out.println("Add User");
         String newName = newUser.get("name");
         String newEmail = newUser.get("email");
         String newPassword = newUser.get("password");
         userRepo.save(new User(newName, newPassword, newEmail));
-        response.setStatus(201);
+        model.addAttribute("message", "User added successfully");
         return "users/addedUser";
     }
-
-    @GetMapping("/logout")
-    public String destroySession(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return "/users/login";
-    }
-
 }
