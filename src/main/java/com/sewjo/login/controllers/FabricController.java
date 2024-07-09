@@ -33,7 +33,7 @@ public class FabricController {
         System.out.println("Getting all fabrics");
 
         // Todo: get all fabrics from database
-        // List<Rectangle> fabrics = fabricRepo.findAll();
+        //List<Rectangle> fabrics = fabricRepo.findAll();
 
         model.addAttribute("fb", fabrics);
         return "fabric/showAll"; // Ensure this matches the Thymeleaf template name
@@ -57,8 +57,8 @@ public class FabricController {
         // for test
         fabrics.add(new Fabric(newName, newColor, newWidth, newHeight, newPrice, newType));
 
-        // fabricRepo.save(new Fabric(newName, newColor, newWidth, newHeight, newPrice,
-        // newType));
+        fabricRepo.save(new Fabric(newName, newColor, newWidth, newHeight, newPrice,
+        newType));
 
         response.setStatus(201);
 
@@ -67,17 +67,17 @@ public class FabricController {
 
     @PostMapping("/fabric/delete")
     public String deleteFabric(@RequestParam("id") int id, HttpServletResponse response) {
-        // System.out.println("DELETE fabric "+ id);
-        // fabricRepo.deleteById(id);
-        // response.setStatus(200);
+        System.out.println("DELETE fabric "+ id);
+        fabricRepo.deleteById(id);
+        response.setStatus(200);
 
         return "redirect:/fabric/view";
     }
 
     @GetMapping("/fabric/{id}")
     public String getFabricDetail(@PathVariable("id") int id, Model model) {
-        // Fabric fabric = fabricRepo.findById(id);
-        // model.addAttribute("fabric", fabric);
+        Fabric fabric = fabricRepo.findById(id);
+        model.addAttribute("fabric", fabric);
         return "fabric/details";
     }
 
