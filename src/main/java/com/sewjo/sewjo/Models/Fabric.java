@@ -2,7 +2,6 @@ package com.sewjo.sewjo.Models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Fabrics")
 public class Fabric {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
