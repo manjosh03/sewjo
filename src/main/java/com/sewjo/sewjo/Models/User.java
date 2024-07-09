@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Properties;
 
 @Entity
 @Table(name = "Users")
@@ -10,6 +11,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String name;
     private String email;
     private String password;
     @OneToMany
@@ -22,9 +24,10 @@ public class User {
     public User() {
     }
 
-    public User(String password, String email) {
+    public User(String password, String email, String name) {
         this.password = password;
         this.email = email;
+        this.name = name;
         this.fabrics = new ArrayList<>();
         this.patterns = new ArrayList<>();
         this.projects = new ArrayList<>();
