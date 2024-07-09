@@ -3,7 +3,6 @@ package com.sewjo.sewjo.Models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Patterns")
 public class Pattern {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
