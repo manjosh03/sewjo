@@ -47,6 +47,14 @@
           <span>or use your email password</span>
           <input type="email" name="email" placeholder="Email" />
           <input type="password" name="password" placeholder="Password" />
+          <div class="alert alert-danger" role="alert">
+            <span th:if="${loginError}">
+                <i th:if="${loginError}" class="fa-solid fa-exclamation-circle"></i>  Invalid email or password
+            </span>
+            <span th:if="${loginError == null}">
+              <p> </p>
+            </span>
+          </div>
           <a href="#">Forget Your Password?</a>
           <button type="submit" value="Sign In">Sign In</button>
         </form>

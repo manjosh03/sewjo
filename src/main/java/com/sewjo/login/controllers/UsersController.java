@@ -59,4 +59,11 @@ public class UsersController {
         model.addAttribute("message", "User added successfully");
         return "users/addedUser";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "redirect:/login";
+    }
 }
+
