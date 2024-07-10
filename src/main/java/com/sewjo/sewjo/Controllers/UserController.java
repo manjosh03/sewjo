@@ -21,31 +21,49 @@ public class UserController {
     @Autowired
     private UserRepo userRepo;
 
-    @GetMapping("/loginPage")
-    public String getLogin(Model model, HttpServletRequest request, HttpSession session){
+    @GetMapping("/login")
+    public String getLogin(Model model, HttpServletRequest request, HttpSession session) {
         User user = (User) session.getAttribute("session_user");
-        if (user == null){
-            return "/loginPage";
-        }
-        else {
-            model.addAttribute("user",user);
-            return "Test.html";
+        if (user == null) {
+            return "users/login";
+        } else {
+            model.addAttribute("user", user);
+            return "fabric/addFabric"; // Redirect to the React app
         }
     }
 
-    @PostMapping("/loginPage")
-    public String login(@RequestParam Map<String,String> formData, Model model, HttpServletRequest request, HttpSession session){
+    @PostMapping("/login")
+    public String login(@RequestParam Map<String, String> formData, Model model, HttpServletRequest request,
+                        HttpSession session) {
         String email = formData.get("email");
         String password = formData.get("password");
-        List<User> userlist = userRepo.findByEmailAndPassword(email, password);
-        if (userlist.isEmpty()){
-            return "/loginPage";
-        }
-        else {
-            User user = userlist.get(0);
+        List<User> userList = userRepo.findByEmailAndPassword(email, password);
+        if (userList.isEmpty()) {
+            model.addAttribute("loginError", "Invalid email or password");
+            return "users/login";
+        } else {
+            User user = userList.get(0);
             request.getSession().setAttribute("session_user", user);
+            request.getSession().setAttribute("userId", user.getId());
             model.addAttribute("user", user);
-            return "Test.html";
+            return "fabric/addFabric";  // Redirect to the protected page
         }
+    }
+
+    @PostMapping("/users/add")
+    public String addUser(@RequestParam Map<String, String> newUser, Model model) {
+        System.out.println("Add User");
+        String newName = newUser.get("name");
+        String newEmail = newUser.get("email");
+        String newPassword = newUser.get("password");
+        userRepo.save(new User(newName, newPassword, newEmail));
+        model.addAttribute("message", "User added successfully");
+        return "users/addedUser";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "redirect:/login";
     }
 }

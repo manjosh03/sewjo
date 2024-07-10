@@ -6,6 +6,7 @@ public class Fabric {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private String colour;
     private int width;
@@ -14,17 +15,39 @@ public class Fabric {
     private String type;
     private int projectId;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Fabric() {
     }
 
-    public Fabric(String name, String colour, int width, int height, int price, String type) {
+    public Fabric(String name, String colour, int width, int height, int price, String type, int projectId) {
         this.name = name;
         this.colour = colour;
         this.width = width;
         this.height = height;
         this.price = price;
         this.type = type;
+        this.projectId = projectId;
+        this.user = null;
     }
+
+    public Fabric(String name, String colour, int width, int height, int price, String type, User user) {
+        this.name = name;
+        this.colour = colour;
+        this.width = width;
+        this.height = height;
+        this.price = price;
+        this.type = type;
+        this.user = user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getId() {return id;}
 
     public String getName() {
         return name;
