@@ -26,14 +26,14 @@ public class FabricController {
     @Autowired
     private FabricRepo fabricRepo;
     // making a list for a test purpose for now
-    List<Fabric> fabrics = new ArrayList<>();
+    //List<Fabric> fabrics = new ArrayList<>();
 
     @GetMapping("/fabric/view")
     public String getAllFabrics(Model model) {
         System.out.println("Getting all fabrics");
 
         // Todo: get all fabrics from database
-        //List<Rectangle> fabrics = fabricRepo.findAll();
+        List<Fabric> fabrics = fabricRepo.findAll();
 
         model.addAttribute("fb", fabrics);
         return "fabric/showAll"; // Ensure this matches the Thymeleaf template name
@@ -55,7 +55,7 @@ public class FabricController {
         String newType = newfabric.get("type");
 
         // for test
-        fabrics.add(new Fabric(newName, newColor, newWidth, newHeight, newPrice, newType));
+        //fabrics.add(new Fabric(newName, newColor, newWidth, newHeight, newPrice, newType));
 
         fabricRepo.save(new Fabric(newName, newColor, newWidth, newHeight, newPrice,
         newType));
@@ -84,30 +84,30 @@ public class FabricController {
     @PutMapping("/fabric/update/{id}")
     public void updateAttribute(@PathVariable("id") int id, @RequestBody Map<String, String> updates,
             HttpServletResponse response) {
-        // Fabric fabric = fabricRepo.findById(id);
+        Fabric fabric = fabricRepo.findById(id);
 
-        // updates.forEach((key, val) -> {
-        // switch (key) {
-        // case "name":
-        // fabric.setName(val);
-        // break;
+        updates.forEach((key, val) -> {
+        switch (key) {
+        case "name":
+        fabric.setName(val);
+        break;
 
-        // case "width":
-        // fabric.setWidth(Integer.parseInt(val));
-        // break;
+        case "width":
+        fabric.setWidth(Integer.parseInt(val));
+        break;
 
-        // case "height":
-        // fabric.setHeight(Integer.parseInt(val));
-        // break;
+        case "height":
+        fabric.setHeight(Integer.parseInt(val));
+        break;
 
-        // case "color":
-        // fabric.setColor(val);
-        // break;
-        // }
+        case "color":
+        fabric.setColor(val);
+        break;
+        }
 
-        // });
+        });
 
-        // fabricRepo.save(fabric);
+        fabricRepo.save(fabric);
         response.setStatus(200);
 
     }
