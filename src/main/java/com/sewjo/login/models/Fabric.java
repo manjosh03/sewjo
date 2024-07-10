@@ -84,4 +84,8 @@ public class Fabric {
         this.projectId = projectId;
     }
 
+    public int getId() {
+        return id;
+    }
+
 }
