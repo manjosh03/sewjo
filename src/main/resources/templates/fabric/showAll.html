@@ -59,46 +59,53 @@
                             Price: <span th:text="${fabric.price}">Fabric Price</span><br>
                             Type: <span th:text="${fabric.type}">Fabric Type</span>
                         </p>
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sm btn-secondary">Edit</button>
-                            <a th:if="${fabric.id != null}" th:href="@{'/fabric/delete/' + ${fabric.id}}" class="btn btn-sm btn-danger">Delete</a>
+                        <div class="row">
+                            <div class="col text-left">
+                                <button type="button" class="btn btn-sm btn-secondary">Edit</button>
+                            </div>
+                            <div class="col text-right">
+                                <form th:action="@{/fabric/delete}" method="post">
+                                    <input type="hidden" name="id" th:value="${fabric.id}" />
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    <!-- <a th:if="${fabric.id != null}" th:href="@{'/fabric/delete/' + ${fabric.id}}" class="btn btn-sm btn-danger">Delete</a> -->
+                                </form>
+                            </div>
                         </div>
+                    
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Sorting and Filtering -->
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <label for="sortBy">Sort by:</label>
-                <select class="form-control" id="sortBy" onchange="handleSortChange(event)">
-                    <option value="name">Name</option>
-                    <option value="color">Color</option>
-                    <option value="width">Width</option>
-                    <option value="height">Height</option>
-                    <option value="price">Price</option>
-                    <option value="type">Type</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="sortOrder">Sort order:</label>
-                <select class="form-control" id="sortOrder" onchange="handleOrderChange(event)">
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
-            </div>
-            <div class="col-md-6 mt-3">
-                <label for="filterByType">Filter by Type:</label>
-                <select class="form-control" id="filterByType" onchange="handleTypeFilter(event)">
-                    <option value="">All Types</option>
-                    <option value="Cotton">Cotton</option>
-                    <option value="Silk">Silk</option>
-                    <option value="Polyester">Polyester</option>
-                    <option value="Wool">Wool</option>
-                    <!-- Add other fabric types as options -->
-                </select>
-            </div>
+        <div class="col-md-6">
+            <label for="sortBy">Sort by:</label>
+            <select class="form-control" id="sortBy" onchange="handleSortChange()">
+                <option value="name">Name</option>
+                <option value="color">Color</option>
+                <option value="width">Width</option>
+                <option value="height">Height</option>
+                <option value="price">Price</option>
+                <option value="type">Type</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="sortOrder">Sort order:</label>
+            <select class="form-control" id="sortOrder" onchange="handleOrderChange()">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+        </div>
+        <div class="col-md-6 mt-3">
+            <label for="filterByType">Filter by Type:</label>
+            <select class="form-control" id="filterByType" onchange="handleTypeFilter()">
+                <option value="">All Types</option>
+                <option value="Cotton">Cotton</option>
+                <option value="Silk">Silk</option>
+                <option value="Polyester">Polyester</option>
+                <option value="Wool">Wool</option>
+                <!-- Add other fabric types as options -->
+            </select>
         </div>
     </main>
 
@@ -107,6 +114,57 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Your custom script -->
     <script>
+        function renderFabrics() {
+        // Fetch selected values from UI
+        var sortBy = document.getElementById('sortBy').value;
+        var sortOrder = document.getElementById('sortOrder').value;
+        var filterType = document.getElementById('filterByType').value;
+
+        // Construct URL with query parameters
+        var url = '/fabric/view?sort=' + sortBy + '&order=' + sortOrder;
+        if (filterType) {
+            url += '&type=' + filterType;
+        }
+
+        // Fetch fabrics from backend using fetch API
+        fetch(url)
+            .then(response => response.json())
+            .then(fabrics => {
+                // Render fabrics on UI (update DOM elements)
+                var fabricList = document.getElementById('fabricList');
+                fabricList.innerHTML = ''; // Clear existing fabrics
+
+                fabrics.forEach(fabric => {
+                    var cardHtml = `
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card">
+                                <img src="http://via.placeholder.com/150" class="card-img-top" alt="Fabric picture">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">${fabric.name}</h5>
+                                    <p class="card-text">
+                                        Color: ${fabric.color}<br>
+                                        Width: ${fabric.width}<br>
+                                        Height: ${fabric.height}<br>
+                                        Price: ${fabric.price}<br>
+                                        Type: ${fabric.type}
+                                    </p>
+                                    <div class="row">
+                                        <div class="col text-left">
+                                            <button type="button" class="btn btn-sm btn-secondary">Edit</button>
+                                        </div>
+                                        <div class="col text-right">
+                                            <a th:if="${fabric.id != null}" th:href="@{'/fabric/delete/' + ${fabric.id}}" class="btn btn-sm btn-danger">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    fabricList.innerHTML += cardHtml; // Append card to fabricList
+                });
+            })
+            .catch(error => console.error('Error fetching fabrics:', error));
+    }
         // JavaScript functions remain unchanged
         function handleSortChange(event) {
             renderFabrics();
@@ -121,14 +179,18 @@
         }
 
         function handleDelete(id) {
-            fetch(`http://localhost:8080/fabric/delete/${id}`, {
-                    method: 'DELETE',
-                })
-                .then(() => {
-                    // Implement delete logic as needed
-                })
-                .catch(error => console.error('Error deleting fabric:', error));
-        }
+            fetch(`/fabric/delete/${id}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            console.log(`Deleted fabric with ID ${id}`);
+        
+        })
+        .catch(error => console.error('Error deleting fabric:', error));
+}
     </script>
 </body>
 

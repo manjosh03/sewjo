@@ -2,14 +2,18 @@ package com.sewjo.login.controllers;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sewjo.login.models.Fabric;
 import com.sewjo.login.models.FabricRepo;
@@ -29,12 +33,23 @@ public class FabricController {
     //List<Fabric> fabrics = new ArrayList<>();
 
     @GetMapping("/fabric/view")
-    public String getAllFabrics(Model model) {
+    public String getAllFabrics(@RequestParam(name = "sort", defaultValue = "name") String sortField,
+                                @RequestParam(name = "order", defaultValue = "asc") String sortOrder,
+                                @RequestParam(name = "type", required = false) String filterType, Model model) {
         System.out.println("Getting all fabrics");
 
         // Todo: get all fabrics from database
-        List<Fabric> fabrics = fabricRepo.findAll();
-        //fabrics.add(new Fabric("n", "red", 10, 20, 15, "Wool"));
+        List<Fabric> fabrics;
+        
+        // Apply sorting
+        Sort sort = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        fabrics = fabricRepo.findAll(sort);
+        // Apply filtering by type if filterType is provided
+        if (filterType != null && !filterType.isEmpty()) {
+            fabrics = fabrics.stream()
+                             .filter(fabric -> fabric.getType().equalsIgnoreCase(filterType))
+                             .collect(Collectors.toList());
+    }
 
         model.addAttribute("fb", fabrics);
         return "fabric/showAll"; // Ensure this matches the Thymeleaf template name
