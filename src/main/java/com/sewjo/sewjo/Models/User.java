@@ -16,7 +16,7 @@ public class User {
     private String password;
     @OneToMany
     private List<Project> projects;
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Fabric> fabrics;
     @OneToMany
     private List<Pattern> patterns;
@@ -24,7 +24,7 @@ public class User {
     public User() {
     }
 
-    public User(String password, String email, String name) {
+    public User(String name, String password, String email) {
         this.password = password;
         this.email = email;
         this.name = name;
@@ -71,6 +71,10 @@ public class User {
 
     public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setId(int id) {
