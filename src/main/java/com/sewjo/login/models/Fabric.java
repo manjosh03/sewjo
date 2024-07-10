@@ -1,4 +1,4 @@
-package com.sewjo.sewjo.models;
+package com.sewjo.login.models;
 
 import jakarta.persistence.*;
 
@@ -82,6 +82,10 @@ public class Fabric {
 
     public void setProject(int projectId) {
         this.projectId = projectId;
+    }
+
+    public int getId() {
+        return id;
     }
 
 }

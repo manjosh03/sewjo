@@ -1,13 +1,13 @@
-package com.sewjo.sewjo;
+package com.sewjo.login;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SewjoApplication {
+public class LoginApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SewjoApplication.class, args);
+		SpringApplication.run(LoginApplication.class, args);
 	}
 
 }

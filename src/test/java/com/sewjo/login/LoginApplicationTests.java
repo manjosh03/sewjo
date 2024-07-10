@@ -1,10 +1,10 @@
-package com.sewjo.sewjo;
+package com.sewjo.login;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SewjoApplicationTests {
+class LoginApplicationTests {
 
 	@Test
 	void contextLoads() {

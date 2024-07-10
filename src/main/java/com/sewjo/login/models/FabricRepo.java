@@ -1,4 +1,4 @@
-package com.sewjo.sewjo.models;
+package com.sewjo.login.models;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
@@ -12,5 +12,5 @@ public interface FabricRepo extends JpaRepository<Fabric, Integer> {
     Fabric findById(int id);
 
     void deleteById(int id);
-    
+
 }
