@@ -65,8 +65,9 @@ public class FabricController {
         return "redirect:/fabric/view";
     }
 
-    @GetMapping("/fabric/delete/")
-    public String deleteFabric(@RequestParam int id, HttpServletResponse response) {
+    @PostMapping("/fabric/delete")
+    public String deleteFabric(@RequestParam("id") int id, HttpServletResponse response) {
+        System.out.println("DELETE fabric "+ id);
         fabricRepo.deleteById(id);
         response.setStatus(200);
         return "redirect:/fabric/view";

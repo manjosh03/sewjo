@@ -16,7 +16,7 @@ public class PageController {
 
     @GetMapping("/")
     public String index(Model model) {
-        return "redirect:/Test.html";
+        return "redirect:/login";
     }
 
 
