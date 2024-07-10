@@ -34,6 +34,7 @@ public class FabricController {
 
         // Todo: get all fabrics from database
         List<Fabric> fabrics = fabricRepo.findAll();
+        //fabrics.add(new Fabric("n", "red", 10, 20, 15, "Wool"));
 
         model.addAttribute("fb", fabrics);
         return "fabric/showAll"; // Ensure this matches the Thymeleaf template name
