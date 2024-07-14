@@ -1,32 +1,53 @@
-package com.sewjo.login.models;
-
+package com.sewjo.sewjo.Models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Fabrics")
 public class Fabric {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
-    private String color;
+    private String colour;
     private int width;
     private int height;
     private int price;
     private String type;
     private int projectId;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Fabric() {
     }
 
-    public Fabric(String name, String color, int width, int height, int price, String type) {
+    public Fabric(String name, String colour, int width, int height, int price, String type, int projectId) {
         this.name = name;
-        this.color = color;
+        this.colour = colour;
         this.width = width;
         this.height = height;
         this.price = price;
         this.type = type;
+        this.projectId = projectId;
+        this.user = null;
     }
+
+    public Fabric(String name, String colour, int width, int height, int price, String type, User user) {
+        this.name = name;
+        this.colour = colour;
+        this.width = width;
+        this.height = height;
+        this.price = price;
+        this.type = type;
+        this.user = user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getId() {return id;}
 
     public String getName() {
         return name;
@@ -36,12 +57,12 @@ public class Fabric {
         this.name = name;
     }
 
-    public String getColor() {
-        return color;
+    public String getColour() {
+        return colour;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setColour(String colour) {
+        this.colour = colour;
     }
 
     public int getWidth() {
@@ -83,9 +104,4 @@ public class Fabric {
     public void setProject(int projectId) {
         this.projectId = projectId;
     }
-
-    public int getId() {
-        return id;
-    }
-
 }

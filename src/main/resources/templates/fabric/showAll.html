@@ -47,17 +47,17 @@
         <h1>All Fabrics</h1>
         <div class="row" id="fabricList">
             <!-- Thymeleaf iteration to render fabric cards -->
-            <div th:each="fabric:${fb}" class="col-lg-4 col-md-6 mb-4">
+            <div th:each="fabric:${fabrics}" class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
                     <img src="http://via.placeholder.com/150" class="card-img-top" alt="Fabric picture">
                     <div class="card-body text-center">
                         <h5 class="card-title" th:text="${fabric.name}">Fabric Name</h5>
                         <p class="card-text">
-                            Color: <span th:text="${fabric.color}">Fabric Color</span><br>
-                            Width: <span th:text="${fabric.width}">Fabric Width</span><br>
-                            Height: <span th:text="${fabric.height}">Fabric Height</span><br>
-                            Price: <span th:text="${fabric.price}">Fabric Price</span><br>
-                            Type: <span th:text="${fabric.type}">Fabric Type</span>
+                            Colour: <span th:text="${fabric.getColour()}">Fabric Colour</span><br>
+                            Width: <span th:text="${fabric.getWidth()}">Fabric Width</span><br>
+                            Height: <span th:text="${fabric.getHeight()}">Fabric Height</span><br>
+                            Price: <span th:text="${fabric.getPrice()}">Fabric Price</span><br>
+                            Type: <span th:text="${fabric.getType()}">Fabric Type</span>
                         </p>
                         <div class="row">
                             <div class="col text-left">

@@ -1,25 +1,25 @@
-package com.sewjo.login.controllers;
+package com.sewjo.sewjo.Controllers;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.sewjo.login.models.User;
-import com.sewjo.login.models.UserReopsitory;
-
+import com.sewjo.sewjo.Models.User;
+import com.sewjo.sewjo.Models.UserRepo;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+
 @Controller
-public class UsersController {
+public class UserController {
+
     @Autowired
-    private UserReopsitory userRepo;
+    private UserRepo userRepo;
 
     @GetMapping("/login")
     public String getLogin(Model model, HttpServletRequest request, HttpSession session) {
@@ -34,7 +34,7 @@ public class UsersController {
 
     @PostMapping("/login")
     public String login(@RequestParam Map<String, String> formData, Model model, HttpServletRequest request,
-            HttpSession session) {
+                        HttpSession session) {
         String email = formData.get("email");
         String password = formData.get("password");
         List<User> userList = userRepo.findByEmailAndPassword(email, password);
@@ -44,6 +44,7 @@ public class UsersController {
         } else {
             User user = userList.get(0);
             request.getSession().setAttribute("session_user", user);
+            request.getSession().setAttribute("userId", user.getId());
             model.addAttribute("user", user);
             return "fabric/addFabric";  // Redirect to the protected page
         }
@@ -66,4 +67,3 @@ public class UsersController {
         return "redirect:/login";
     }
 }
-
