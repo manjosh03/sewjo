@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sewjo - Home</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <style>
+        body {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+        }
+        .navbar, .sidebar {
+            background: linear-gradient(90deg, #1976d2, #0d47a1);
+        }
+        .sidebar {
+            height: auto;
+            width: 100%;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            color: #e3f2fd;
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #1565c0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .card {
+            background-color: #bbdefb;
+            border: none;
+        }
+        .card-title, .card-text, .btn {
+            color: #0d47a1;
+        }
+        .btn-primary {
+            background-color: #1976d2;
+            border-color: #1976d2;
+        }
+        .btn-primary:hover {
+            background-color: #1565c0;
+            border-color: #0d47a1;
+        }
+        .form-control {
+            background-color: #bbdefb;
+            border: 1px solid #90caf9;
+            color: #0d47a1;
+        }
+        .form-control:focus {
+            background-color: #bbdefb;
+            border-color: #1976d2;
+            color: #0d47a1;
+        }
+        .hero {
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 4rem;
+        }
+        .hero p {
+            font-size: 1.5rem;
+        }
+        .navbar-brand img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .login-button {
+            position: absolute;
+            top: 10px;
+            right: 150px;;
+        }
+        .slick-prev, .slick-next {
+            color: rgb(255, 255, 255);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://via.placeholder.com/30" alt="sewjo Logo">
+                sewjo
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="login-button">
+        <a href="users/login.html" class="btn btn-primary">Login</a>
+    </div>
+
+    <div class="sidebar navbar-collapse collapse" id="navbarNav">
+        <a href="#">Home</a>
+        <a href="fabric/addFabric.html">Fabrics</a>
+        <a href="#">Patterns</a>
+        <a href="#">My Lists</a>
+        <a href="#">Community</a>
+        <a href="#">Measurements</a>
+        <a href="#">Stats</a>
+
+    </div>
+
+    <div class="content">
+        <header class="hero">
+            <div class="container">
+                <div class="hero-slider">
+                    <div>
+                        <div class="hero-slide" style="background: url('public/images/product1.png') no-repeat center center; background-size: cover;">
+                            <h1>Welcome to sewjo</h1>
+                            <p>Your one-stop shop for all types of fabrics</p>
+                            <a href="#" class="btn btn-light btn-lg">Shop Now</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="hero-slide" style="background: url('https://via.placeholder.com/1920x600') no-repeat center center; background-size: cover;">
+                            <h1>Discover Our Patterns</h1>
+                            <p>Find the perfect pattern for your next project</p>
+                            <a href="#" class="btn btn-light btn-lg">Browse Patterns</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="hero-slide" style="background: url('https://via.placeholder.com/1920x600') no-repeat center center; background-size: cover;">
+                            <h1>Join Our Community</h1>
+                            <p>Connect with fellow fabric enthusiasts</p>
+                            <a href="#" class="btn btn-light btn-lg">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="my-5 text-center">
+                <h2>Featured Fabrics</h2>
+                <div class="row">
+                    <!-- Example Fabric Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="http://via.placeholder.com/150" class="card-img-top" alt="Fabric picture">
+                            <div class="card-body">
+                                <h5 class="card-title">Fabric Name</h5>
+                                <p class="card-text">
+                                    Color: Fabric Color<br>
+                                    Width: Fabric Width<br>
+                                    Height: Fabric Height<br>
+                                    Price: Fabric Price<br>
+                                    Type: Fabric Type
+                                </p>
+                                <a href="#" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Repeat for more fabrics -->
+                </div>
+            </section>
+
+            <section class="my-5">
+                <h2>Patterns</h2>
+                <div class="row">
+                    <!-- Example Pattern Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="http://via.placeholder.com/150" class="card-img-top" alt="Pattern picture">
+                            <div class="card-body">
+                                <h5 class="card-title">Pattern Name</h5>
+                                <p class="card-text">
+                                    Designer: Designer Name<br>
+                                    Fabric Types: Suitable Fabrics<br>
+                                    Age Group: Age Group<br>
+                                    Body Type: Body Type<br>
+                                    Format: Format
+                                </p>
+                                <a href="#" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Repeat for more patterns -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.hero-slider').slick({
+                autoplay: true,
+                autoplaySpeed: 3000,
+                dots: true,
+                arrows: true,
+                prevArrow: '<button type="button" class="slick-prev">&lt;</button>',
+                nextArrow: '<button type="button" class="slick-next">&gt;</button>'
+            });
+        });
+    </script>
+</body>
+
+</html>
