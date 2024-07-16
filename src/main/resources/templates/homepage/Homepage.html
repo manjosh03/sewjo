@@ -8,19 +8,24 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+
     <style>
         body {
             background-color: #e3f2fd;
             color: #1b56af;
         }
-        .navbar, .sidebar {
+
+        .navbar,
+        .sidebar {
             background: linear-gradient(90deg, #1976d2, #0d47a1);
         }
+
         .sidebar {
             height: auto;
             width: 100%;
             padding-top: 20px;
         }
+
         .sidebar a {
             color: #e3f2fd;
             display: inline-block;
@@ -29,40 +34,51 @@
             border-radius: 30px;
 
         }
+
         .sidebar a:hover {
             background-color: #1565c0;
         }
+
         .content {
             padding: 20px;
         }
+
         .card {
             background-color: #bbdefb;
             border: none;
             border-radius: 30px;
 
-            
+
         }
-        .card-title, .card-text, .btn {
+
+        .card-title,
+        .card-text,
+        .btn {
             color: #0d47a1;
         }
+
         .btn-primary {
             background-color: #1976d2;
             border-color: #1976d2;
         }
+
         .btn-primary:hover {
             background-color: #1565c0;
             border-color: #0d47a1;
         }
+
         .form-control {
             background-color: #bbdefb;
             border: 1px solid #90caf9;
             color: #0d47a1;
         }
+
         .form-control:focus {
             background-color: #bbdefb;
             border-color: #1976d2;
             color: #0d47a1;
         }
+
         .hero {
             height: 600px;
             display: flex;
@@ -70,27 +86,34 @@
             justify-content: center;
             color: white;
             text-align: center;
-            
+
         }
+
         .hero h1 {
             font-size: 4rem;
         }
+
         .hero p {
             font-size: 1.5rem;
-            
+
         }
+
         .navbar-brand img {
             width: 30px;
             height: 30px;
             margin-right: 10px;
-            
+
         }
+
         .login-button {
             position: absolute;
             top: 10px;
-            right: 200px;;
+            right: 200px;
+            ;
         }
-        .slick-prev, .slick-next {
+
+        .slick-prev,
+        .slick-next {
             color: rgb(255, 255, 255);
         }
     </style>
@@ -107,16 +130,20 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="login-button ml-auto">
+                <a class="nav-link text-light" href="/logout">Logout</a>
+            </div>
         </div>
     </nav>
 
+
     <div class="login-button">
-        <a href="users/login.html" class="btn btn-primary">Login</a>
+        <a class="nav-link text-light" href="/logout">Logout</a>
     </div>
 
     <div class="sidebar navbar-collapse collapse" id="navbarNav">
         <a href="#">Home</a>
-        <a href="fabric/addFabric.html">Fabrics</a>
+        <a href="/fabric/view">Fabrics</a>
         <a href="#">Patterns</a>
         <a href="#">My Lists</a>
         <a href="#">Community</a>
@@ -130,21 +157,24 @@
             <div class="container">
                 <div class="hero-slider">
                     <div>
-                        <div class="hero-slide" style="background: url('/static/css/b1.png') no-repeat center center; background-size: cover;">
+                        <div class="hero-slide"
+                            style="background: url('/static/css/b1.png') no-repeat center center; background-size: cover;">
                             <h1>Welcome to sewjo</h1>"
                             <p>Your one-stop shop for all types of fabrics</p>
                             <a href="#" class="btn btn-light btn-lg">Shop Now</a>
                         </div>
                     </div>
                     <div>
-                        <div class="hero-slide" style="background: url('https://via.placeholder.com/1920x600') no-repeat center center; background-size: cover;">
+                        <div class="hero-slide"
+                            style="background: url('https://via.placeholder.com/1920x600') no-repeat center center; background-size: cover;">
                             <h1>Discover Our Patterns</h1>
                             <p>Find the perfect pattern for your next project</p>
                             <a href="#" class="btn btn-light btn-lg">Browse Patterns</a>
                         </div>
                     </div>
                     <div>
-                        <div class="hero-slide" style="background: url('https://via.placeholder.com/1920x600') no-repeat center center; background-size: cover;">
+                        <div class="hero-slide"
+                            style="background: url('https://via.placeholder.com/1920x600') no-repeat center center; background-size: cover;">
                             <h1>Join Our Community</h1>
                             <p>Connect with fellow fabric enthusiasts</p>
                             <a href="#" class="btn btn-light btn-lg">Join Now</a>
@@ -210,7 +240,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('.hero-slider').slick({
                 autoplay: true,
                 autoplaySpeed: 3000,
