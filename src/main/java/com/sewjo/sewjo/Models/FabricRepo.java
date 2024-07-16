@@ -7,7 +7,6 @@ public interface FabricRepo extends JpaRepository<Fabric, Integer> {
     List<Fabric> findByIdAndUser(int id, User user);
     List<Fabric> findAll();
     List<Fabric> findAllByUser(User user);
-
     List<Fabric> findByName(String name);
     List<Fabric> findByProjectId(int projectId);
     Fabric findById(int id);

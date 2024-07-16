@@ -11,16 +11,23 @@ public class Pattern {
     private String type;
     private String description;
     private String image;
+    private int price;
     private int projectId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Pattern() {
     }
 
-    public Pattern(String name, String type, String description, String image) {
+    public Pattern(String name, String type, String description, String image, int price, User user) {
         this.name = name;
         this.type = type;
         this.description = description;
         this.image = image;
+        this.price = price;
+        this.user = user;
     }
 
     public String getName() {
@@ -61,5 +68,13 @@ public class Pattern {
 
     public void setProjectId(int projectId) {
         this.projectId = projectId;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

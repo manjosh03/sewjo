@@ -22,16 +22,17 @@ public class Fabric {
     public Fabric() {
     }
 
-    public Fabric(String name, String colour, int width, int height, int price, String type, int projectId) {
-        this.name = name;
-        this.colour = colour;
-        this.width = width;
-        this.height = height;
-        this.price = price;
-        this.type = type;
-        this.projectId = projectId;
-        this.user = null;
-    }
+    // dont use, all fabrics are created by the user. kept for reference if something breaks
+//    public Fabric(String name, String colour, int width, int height, int price, String type, int projectId) {
+//        this.name = name;
+//        this.colour = colour;
+//        this.width = width;
+//        this.height = height;
+//        this.price = price;
+//        this.type = type;
+//        this.projectId = projectId;
+//        this.user = null;
+//    }
 
     public Fabric(String name, String colour, int width, int height, int price, String type, User user) {
         this.name = name;

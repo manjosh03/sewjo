@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface PatternRepo extends JpaRepository<Pattern, Integer>{
     List<Pattern> findAll();
-    List<Pattern> findByName(String name);
+    List<Pattern> findAllByUser(User user);
     List<Pattern> findByProjectId(int projectId);
     Pattern findById(int id);
     void deleteById(int id);

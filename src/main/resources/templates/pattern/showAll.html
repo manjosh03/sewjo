@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabric Stash</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #007bff;
+        }
+        /* Custom styles can go here */
+        .card-img-top {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+            margin: auto;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar bg-primary navbar-expand-lg ">
+        <div class="container">
+            <a class="navbar-brand text-light" href="#">Pattern Stash</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container" style="margin-top: 40px;">
+        <a th:href="@{/pattern/add-page}" class="btn btn-outline-primary float-right mb-3">Add New Pattern</a>
+        <h1>All Patterns</h1>
+        <div class="row" id="patternList">
+            <!-- Thymeleaf iteration to render fabric cards -->
+            <div th:each="pattern:${patterns}" class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <img th:src="${pattern.getImage()}" class="card-img-top" alt="Fabric picture">
+                    <div class="card-body text-center">
+                        <h5 class="card-title" th:text="${pattern.name}">Pattern Name</h5>
+                        <p class="card-text">
+                            Type: <span th:text="${pattern.getType()}">Pattern Type</span><br>
+                            Description: <span th:text="${pattern.getDescription()}">Pattern Description</span><br>
+                            Price: <span th:text="${pattern.getPrice()}">Pattern Price</span><br>
+                        </p>
+                        <div class="row">
+                            <div class="col text-left">
+                                <button type="button" class="btn btn-sm btn-secondary">Edit</button>
+                            </div>
+                            <div class="col text-right">
+                                <form th:action="@{/pattern/delete}" method="post">
+                                    <input type="hidden" name="id" th:value="${pattern.id}" />
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    <!-- <a th:if="${fabric.id != null}" th:href="@{'/fabric/delete/' + ${fabric.id}}" class="btn btn-sm btn-danger">Delete</a> -->
+                                </form>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sorting and Filtering -->
+        <div class="col-md-6">
+            <label for="sortBy">Sort by:</label>
+            <select class="form-control" id="sortBy" onchange="handleSortChange()">
+                <option value="name">Name</option>
+                <option value="price">Price</option>
+                <option value="type">Type</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="sortOrder">Sort order:</label>
+            <select class="form-control" id="sortOrder" onchange="handleOrderChange()">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+        </div>
+        <div class="col-md-6 mt-3">
+            <label for="filterByType">Filter by Type:</label>
+            <select class="form-control" id="filterByType" onchange="handleTypeFilter()">
+                <option value="">All Types</option>
+                <option value="Cotton">Pants</option>
+                <option value="Silk">Shirts</option>
+                <option value="Polyester">Dresses</option>
+                <option value="Wool">Jackets</option>
+                <!-- Add other pattern types as options -->
+            </select>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Your custom script -->
+    <script>
+        function renderPatterns() {
+        // Fetch selected values from UI
+        var sortBy = document.getElementById('sortBy').value;
+        var sortOrder = document.getElementById('sortOrder').value;
+        var filterType = document.getElementById('filterByType').value;
+
+        // Construct URL with query parameters
+        var url = '/pattern/view?sort=' + sortBy + '&order=' + sortOrder;
+        if (filterType) {
+            url += '&type=' + filterType;
+        }
+
+        // Fetch fabrics from backend using fetch API
+        fetch(url)
+            .then(response => response.json())
+            .then(fabrics => {
+                // Render fabrics on UI (update DOM elements)
+                var fabricList = document.getElementById('patternList');
+                fabricList.innerHTML = ''; // Clear existing fabrics
+
+                fabrics.forEach(fabric => {
+                    var cardHtml = `            <div th:each="pattern:${patterns}" class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <img th:src="${pattern.getImage()}" class="card-img-top" alt="Fabric picture">
+                    <div class="card-body text-center">
+                        <h5 class="card-title" th:text="${pattern.name}">Pattern Name</h5>
+                        <p class="card-text">
+                            Type: <span th:text="${pattern.getType()}">Pattern Type</span><br>
+                            Description: <span th:text="${pattern.getDescription()}">Pattern Description</span><br>
+                            Price: <span th:text="${pattern.getPrice()}">Pattern Price</span><br>
+                        </p>
+                        <div class="row">
+                            <div class="col text-left">
+                                <button type="button" class="btn btn-sm btn-secondary">Edit</button>
+                            </div>
+                            <div class="col text-right">
+                                <form th:action="@{/pattern/delete}" method="post">
+                                    <input type="hidden" name="id" th:value="${pattern.id}" />
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    <!-- <a th:if="${fabric.id != null}" th:href="@{'/fabric/delete/' + ${fabric.id}}" class="btn btn-sm btn-danger">Delete</a> -->
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>`;
+                    fabricList.innerHTML += cardHtml; // Append card to fabricList
+                });
+            })
+            .catch(error => console.error('Error fetching patterns:', error));
+    }
+        // JavaScript functions remain unchanged
+        function handleSortChange(event) {
+            renderPatterns();
+        }
+
+        function handleOrderChange(event) {
+            renderPatterns();
+        }
+
+        function handleTypeFilter(event) {
+            renderPAtterns();
+        }
+
+        function handleDelete(id) {
+            fetch(`/pattern/delete/${id}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            console.log(`Deleted pattern with ID ${id}`);
+        
+        })
+        .catch(error => console.error('Error deleting pattern:', error));
+}
+    </script>
+</body>
+
+</html>
