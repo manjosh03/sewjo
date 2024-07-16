@@ -31,11 +31,15 @@ public class PatternController {
         User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         List<Pattern> patterns = patternRepo.findAllByUser(user);
         model.addAttribute("patterns", patterns);
+        List<String> patternTypes = PatternInterface.getPatternTypes();
+        model.addAttribute("patternTypes", patternTypes);
         return "pattern/showAll"; // Ensure this matches the Thymeleaf template name
     }
 
     @GetMapping("/pattern/add-page")
-    public String showAddFabricPage() {
+    public String showAddFabricPage(Model model) {
+        List<String> patternTypes = PatternInterface.getPatternTypes();
+        model.addAttribute("patternTypes", patternTypes);
         return "pattern/addPattern";
     }
 

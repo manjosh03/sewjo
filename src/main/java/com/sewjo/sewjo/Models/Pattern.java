@@ -2,6 +2,9 @@ package com.sewjo.sewjo.Models;
 
 import jakarta.persistence.*;
 
+import java.lang.reflect.Array;
+import java.util.*;
+
 @Entity
 public class Pattern {
     @Id
@@ -13,7 +16,6 @@ public class Pattern {
     private String image;
     private int price;
     private int projectId;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -26,6 +28,14 @@ public class Pattern {
         this.type = type;
         this.description = description;
         this.image = image;
+        this.price = price;
+        this.user = user;
+    }
+    public Pattern(String name, String type, String description, int price, User user) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.image = "https://via.placeholder.com/150";
         this.price = price;
         this.user = user;
     }
@@ -77,4 +87,9 @@ public class Pattern {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public int getId() {
+        return id;
+    }
+
 }

@@ -51,7 +51,7 @@
                 <div class="card">
                     <img th:src="${pattern.getImage()}" class="card-img-top" alt="Fabric picture">
                     <div class="card-body text-center">
-                        <h5 class="card-title" th:text="${pattern.name}">Pattern Name</h5>
+                        <h5 class="card-title" th:text="${pattern.getName()}">Pattern Name</h5>
                         <p class="card-text">
                             Type: <span th:text="${pattern.getType()}">Pattern Type</span><br>
                             Description: <span th:text="${pattern.getDescription()}">Pattern Description</span><br>
@@ -63,7 +63,7 @@
                             </div>
                             <div class="col text-right">
                                 <form th:action="@{/pattern/delete}" method="post">
-                                    <input type="hidden" name="id" th:value="${pattern.id}" />
+                                    <input type="hidden" name="id" th:value="${pattern.getId()}" />
                                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                     <!-- <a th:if="${fabric.id != null}" th:href="@{'/fabric/delete/' + ${fabric.id}}" class="btn btn-sm btn-danger">Delete</a> -->
                                 </form>
@@ -94,11 +94,9 @@
         <div class="col-md-6 mt-3">
             <label for="filterByType">Filter by Type:</label>
             <select class="form-control" id="filterByType" onchange="handleTypeFilter()">
-                <option value="">All Types</option>
-                <option value="Cotton">Pants</option>
-                <option value="Silk">Shirts</option>
-                <option value="Polyester">Dresses</option>
-                <option value="Wool">Jackets</option>
+                <th:block th:each="type : ${patternTypes}">
+                    <option th:value="${type}" th:text="${type}"></option>
+                </th:block>
                 <!-- Add other pattern types as options -->
             </select>
         </div>
@@ -171,7 +169,7 @@
         }
 
         function handleTypeFilter(event) {
-            renderPAtterns();
+            renderPatterns();
         }
 
         function handleDelete(id) {

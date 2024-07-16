@@ -51,7 +51,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4 form-wrapper">
                 <div class="form-container">
-                    <h1 class="text-center mt-3 mb-4">New Fabric</h1>
+                    <h1 class="text-center mt-3 mb-4">New Pattern</h1>
                     <form action="/pattern/add" method="post">
                         <div class="form-group">
                             <label for="name">Name</label>
@@ -59,21 +59,9 @@
                                 required>
                         </div>
                         <div class="form-group">
-                            <label for="color">Color</label>
-                            <input type="text" id="color" name="color" class="form-control" placeholder="Enter Color"
+                            <label for="description">Description</label>
+                            <input type="text" id="description" name="description" class="form-control" placeholder="Enter Description"
                                 required>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="width">Width</label>
-                                <input type="number" id="width" name="width" class="form-control"
-                                    placeholder="Enter Width" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="height">Height</label>
-                                <input type="number" id="height" name="height" class="form-control"
-                                    placeholder="Enter Height" required>
-                            </div>
                         </div>
                         <div class="form-group">
                             <label for="price">Price</label>
@@ -89,19 +77,17 @@
                             <label for="type">Type</label>
                             <select id="type" name="type" class="form-control" required>
                                 <option value="">Select Type</option>
-                                <option value="wool">Wool</option>
-                                <option value="polyester">Polyester</option>
-                                <option value="cotton">Cotton</option>
-                                <option value="silk">Silk</option>
-                                <!-- Add more options as needed -->
+                                <th:block th:each="type : ${patternTypes}">
+                                    <option th:value="${type}" th:text="${type}"></option>
+                                </th:block>
                             </select>
                         </div>
                         <div class="d-grid gap-2 mt-3">
-                            <input class="btn btn-primary btn-lg" type="submit" value="SEND">
+                            <input class="btn btn-primary btn-lg" type="submit" value="Save">
                         </div>
                         <div class="d-grid gap-2 mt-3">
-                            <a class="btn btn-outline-primary btn-lg" href="/fabric/view" role="button">VIEW ALL
-                                FABRIC</a>
+                            <a class="btn btn-outline-primary btn-lg" href="/pattern/view" role="button">View
+                                Patterns</a>
                         </div>
                     </form>
                 </div>
