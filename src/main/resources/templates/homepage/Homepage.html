@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sewjo - Home</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
 
@@ -32,7 +33,6 @@
             padding: 10px 20px;
             text-decoration: none;
             border-radius: 30px;
-
         }
 
         .sidebar a:hover {
@@ -47,8 +47,6 @@
             background-color: #bbdefb;
             border: none;
             border-radius: 30px;
-
-
         }
 
         .card-title,
@@ -86,7 +84,6 @@
             justify-content: center;
             color: white;
             text-align: center;
-
         }
 
         .hero h1 {
@@ -95,21 +92,18 @@
 
         .hero p {
             font-size: 1.5rem;
-
         }
 
         .navbar-brand img {
             width: 30px;
             height: 30px;
             margin-right: 10px;
-
         }
 
-        .login-button {
+        .logout-button {
             position: absolute;
             top: 10px;
             right: 200px;
-            ;
         }
 
         .slick-prev,
@@ -120,37 +114,46 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="https://via.placeholder.com/30" alt="sewjo Logo">
                 sewjo
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu"
+                aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="login-button ml-auto">
-                <a class="nav-link text-light" href="/logout">Logout</a>
+
+            <div class="collapse navbar-collapse ms-auto" id="navmenu">
+
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/fabric/view" class="nav-link">Fabrics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Patterns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">My Lists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Community</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Measurements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Stats</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
-
-
-    <div class="login-button">
-        <a class="nav-link text-light" href="/logout">Logout</a>
-    </div>
-
-    <div class="sidebar navbar-collapse collapse" id="navbarNav">
-        <a href="#">Home</a>
-        <a href="/fabric/view">Fabrics</a>
-        <a href="#">Patterns</a>
-        <a href="#">My Lists</a>
-        <a href="#">Community</a>
-        <a href="#">Measurements</a>
-        <a href="#">Stats</a>
-
-    </div>
 
     <div class="content">
         <header class="hero">
@@ -159,7 +162,7 @@
                     <div>
                         <div class="hero-slide"
                             style="background: url('/static/css/b1.png') no-repeat center center; background-size: cover;">
-                            <h1>Welcome to sewjo</h1>"
+                            <h1>Welcome to sewjo</h1>
                             <p>Your one-stop shop for all types of fabrics</p>
                             <a href="#" class="btn btn-light btn-lg">Shop Now</a>
                         </div>
@@ -236,8 +239,13 @@
     </div>
 
     <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script>
         $(document).ready(function () {
