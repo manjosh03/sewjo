@@ -74,8 +74,14 @@ public class FabricController {
     }
 
     @GetMapping("/fabric/{id}")
-    public String getFabricDetail(@PathVariable("id") int id, Model model) {
-        Fabric fabric = fabricRepo.findById(id);
+    public String getFabricDetail(@PathVariable("id") int id, Model model,HttpServletResponse response, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        Fabric fabric = fabricRepo.findByIdAndUser(id, user);
         model.addAttribute("fabric", fabric);
         return "fabric/details";
     }

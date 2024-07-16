@@ -77,8 +77,14 @@ public class PatternController {
     }
 
     @GetMapping("/pattern/{id}")
-    public String getFabricDetail(@PathVariable("id") int id, Model model) {
-        Pattern pattern = patternRepo.findById(id);
+    public String getFabricDetail(@PathVariable("id") int id, Model model, HttpServletResponse response, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        Pattern pattern = patternRepo.findByIdAndUser(id, user);
         model.addAttribute("pattern", pattern);
         return "pattern/details";
     }
