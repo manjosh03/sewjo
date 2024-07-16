@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+body {
+    background-color: #e3f2fd;
+    color: #1b56af;
+    padding-top: 56px;
+    /* Adjust this value if navbar height changes */
+}
+
+.navbar,
+.sidebar {
+    background: linear-gradient(90deg, #1976d2, #0d47a1);
+}
+
+.sidebar {
+    height: auto;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    color: #e3f2fd;
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 30px;
+}
+
+.sidebar a:hover {
+    background-color: #1565c0;
+}
+
+.content {
+    padding: 20px;
+}
+
+.card {
+    background-color: #bbdefb;
+    border: none;
+    border-radius: 30px;
+}
+
+.card-title,
+.card-text,
+.btn {
+    color: #0d47a1;
+}
+
+.btn-primary {
+    background-color: #1976d2;
+    border-color: #1976d2;
+}
+
+.btn-primary:hover {
+    background-color: #1565c0;
+    border-color: #0d47a1;
+}
+
+.form-control {
+    background-color: #bbdefb;
+    border: 1px solid #90caf9;
+    color: #0d47a1;
+}
+
+.form-control:focus {
+    background-color: #bbdefb;
+    border-color: #1976d2;
+    color: #0d47a1;
+}
+
+.hero {
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 4rem;
+}
+
+.hero p {
+    font-size: 1.5rem;
+}
+
+.navbar-brand img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.logout-button {
+    position: absolute;
+    top: 10px;
+    right: 200px;
+}
+
+.slick-prev,
+.slick-next {
+    color: rgb(255, 255, 255);
+}

@@ -5,112 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sewjo - Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/homepage.css}" />
 
-    <style>
-        body {
-            background-color: #e3f2fd;
-            color: #1b56af;
-            padding-top: 56px; /* Adjust this value if navbar height changes */
-        }
-
-        .navbar,
-        .sidebar {
-            background: linear-gradient(90deg, #1976d2, #0d47a1);
-        }
-
-        .sidebar {
-            height: auto;
-            width: 100%;
-            padding-top: 20px;
-        }
-
-        .sidebar a {
-            color: #e3f2fd;
-            display: inline-block;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 30px;
-        }
-
-        .sidebar a:hover {
-            background-color: #1565c0;
-        }
-
-        .content {
-            padding: 20px;
-        }
-
-        .card {
-            background-color: #bbdefb;
-            border: none;
-            border-radius: 30px;
-        }
-
-        .card-title,
-        .card-text,
-        .btn {
-            color: #0d47a1;
-        }
-
-        .btn-primary {
-            background-color: #1976d2;
-            border-color: #1976d2;
-        }
-
-        .btn-primary:hover {
-            background-color: #1565c0;
-            border-color: #0d47a1;
-        }
-
-        .form-control {
-            background-color: #bbdefb;
-            border: 1px solid #90caf9;
-            color: #0d47a1;
-        }
-
-        .form-control:focus {
-            background-color: #bbdefb;
-            border-color: #1976d2;
-            color: #0d47a1;
-        }
-
-        .hero {
-            height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-        }
-
-        .navbar-brand img {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-        }
-
-        .logout-button {
-            position: absolute;
-            top: 10px;
-            right: 200px;
-        }
-
-        .slick-prev,
-        .slick-next {
-            color: rgb(255, 255, 255);
-        }
-    </style>
 </head>
 
 <body>
@@ -120,7 +20,8 @@
                 sewjo
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu" aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu"
+                aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -153,7 +54,7 @@
                 </ul>
             </div>
         </div>
-        <button class="btn btn-light logout-button">Login</button>
+        <!-- <button class="btn btn-light logout-button">Login</button> -->
     </nav>
 
     <div class="content">
@@ -161,21 +62,24 @@
             <div class="container">
                 <div class="hero-slider">
                     <div>
-                        <div class="hero-slide" style="background: url('/static/css/b1.png') no-repeat center center; background-size: cover;">
+                        <div class="hero-slide"
+                            style="background: url('/static/css/b1.png') no-repeat center center; background-size: cover;">
                             <h1>Welcome to sewjo</h1>
                             <p>Your one-stop shop for all types of fabrics</p>
                             <a href="#" class="btn btn-light btn-lg">Shop Now</a>
                         </div>
                     </div>
                     <div>
-                        <div class="hero-slide" style="background: url('https://via.placeholder.com/1920x600') no-repeat center center; background-size: cover;">
+                        <div class="hero-slide"
+                            style="background: url('https://via.placeholder.com/1920x600') no-repeat center center; background-size: cover;">
                             <h1>Discover Our Patterns</h1>
                             <p>Find the perfect pattern for your next project</p>
                             <a href="#" class="btn btn-light btn-lg">Browse Patterns</a>
                         </div>
                     </div>
                     <div>
-                        <div class="hero-slide" style="background: url('https://via.placeholder.com/1920x600') no-repeat center center; background-size: cover;">
+                        <div class="hero-slide"
+                            style="background: url('https://via.placeholder.com/1920x600') no-repeat center center; background-size: cover;">
                             <h1>Join Our Community</h1>
                             <p>Connect with fellow fabric enthusiasts</p>
                             <a href="#" class="btn btn-light btn-lg">Join Now</a>
@@ -230,6 +134,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- <section class="container" id="fabric-cards-container"></section> -->
                     <!-- Repeat for more patterns -->
                 </div>
             </section>
@@ -237,8 +142,12 @@
     </div>
 
     <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script>
@@ -252,6 +161,61 @@
                 nextArrow: '<button type="button" class="slick-next">&gt;</button>'
             });
         });
+        document.addEventListener('DOMContentLoaded', () => {
+            const fabrics = [
+                {
+                    name: 'Cotton',
+                    color: 'White',
+                    width: '1.5m',
+                    height: '2m',
+                    price: '$10',
+                    type: 'Natural',
+                    img: 'https://via.placeholder.com/150'
+                },
+                {
+                    name: 'Silk',
+                    color: 'Red',
+                    width: '1.2m',
+                    height: '2.5m',
+                    price: '$20',
+                    type: 'Natural',
+                    img: 'https://via.placeholder.com/150'
+                },
+                {
+                    name: 'Polyester',
+                    color: 'Blue',
+                    width: '1.4m',
+                    height: '2.2m',
+                    price: '$15',
+                    type: 'Synthetic',
+                    img: 'https://via.placeholder.com/150'
+                }
+            ];
+
+            const container = document.getElementById('fabric-cards-container');
+
+            fabrics.forEach(fabric => {
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                card.innerHTML = `
+            <div class="image">
+                <img src="${fabric.img}" alt="Fabric picture">
+            </div>
+            <h2>${fabric.name}</h2>
+            <p>
+                Color: ${fabric.color}<br>
+                Width: ${fabric.width}<br>
+                Height: ${fabric.height}<br>
+                Price: ${fabric.price}<br>
+                Type: ${fabric.type}
+            </p>
+        `;
+
+                container.appendChild(card);
+            });
+        });
+
     </script>
 </body>
 

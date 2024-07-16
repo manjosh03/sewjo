@@ -12,11 +12,20 @@ import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.sewjo.sewjo.Models.Fabric;
+import com.sewjo.sewjo.Models.FabricRepo;
 import com.sewjo.sewjo.Models.Pattern;
 import com.sewjo.sewjo.Models.Project;
+import com.sewjo.sewjo.Models.User;
+import com.sewjo.sewjo.Models.UserRepo;
 
 @Controller
 public class PageController {
+
+    @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
+    private FabricRepo fabricRepo;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -31,12 +40,11 @@ public class PageController {
         if (userId == null) {
             return "redirect:/login";
         }
-        // User user = userRepo.findById(userId).orElseThrow(() -> new
-        // RuntimeException("User not found"));
-        // List<Fabric> fabrics = fabricRepo.findAllByUser(user);
+        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        List<Fabric> fabrics = fabricRepo.findAllByUser(user);
         // List<Pattern> patterns = patternRepo.findAllByUser(user);
         // List<Project> projects = projectRepo.findAllByUser(user);
-        // model.addAttribute("fabrics", fabrics);
+        model.addAttribute("fabrics", fabrics);
         // model.addAttribute("patterns", patterns);
         // model.addAttribute("projects", projects);
         return "homepage/Homepage"; // Ensure this matches the Thymeleaf template name
