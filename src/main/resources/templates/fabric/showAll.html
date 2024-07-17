@@ -9,19 +9,8 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/homepage.css}" />
     <style>
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #007bff;
-        }
-
-        .navbar,
-        .sidebar {
-            background: linear-gradient(90deg, #1976d2, #0d47a1);
-        }
-
-        /* Custom styles can go here */
         .card-img-top {
             width: 150px;
             height: 150px;
@@ -30,13 +19,25 @@
             margin: auto;
             margin-top: 30px;
         }
+
+        .custom-btn {
+            color: white;
+            border-color: white;
+        }
+
+        .custom-btn:hover {
+            color: #000;
+            background-color: white;
+            border-color: white;
+
+        }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand " href="#">
                 sewjo
             </a>
 
@@ -46,14 +47,12 @@
             </button>
 
             <div class="collapse navbar-collapse ms-auto" id="navmenu">
-
-
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a href="/homepage/view" class="nav-link">Home</a>
+                        <a href="#" class="nav-link active">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link active">Fabrics</a>
+                        <a href="/fabric/view" class="nav-link">Fabrics</a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">Patterns</a>
@@ -75,20 +74,20 @@
                     </li>
                 </ul>
             </div>
-
         </div>
+        <!-- <button class="btn btn-light logout-button">Login</button> -->
     </nav>
 
     <main class="container" style="margin-top: 40px;">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="mb-0">All Fabrics</h1>
-            <a th:href="@{/fabric/add-page}" class="btn btn-outline-primary">Add New Fabric</a>
+            <a th:href="@{/fabric/add-page}" class="btn btn-outline-primary custom-btn">Add New Fabric</a>
         </div>
 
         <div class="row" id="fabricList">
             <!-- Thymeleaf iteration to render fabric cards -->
             <div th:each="fabric:${fabrics}" class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
+                <div class="card bg-dark text-light">
                     <img src="http://via.placeholder.com/150" class="card-img-top" alt="Fabric picture">
                     <div class="card-body text-center">
                         <h5 class="card-title" th:text="${fabric.name}">Fabric Name</h5>
