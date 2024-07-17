@@ -1,16 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
 body {
-    background-color: #e3f2fd;
-    color: #1b56af;
+    font-family: 'Poppins', sans-serif;
+    background-color: #191919;
+    color: #ffffff;
     padding-top: 56px;
     /* Adjust this value if navbar height changes */
 }
 
-.navbar,
+/* .navbar,
 .sidebar {
     background: linear-gradient(90deg, #1976d2, #0d47a1);
-}
+} */
 
 .sidebar {
     height: auto;
@@ -84,6 +85,56 @@ body {
 .hero p {
     font-size: 1.5rem;
 }
+
+.hero-slide {
+    position: relative;
+    /* Ensure positioning context */
+    height: 400px;
+    /* Adjust height as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-slide .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    /* Ensure the image is behind */
+    background-size: cover;
+    background-position: center center;
+
+}
+
+.hero-slide .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Adjust opacity for darkness */
+}
+
+.hero-slide h1,
+.hero-slide p,
+.hero-slide .btn {
+    position: relative;
+    /* Ensure text and button are on top */
+    z-index: 1;
+    margin-bottom: 20px;
+    /* Adjust spacing between elements */
+}
+
+
+
+
 
 .navbar-brand img {
     width: 30px;
