@@ -1,0 +1,22 @@
+/* General body styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Style for links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Ensure header remains fixed on top */
+header {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Add additional global styles here */

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sewjo - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/homepage.css}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                sewjo
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu"
+                aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse ms-auto" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/fabric/view" class="nav-link">Fabrics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Patterns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">My Lists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Community</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Measurements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Stats</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link text-light">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- <button class="btn btn-light logout-button">Login</button> -->
+    </nav>
+
+    <div class="content">
+        <header class="hero">
+            <div class="container">
+                <div class="hero-slider">
+                    <div>
+                        <div class="hero-slide"
+                            style="background: url('/css/b2.webp') no-repeat center center; background-size: cover;">
+                            <div class="background-overlay"></div>
+                            <h1>Organize Your Fabric Stash</h1>
+                            <p>Effortlessly manage your fabric collection with detailed information and images.</p>
+                            <a href="/fabric/add-page" class="btn btn-light btn-lg">Manage Fabrics</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="hero-slide"
+                            style="background: url('/css/b1.jpg') no-repeat center center; background-size: cover;">
+                            <div class="background-overlay"></div>
+                            <h1>Manage Your Patterns</h1>
+                            <p>Discover a seamless way to organize and explore your sewing patterns.</p>
+                            <a href="#" class="btn btn-light btn-lg">Explore Now</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="hero-slide"
+                            style="background: url('/css/b3.jpg') no-repeat center center; background-size: cover;">
+                            <div class="background-overlay"></div>
+                            <h1>Bring Your Projects to Life</h1>
+                            <p>Track your sewing projects from start to finish with ease.</p>
+                            <a href="#" class="btn btn-light btn-lg">Start Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- boxes -->
+            <section class="p-5">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-md">
+                            <div class="card bg-dark text-light">
+                                <div class="card-body text-center">
+                                    <h4 class="mb-4">
+                                        Fabrics
+                                    </h4>
+                                    <img src="/css/fabric.jpg" class="card-img-top custom-card-img mb-4" alt="Picture">
+                                    <p class="card-text mx-auto" style="max-width: 300px;">
+                                        Manage your fabric collection with detailed information and images.
+                                    </p>
+                                    <a href="/fabric/view" class="btn btn-primary">View More</a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="card bg-dark text-light">
+                                <div class="card-body text-center">
+                                    <h4 class="mb-4">
+                                        Patterns
+                                    </h4>
+                                    <img src="/css/pattern.jpg" class="card-img-top custom-card-img mb-4" alt="Picture">
+                                    <p class="card-text mx-auto" style="max-width: 300px;">
+                                        Explore and manage your sewing patterns with detailed attributes.
+                                    </p>
+                                    <a href="#" class="btn btn-primary">View More</a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="card bg-dark text-light">
+                                <div class="card-body text-center">
+                                    <h4 class="mb-4">
+                                        Projects
+                                    </h4>
+                                    <img src="/css/project.webp" class="card-img-top custom-card-img mb-4"
+                                        alt="Picture">
+                                    <p class="card-text mx-auto" style="max-width: 300px;">
+                                        Track and manage your sewing projects from start to finish.
+                                    </p>
+                                    <a href="#" class="btn btn-primary">View More</a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.hero-slider').slick({
+                autoplay: true,
+                autoplaySpeed: 3000,
+                dots: true,
+                arrows: true,
+                prevArrow: '<button type="button" class="slick-prev">&lt;</button>',
+                nextArrow: '<button type="button" class="slick-next">&gt;</button>'
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const fabrics = [
+                {
+                    name: 'Cotton',
+                    color: 'White',
+                    width: '1.5m',
+                    height: '2m',
+                    price: '$10',
+                    type: 'Natural',
+                    img: 'https://via.placeholder.com/150'
+                },
+                {
+                    name: 'Silk',
+                    color: 'Red',
+                    width: '1.2m',
+                    height: '2.5m',
+                    price: '$20',
+                    type: 'Natural',
+                    img: 'https://via.placeholder.com/150'
+                },
+                {
+                    name: 'Polyester',
+                    color: 'Blue',
+                    width: '1.4m',
+                    height: '2.2m',
+                    price: '$15',
+                    type: 'Synthetic',
+                    img: 'https://via.placeholder.com/150'
+                }
+            ];
+
+            const container = document.getElementById('fabric-cards-container');
+
+            fabrics.forEach(fabric => {
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                card.innerHTML = `
+            <div class="image">
+                <img src="${fabric.img}" alt="Fabric picture">
+            </div>
+            <h2>${fabric.name}</h2>
+            <p>
+                Color: ${fabric.color}<br>
+                Width: ${fabric.width}<br>
+                Height: ${fabric.height}<br>
+                Price: ${fabric.price}<br>
+                Type: ${fabric.type}
+            </p>
+        `;
+
+                container.appendChild(card);
+            });
+        });
+
+    </script>
+</body>
+
+</html>

@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-
 @Controller
 public class UserController {
 
@@ -28,13 +27,13 @@ public class UserController {
             return "users/login";
         } else {
             model.addAttribute("user", user);
-            return "fabric/addFabric"; // Redirect to the React app
+            return "homepage/Homepage"; // Redirect to the React app
         }
     }
 
     @PostMapping("/login")
     public String login(@RequestParam Map<String, String> formData, Model model, HttpServletRequest request,
-                        HttpSession session) {
+            HttpSession session) {
         String email = formData.get("email");
         String password = formData.get("password");
         List<User> userList = userRepo.findByEmailAndPassword(email, password);
@@ -46,7 +45,7 @@ public class UserController {
             request.getSession().setAttribute("session_user", user);
             request.getSession().setAttribute("userId", user.getId());
             model.addAttribute("user", user);
-            return "fabric/addFabric";  // Redirect to the protected page
+            return "homepage/Homepage"; // Redirect to the protected page
         }
     }
 
