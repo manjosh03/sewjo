@@ -41,7 +41,7 @@ body {
     border-radius: 30px;
 }
 
-.card-title,
+/* .card-title,
 .card-text,
 .btn {
     color: #0d47a1;
@@ -67,7 +67,7 @@ body {
     background-color: #bbdefb;
     border-color: #1976d2;
     color: #0d47a1;
-}
+} */
 
 .hero {
     height: 600px;

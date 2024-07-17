@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/homepage.css}" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -63,20 +63,20 @@
                 <div class="hero-slider">
                     <div>
                         <div class="hero-slide"
-                            style="background: url('/css/b1.jpg') no-repeat center center; background-size: cover;">
-                            <div class="background-overlay"></div>
-                            <h1>Manage Your Patterns</h1>
-                            <p>Discover a seamless way to organize and explore your sewing patterns.</p>
-                            <a href="#" class="btn btn-light btn-lg">Explore Now</a>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="hero-slide"
                             style="background: url('/css/b2.webp') no-repeat center center; background-size: cover;">
                             <div class="background-overlay"></div>
                             <h1>Organize Your Fabric Stash</h1>
                             <p>Effortlessly manage your fabric collection with detailed information and images.</p>
                             <a href="/fabric/view" class="btn btn-light btn-lg">Manage Fabrics</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="hero-slide"
+                            style="background: url('/css/b1.jpg') no-repeat center center; background-size: cover;">
+                            <div class="background-overlay"></div>
+                            <h1>Manage Your Patterns</h1>
+                            <p>Discover a seamless way to organize and explore your sewing patterns.</p>
+                            <a href="#" class="btn btn-light btn-lg">Explore Now</a>
                         </div>
                     </div>
                     <div>
@@ -93,52 +93,59 @@
         </header>
 
         <main>
-            <section class="my-5 text-center">
-                <h2>Featured Fabrics</h2>
-                <div class="row">
-                    <!-- Example Fabric Card -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Fabric picture">
-                            <div class="card-body">
-                                <h5 class="card-title">Fabric Name</h5>
-                                <p class="card-text">
-                                    Color: Fabric Color<br>
-                                    Width: Fabric Width<br>
-                                    Height: Fabric Height<br>
-                                    Price: Fabric Price<br>
-                                    Type: Fabric Type
-                                </p>
-                                <a href="#" class="btn btn-primary">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Repeat for more fabrics -->
-                </div>
-            </section>
+            <!-- boxes -->
+            <section class="p-5">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-md">
+                            <div class="card bg-dark text-light">
+                                <div class="card-body text-center">
+                                    <h4>
+                                        Fabrics
+                                    </h4>
+                                    <img src="http://via.placeholder.com/100" class="card-img-top" alt="Picture">
+                                    <p class="card-text">
+                                        decription
+                                    </p>
+                                    <a href="/fabric/view" class="btn btn-primary">View More</a>
+                                </div>
 
-            <section class="my-5">
-                <h2>Patterns</h2>
-                <div class="row">
-                    <!-- Example Pattern Card -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Pattern picture">
-                            <div class="card-body">
-                                <h5 class="card-title">Pattern Name</h5>
-                                <p class="card-text">
-                                    Designer: Designer Name<br>
-                                    Fabric Types: Suitable Fabrics<br>
-                                    Age Group: Age Group<br>
-                                    Body Type: Body Type<br>
-                                    Format: Format
-                                </p>
-                                <a href="#" class="btn btn-primary">View Details</a>
+
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="card bg-dark text-light">
+                                <div class="card-body text-center">
+                                    <h4>
+                                        Patterns
+                                    </h4>
+                                    <img src="http://via.placeholder.com/100" class="card-img-top" alt="Picture">
+                                    <p class="card-text">
+                                        decription
+                                    </p>
+                                    <a href="/fabric/view" class="btn btn-primary">View More</a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="card bg-dark text-light">
+                                <div class="card-body text-center">
+                                    <h4>
+                                        Projects
+                                    </h4>
+                                    <img src="http://via.placeholder.com/100" class="card-img-top" alt="Picture">
+                                    <p class="card-text">
+                                        decription
+                                    </p>
+                                    <a href="/fabric/view" class="btn btn-primary">View More</a>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
-                    <!-- <section class="container" id="fabric-cards-container"></section> -->
-                    <!-- Repeat for more patterns -->
                 </div>
             </section>
         </main>
