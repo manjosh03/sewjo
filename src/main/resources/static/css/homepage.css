@@ -38,7 +38,7 @@ body {
 .card {
     background-color: #bbdefb;
     border: none;
-    border-radius: 30px;
+    border-radius: 10px;
 }
 
 /* .card-title,
@@ -151,4 +151,14 @@ body {
 .slick-prev,
 .slick-next {
     color: rgb(255, 255, 255);
+}
+
+.custom-card-img {
+    width: 300px;
+    /* Set the width */
+    height: 300px;
+    /* Set the height */
+    object-fit: cover;
+
+
 }
