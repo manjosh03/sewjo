@@ -14,11 +14,11 @@ public class User {
     private String name;
     private String email;
     private String password;
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Project> projects;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Fabric> fabrics;
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Pattern> patterns;
 
     public User() {

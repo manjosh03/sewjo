@@ -29,7 +29,7 @@ public class PageController {
 
     @GetMapping("/")
     public String index(Model model) {
-        return "redirect:/login";
+        return "redirect:/sewjohome.html";
     }
 
     @GetMapping("/homepage/view")

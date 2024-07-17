@@ -15,14 +15,18 @@ public class Project {
     private List<Integer> patternIds;
     @ElementCollection
     private List<Integer> fabricIds;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Project() {
     }
 
-    public Project(String name, String description, String image) {
+    public Project(String name, String description, String image, User user) {
         this.name = name;
         this.description = description;
         this.image = image;
+        this.user = user;
     }
 
     public String getName() {
@@ -59,6 +63,10 @@ public class Project {
 
     public List<Integer> getFabricIds() {
         return fabricIds;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public void setFabricIds(List<Integer> fabricIds) {

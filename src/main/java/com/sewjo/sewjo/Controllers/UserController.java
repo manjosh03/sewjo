@@ -61,7 +61,8 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
+    public String logout(HttpServletRequest request, Model model) {
+        model.addAttribute("user", null);
         request.getSession().invalidate();
         return "redirect:/login";
     }
