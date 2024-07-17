@@ -64,6 +64,6 @@ public class UserController {
     public String logout(HttpServletRequest request, Model model) {
         model.addAttribute("user", null);
         request.getSession().invalidate();
-        return "redirect:/login";
+        return "redirect:/sewjohome.html";
     }
 }
