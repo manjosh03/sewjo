@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface FabricInterface {
-    static List<String> getFarbicTypes(){
+    static List<String> getFabricTypes(){
         List <String> patternTypes = new ArrayList<>();
         patternTypes.add("Top");
         patternTypes.add("Bottom");
@@ -14,5 +14,5 @@ public interface FabricInterface {
         patternTypes.add("Accessories");
         patternTypes.add("Other");
         return patternTypes;
-    };
+    }
 }

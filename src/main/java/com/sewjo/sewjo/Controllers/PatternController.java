@@ -89,10 +89,15 @@ public class PatternController {
             return "redirect:/login";
         }
         Pattern pattern = patternRepo.findById(id);
+        if (pattern == null) {
+            response.setStatus(404);
+            return "redirect:/pattern/view";
+        }
         if (pattern.getUser().getId() != userId) {
             response.setStatus(401);
-            return "redirect:/login";
+            return "redirect:/pattern/view";
         }
+        System.out.println("DELETE pattern "+ id);
         patternRepo.deleteById(id);
         response.setStatus(200);
         return "redirect:/pattern/view";
@@ -131,6 +136,11 @@ public class PatternController {
         pattern.setType(updatedPattern.get("type"));
         pattern.setDescription(updatedPattern.get("description"));
         pattern.setPrice(Integer.parseInt(updatedPattern.get("price")));
+        String image = updatedPattern.get("image");
+        if (image == null) {
+            image = "https://via.placeholder.com/150";
+        }
+        pattern.setImage(image);
         patternRepo.save(pattern);
         response.setStatus(200);
         return "redirect:/pattern/view";
