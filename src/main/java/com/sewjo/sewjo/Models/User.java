@@ -14,6 +14,8 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private String bio;
+    private String ProfilePicture;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Project> projects;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -32,6 +34,16 @@ public class User {
         this.patterns = new ArrayList<>();
         this.projects = new ArrayList<>();
     }
+
+    public void addBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+
 
     public void addFabric(Fabric fabric) {
         this.fabrics.add(fabric);
