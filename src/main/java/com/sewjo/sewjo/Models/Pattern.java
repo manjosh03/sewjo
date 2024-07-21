@@ -40,6 +40,7 @@ public class Pattern {
         this.user = user;
     }
 
+
     public String getName() {
         return name;
     }
@@ -90,6 +91,10 @@ public class Pattern {
 
     public int getId() {
         return id;
+    }
+
+    public User getUser() {
+        return user;
     }
 
 }

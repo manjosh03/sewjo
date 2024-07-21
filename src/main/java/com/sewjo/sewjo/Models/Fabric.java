@@ -14,6 +14,7 @@ public class Fabric {
     private int price;
     private String type;
     private int projectId;
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -22,7 +23,7 @@ public class Fabric {
     public Fabric() {
     }
 
-    public Fabric(String name, String colour, int width, int height, int price, String type, User user) {
+    public Fabric(String name, String colour, int width, int height, int price, String type, User user, String image) {
         this.name = name;
         this.colour = colour;
         this.width = width;
@@ -30,6 +31,7 @@ public class Fabric {
         this.price = price;
         this.type = type;
         this.user = user;
+        this.image = image;
     }
 
     public void setUser(User user) {
@@ -92,5 +94,17 @@ public class Fabric {
 
     public void setProject(int projectId) {
         this.projectId = projectId;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

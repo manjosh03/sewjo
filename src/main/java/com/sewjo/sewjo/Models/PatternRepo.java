@@ -10,4 +10,5 @@ public interface PatternRepo extends JpaRepository<Pattern, Integer>{
     List<Pattern> findByProjectId(int projectId);
     Pattern findById(int id);
     void deleteById(int id);
+    void deleteByIdAndUser(int id, User user);
 }

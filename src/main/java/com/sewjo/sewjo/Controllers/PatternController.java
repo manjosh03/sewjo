@@ -21,11 +21,12 @@ public class PatternController {
     private PatternRepo patternRepo;
 
     @GetMapping("/pattern/view")
-    public String getAllPatterns(HttpServletRequest request, Model model) {
+    public String getAllPatterns(HttpServletRequest request, HttpServletResponse response, Model model) {
         System.out.println("Getting all patterns");
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {
+            response.setStatus(401);
             return "redirect:/login";
         }
         User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
@@ -33,26 +34,38 @@ public class PatternController {
         model.addAttribute("patterns", patterns);
         List<String> patternTypes = PatternInterface.getPatternTypes();
         model.addAttribute("patternTypes", patternTypes);
+        response.setStatus(200);
         return "pattern/showAll"; // Ensure this matches the Thymeleaf template name
     }
 
     @GetMapping("/pattern/add-page")
-    public String showAddFabricPage(Model model) {
+    public String showAddPatternPage(Model model, HttpServletResponse response) {
         List<String> patternTypes = PatternInterface.getPatternTypes();
         model.addAttribute("patternTypes", patternTypes);
+        response.setStatus(200);
         return "pattern/addPattern";
     }
 
+    @GetMapping("/pattern/edit-page")
+    public String showEditPatternPage(@RequestParam("id") int id, Model model, HttpServletResponse response) {
+        List<String> patternTypes = PatternInterface.getPatternTypes();
+        model.addAttribute("patternTypes", patternTypes);
+        Pattern pattern = patternRepo.findById(id);
+        model.addAttribute("pattern", pattern);
+        response.setStatus(200);
+        return "pattern/editPattern";
+    }
+
     @PostMapping("/pattern/add")
-    public String addFabric(@RequestParam Map<String, String> newpattern, HttpServletResponse response, HttpServletRequest request) {
+    public String addPattern(@RequestParam Map<String, String> newPattern, HttpServletResponse response, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId != null) {
-            String name = newpattern.get("name");
-            String type = newpattern.get("type");
-            String description = newpattern.get("description");
-            String image = newpattern.get("image");
-            int price = Integer.parseInt(newpattern.get("price"));
+            String name = newPattern.get("name");
+            String type = newPattern.get("type");
+            String description = newPattern.get("description");
+            String image = newPattern.get("image");
+            int price = Integer.parseInt(newPattern.get("price"));
             User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
             if (image == null) {
                 image = "https://via.placeholder.com/150";
@@ -69,23 +82,67 @@ public class PatternController {
     }
 
     @PostMapping("/pattern/delete")
-    public String deleteFabric(@RequestParam("id") int id, HttpServletResponse response) {
-        System.out.println("DELETE fabric "+ id);
+    public String deletePattern(@RequestParam("id") int id, HttpServletResponse response, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+        Pattern pattern = patternRepo.findById(id);
+        if (pattern == null) {
+            response.setStatus(404);
+            return "redirect:/pattern/view";
+        }
+        if (pattern.getUser().getId() != userId) {
+            response.setStatus(401);
+            return "redirect:/pattern/view";
+        }
+        System.out.println("DELETE pattern "+ id);
         patternRepo.deleteById(id);
         response.setStatus(200);
         return "redirect:/pattern/view";
     }
 
     @GetMapping("/pattern/{id}")
-    public String getFabricDetail(@PathVariable("id") int id, Model model, HttpServletResponse response, HttpServletRequest request) {
+    public String getPatternDetail(@PathVariable("id") int id, Model model, HttpServletResponse response, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {
+            response.setStatus(401);
             return "redirect:/login";
         }
         User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Pattern pattern = patternRepo.findByIdAndUser(id, user);
         model.addAttribute("pattern", pattern);
+        response.setStatus(200);
         return "pattern/details";
+    }
+
+    @PostMapping("/pattern/update")
+    public String updatePattern(@RequestParam Map<String, String> updatedPattern, HttpServletResponse response, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
+            response.setStatus(401);
+            return "redirect:/login";
+        }
+        int id = Integer.parseInt(updatedPattern.get("id"));
+        Pattern pattern = patternRepo.findById(id);
+        if (pattern.getUser().getId() != userId) {
+            response.setStatus(401);
+            return "redirect:/login";
+        }
+        pattern.setName(updatedPattern.get("name"));
+        pattern.setType(updatedPattern.get("type"));
+        pattern.setDescription(updatedPattern.get("description"));
+        pattern.setPrice(Integer.parseInt(updatedPattern.get("price")));
+        String image = updatedPattern.get("image");
+        if (image == null) {
+            image = "https://via.placeholder.com/150";
+        }
+        pattern.setImage(image);
+        patternRepo.save(pattern);
+        response.setStatus(200);
+        return "redirect:/pattern/view";
     }
 }
