@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Profile Page</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/profile.css" />
+  </head>
+  <body>
+    <div class="header__wrapper">
+      <header></header>
+      <div class="cols__container">
+        <div class="left__col">
+          <div class="img__container">
+            <img src="img/user.jpeg" alt="Anna Smith" />
+            <span></span>
+          </div>
+          <h2>Annie</h2>
+          <p>Sewjo User</p>
+          <p>email@example.com</p>
+          <ul class="about">
+            <li><span>Location:</span> Your Location</li>
+            <li><span>Experience:</span> Your Experience</li>
+            <li><span>Skills:</span> Your Skills</li>
+          </ul>
+          <div class="content">
+            <p>Write a bio here.</p>
+            <ul>
+              <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+              <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="right__col">
+          <nav>
+            <ul>
+              <li><a href="#" id="fabrics-link">Fabrics</a></li>
+              <li><a href="#">Pattern</a></li>
+              <li><a href="#">Project</a></li>
+              <li><a href="#">About</a></li>
+            </ul>
+            <button>Follow</button>
+          </nav>
+          <div id="dynamic-content"></div>
+        </div>
+      </div>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>
