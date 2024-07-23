@@ -1,4 +1,5 @@
 package com.sewjo.sewjo.Models;
+
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public class Project {
     private String name;
     private String description;
     private String image;
+    private String type;
     @ElementCollection
     private List<Integer> patternIds;
     @ElementCollection
@@ -22,11 +24,12 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name, String description, String image, User user) {
+    public Project(String name, String description, String image, User user, String type) {
         this.name = name;
         this.description = description;
         this.image = image;
         this.user = user;
+        this.type = type;
     }
 
     public String getName() {
@@ -53,6 +56,14 @@ public class Project {
         this.image = image;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public List<Integer> getPatternIds() {
         return patternIds;
     }
@@ -72,4 +83,9 @@ public class Project {
     public void setFabricIds(List<Integer> fabricIds) {
         this.fabricIds = fabricIds;
     }
+
+    public int getId() {
+        return id;
+    }
+
 }
