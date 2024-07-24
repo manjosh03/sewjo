@@ -223,3 +223,13 @@ body::before {
 .container.active .toggle-right {
     transform: translateX(200%);
 }
+
+.password-strength {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #ff0000;
+}
+
+.password-strength.valid {
+    color: #00ff00;
+}
