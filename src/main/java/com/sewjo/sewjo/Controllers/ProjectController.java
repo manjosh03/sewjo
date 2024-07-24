@@ -45,15 +45,28 @@ public class ProjectController {
     // fix
 
     @GetMapping("/project/add-page")
-    public String showAddProjectPage(Model model, HttpServletResponse response) {
+    public String showAddProjectPage(Model model, HttpServletResponse response, HttpServletRequest request) {
         List<String> projectTypes = ProjectInterface.getProjectTypes();
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Fabric> fabrics = fabricRepo.findAllByUser(user);
+        List<Pattern> patterns = patternRepo.findAllByUser(user);
+
         model.addAttribute("projectTypes", projectTypes);
+        model.addAttribute("fabrics", fabrics);
+        model.addAttribute("patterns", patterns);
+
         response.setStatus(200);
         return "project/addProject";
     }
 
     @GetMapping("/project/edit-page")
-    public String showEditPatternPage(@RequestParam("id") int id, Model model, HttpServletResponse response) {
+    public String showEditProjectPage(@RequestParam("id") int id, Model model, HttpServletResponse response) {
         List<String> projectTypes = ProjectInterface.getProjectTypes();
         model.addAttribute("projectTypes", projectTypes);
         Project project = projectRepo.findById(id);
@@ -63,7 +76,7 @@ public class ProjectController {
     }
 
     @PostMapping("/project/add")
-    public String addPattern(@RequestParam Map<String, String> newProject, HttpServletResponse response,
+    public String addProject(@RequestParam Map<String, String> newProject, HttpServletResponse response,
             HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
@@ -72,11 +85,13 @@ public class ProjectController {
             String description = newProject.get("description");
             String image = newProject.get("image");
             User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+            int fabricId = Integer.parseInt(newProject.get("fabricId"));
+            int patternId = Integer.parseInt(newProject.get("patternId"));
             String type = newProject.get("type");
             if (image == null) {
                 image = "https://via.placeholder.com/150";
             }
-            Project project = new Project(name, description, image, user, type);
+            Project project = new Project(name, description, image, user, type, fabricId, patternId);
             projectRepo.save(project);
         } else {
             response.setStatus(401);
@@ -124,19 +139,19 @@ public class ProjectController {
         if (project.getUser().getId() != userId) {
             return "redirect:/project/view";
         }
-        List<Integer> FabricIds = project.getFabricIds();
+        // List<Integer> FabricIds = project.getFabricIds();
         List<Fabric> fabrics = new ArrayList<>();
-        for (int FabricId : FabricIds) {
-            Fabric fabric = fabricRepo.findById(FabricId);
-            fabrics.add(fabric);
-        }
+        // for (int FabricId : FabricIds) {
+        // Fabric fabric = fabricRepo.findById(FabricId);
+        // fabrics.add(fabric);
+        // }
         model.addAttribute("projectFabrics", fabrics);
-        List<Integer> PatternIds = project.getPatternIds();
+        // List<Integer> PatternIds = project.getPatternIds();
         List<Pattern> patterns = new ArrayList<>();
-        for (int PatternId : PatternIds) {
-            Pattern pattern = patternRepo.findById(PatternId);
-            patterns.add(pattern);
-        }
+        // for (int PatternId : PatternIds) {
+        // Pattern pattern = patternRepo.findById(PatternId);
+        // patterns.add(pattern);
+        // }
         model.addAttribute("projectPatterns", patterns);
         return "fabric/details";
     }

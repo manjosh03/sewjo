@@ -117,6 +117,29 @@
                                 </th:block>
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            <label for="fabricId">Fabric</label>
+                            <select id="fabricId" name="fabricId" class="form-control" required>
+                                <option value="">Select Fabric</option>
+                                <th:block th:each="fabric : ${fabrics}">
+                                    <option th:value="${fabric.getId()}" th:text="${fabric.getName()}"></option>
+
+                                </th:block>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="patternId">Pattern</label>
+                            <select id="patternId" name="patternId" class="form-control" required>
+                                <option value="">Select Pattern</option>
+                                <th:block th:each="pattern : ${patterns}">
+                                    <option th:value="${pattern.getId()}" th:text="${pattern.getName()}"></option>
+
+                                </th:block>
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label for="description">Description</label>
                             <input type="text" id="description" name="description" class="form-control"

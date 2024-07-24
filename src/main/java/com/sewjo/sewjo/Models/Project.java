@@ -2,6 +2,7 @@ package com.sewjo.sewjo.Models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,9 +15,9 @@ public class Project {
     private String image;
     private String type;
     @ElementCollection
-    private List<Integer> patternIds;
+    private List<Integer> patternIds = new ArrayList<>();
     @ElementCollection
-    private List<Integer> fabricIds;
+    private List<Integer> fabricIds = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -24,12 +25,14 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name, String description, String image, User user, String type) {
+    public Project(String name, String description, String image, User user, String type, int fabricId, int patternId) {
         this.name = name;
         this.description = description;
         this.image = image;
         this.user = user;
         this.type = type;
+        this.fabricIds.add(fabricId);
+        this.patternIds.add(patternId);
     }
 
     public String getName() {
