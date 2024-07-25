@@ -93,6 +93,14 @@
                     <p>Email: <span th:text="${user.email}">user@example.com</span></p>
                     <p>Bio: <span th:text="${user.bio}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
                             ac elit id arcu consequat vehicula non nec odio.</span></p>
+                    
+                    <!-- Add Bio Form -->
+                    <form th:action="@{/myProfile/updateBio}" method="post" class="mt-3">
+                        <div class="mb-3">
+                            <textarea class="form-control" name="bio" placeholder="Add or update your bio" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Bio</button>
+                    </form>
                 </div>
             </div>
         </div>

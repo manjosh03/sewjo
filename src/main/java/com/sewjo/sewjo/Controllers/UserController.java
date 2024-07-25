@@ -77,4 +77,18 @@ public class UserController {
         model.addAttribute("user", user);
         return "myProfile/profile";
     }
+
+    @PostMapping("/myProfile/updateBio")
+    public String updateBio(@RequestParam("bio") String bio, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        user.addBio(bio);
+        userRepo.save(user); // Update the user in the database
+        model.addAttribute("user", user);
+        return "redirect:/myProfile/profile";
+    }
+
 }
