@@ -66,4 +66,15 @@ public class UserController {
         request.getSession().invalidate();
         return "redirect:/sewjohome.html";
     }
+
+    @GetMapping("myProfile/profile")
+    public String getProfile(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("user", user);
+        return "myProfile/profile";
+    }
 }
