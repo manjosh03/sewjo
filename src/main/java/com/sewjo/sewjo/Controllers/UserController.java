@@ -66,4 +66,52 @@ public class UserController {
         request.getSession().invalidate();
         return "redirect:/sewjohome.html";
     }
+
+    @GetMapping("myProfile/profile")
+    public String getProfile(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("user", user);
+        return "myProfile/profile";
+    }
+
+    @PostMapping("/myProfile/updateBio")
+    public String updateBio(@RequestParam("bio") String bio, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("session_user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        user.addBio(bio);
+        userRepo.save(user); // Update the user in the database
+        model.addAttribute("user", user);
+        return "redirect:/myProfile/profile";
+    }
+
+    @PostMapping("/myProfile/updateName")
+    public String updateName(@RequestParam("name") String name, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("session_user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        user.setName(name);
+        userRepo.save(user);
+        model.addAttribute("user", user);
+        return "redirect:/myProfile/profile";
+    }
+
+    @PostMapping("/myProfile/updatePassword")
+    public String updatePassword(@RequestParam("password") String password, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("session_user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        user.setPassword(password);
+        userRepo.save(user);
+        model.addAttribute("user", user);
+        return "redirect:/myProfile/profile";
+    }
 }
