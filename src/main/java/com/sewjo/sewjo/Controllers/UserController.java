@@ -91,4 +91,27 @@ public class UserController {
         return "redirect:/myProfile/profile";
     }
 
+    @PostMapping("/myProfile/updateName")
+    public String updateName(@RequestParam("name") String name, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("session_user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        user.setName(name);
+        userRepo.save(user);
+        model.addAttribute("user", user);
+        return "redirect:/myProfile/profile";
+    }
+
+    @PostMapping("/myProfile/updatePassword")
+    public String updatePassword(@RequestParam("password") String password, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("session_user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        user.setPassword(password);
+        userRepo.save(user);
+        model.addAttribute("user", user);
+        return "redirect:/myProfile/profile";
+    }
 }
