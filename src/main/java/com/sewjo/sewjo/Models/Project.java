@@ -14,6 +14,8 @@ public class Project {
     private String description;
     private String image;
     private String type;
+    private int progress;
+    private boolean shared;
     @ElementCollection
     private List<Integer> patternIds = new ArrayList<>();
     @ElementCollection
