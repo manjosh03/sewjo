@@ -11,6 +11,8 @@ public class Project {
     private String name;
     private String description;
     private String image;
+    private boolean isPublic;
+    private int progress;
     @ElementCollection
     private List<Integer> patternIds;
     @ElementCollection
@@ -27,6 +29,22 @@ public class Project {
         this.description = description;
         this.image = image;
         this.user = user;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress){
+        this.progress = progress;
     }
 
     public String getName() {
@@ -55,6 +73,14 @@ public class Project {
 
     public List<Integer> getPatternIds() {
         return patternIds;
+    }
+
+    public void addPatternId(int patternId) {
+        this.patternIds.add(patternId);
+    }
+
+    public void addFabricId(int fabricId) {
+        this.fabricIds.add(fabricId);
     }
 
     public void setPatternIds(List<Integer> patternIds) {
