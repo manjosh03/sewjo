@@ -3,6 +3,7 @@ package com.sewjo.sewjo.Controllers;
 import java.util.List;
 import java.util.Map;
 
+import com.sewjo.sewjo.Interfaces.FabricInterface;
 import com.sewjo.sewjo.Models.*;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class FabricController {
             String image = newFabric.get("image");
             String colour = newFabric.get("colour");
             User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-            if (image == null) {
+            if (image == null || image.isEmpty()) {
                 image = "https://via.placeholder.com/150";
             }
             Fabric fabric = new Fabric(name, colour, width, height, price, type, user, image);

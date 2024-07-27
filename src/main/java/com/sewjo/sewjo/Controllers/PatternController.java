@@ -3,6 +3,7 @@ package com.sewjo.sewjo.Controllers;
 import java.util.List;
 import java.util.Map;
 
+import com.sewjo.sewjo.Interfaces.PatternInterface;
 import com.sewjo.sewjo.Models.*;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,7 @@ public class PatternController {
             String image = newPattern.get("image");
             int price = Integer.parseInt(newPattern.get("price"));
             User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-            if (image == null) {
+            if (image == null || image.isEmpty()) {
                 image = "https://via.placeholder.com/150";
             }
             Pattern pattern = new Pattern(name, type, description, image, price, user);
