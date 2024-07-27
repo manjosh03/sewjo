@@ -13,9 +13,10 @@ import java.util.UUID;
 public class FileStorageService {
 
     public String uploadFile(MultipartFile file) throws IOException {
-        Bucket bucket = StorageClient.getInstance().bucket();
+        Bucket bucket = StorageClient.getInstance().bucket("sewjo-4d3f7.appspot.com");
         String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
         Blob blob = bucket.create(fileName, file.getBytes(), file.getContentType());
-        return blob.getMediaLink();
+        String mediaLink = blob.getMediaLink();
+        return mediaLink;
     }
 }

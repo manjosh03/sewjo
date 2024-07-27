@@ -68,7 +68,7 @@ public class PatternController {
             String image = newPattern.get("image");
             int price = Integer.parseInt(newPattern.get("price"));
             User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-            if (image == null) {
+            if (image == null || image.isEmpty()) {
                 image = "https://via.placeholder.com/150";
             }
             Pattern pattern = new Pattern(name, type, description, image, price, user);

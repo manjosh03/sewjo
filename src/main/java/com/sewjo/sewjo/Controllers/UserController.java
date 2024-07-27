@@ -26,7 +26,7 @@ public class UserController {
     @Autowired
     private FileStorageService fileStorageService;
 
-    @PostMapping("/users/uploadProfilePicture")
+    @PostMapping("/myProfile/uploadProfilePicture")
     public String uploadProfilePicture(@RequestParam("file") MultipartFile file, HttpSession session, Model model) {
         User user = (User) session.getAttribute("session_user");
         if (user == null) {
@@ -38,10 +38,10 @@ public class UserController {
             user.addProfilePicture(fileUrl);
             userRepo.save(user);
             model.addAttribute("user", user);
-            return "homepage/Homepage";
+            return "myProfile/profile";
         } catch (IOException e) {
             model.addAttribute("uploadError", "File upload failed");
-            return "users/profile";
+            return "myProfile/profile";
         }
     }
 
@@ -80,7 +80,8 @@ public class UserController {
         String newName = newUser.get("name");
         String newEmail = newUser.get("email");
         String newPassword = newUser.get("password");
-        userRepo.save(new User(newName, newPassword, newEmail));
+        String newProfilePicture = "https://via.placeholder.com/150";
+        userRepo.save(new User(newName, newPassword, newEmail, newProfilePicture));
         model.addAttribute("message", "User added successfully");
         return "users/addedUser";
     }
@@ -90,6 +91,15 @@ public class UserController {
         model.addAttribute("user", null);
         request.getSession().invalidate();
         return "redirect:/sewjohome.html";
+    }
+
+    @GetMapping("/myProfile/reload")
+    public String reloadProfile(HttpSession session) {
+        User user = (User) session.getAttribute("session_user");
+        if (user == null) {
+            return "/login";
+        }
+        return "/myProfile/profile";
     }
 
     @GetMapping("myProfile/profile")
