@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +43,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: #f8f9fa;
+            background-color: #343a40; /* Matching the navbar color */
             padding: 10px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -83,10 +82,16 @@
             appearance: none;
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23212121' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right 10px center/8px 10px;
             padding-right: 30px;
+            width: 200px; 
+            background-color: white;
+            color: #495057;
+        }
+
+        .filter-bar select option {
+            color: #000;
         }
     </style>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
         <div class="container">
@@ -135,27 +140,13 @@
         </div>
 
         <div class="filter-bar">
-            <input type="text" id="fabricName" placeholder="Enter name">
-            <select id="sortBy" onchange="handleSortChange()">
+            <input type="text" id="filterText" placeholder="Enter filter text">
+            <select id="filterBy">
                 <option value="name">Name</option>
                 <option value="color">Color</option>
-                <option value="width">Width</option>
-                <option value="height">Height</option>
-                <option value="price">Price</option>
                 <option value="type">Type</option>
             </select>
-            <select id="sortOrder" onchange="handleOrderChange()">
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-            </select>
-            <select id="filterByType" onchange="handleTypeFilter()">
-                <option value="">All Types</option>
-                <option value="Cotton">Cotton</option>
-                <option value="Silk">Silk</option>
-                <option value="Polyester">Polyester</option>
-                <option value="Wool">Wool</option>
-            </select>
-            <button type="button" onclick="renderFabrics()">Go</button>
+            <button type="button" onclick="renderFabrics()">Filter</button>
         </div>
 
         <div class="row flex-grow-1" id="fabricList">
@@ -204,28 +195,16 @@
 
     <script>
         function renderFabrics() {
-            // Fetch selected values from UI
-            var sortBy = document.getElementById('sortBy').value;
-            var sortOrder = document.getElementById('sortOrder').value;
-            var filterType = document.getElementById('filterByType').value;
-            var fabricName = document.getElementById('fabricName').value;
+            var filterText = document.getElementById('filterText').value;
+            var filterBy = document.getElementById('filterBy').value;
 
-            // Construct URL with query parameters
-            var url = '/fabric/view?sort=' + sortBy + '&order=' + sortOrder;
-            if (filterType) {
-                url += '&type=' + filterType;
-            }
-            if (fabricName) {
-                url += '&name=' + fabricName;
-            }
+            var url = `/fabric/view?filterBy=${filterBy}&filterText=${filterText}`;
 
-            // Fetch fabrics from backend using fetch API
             fetch(url)
                 .then(response => response.json())
                 .then(fabrics => {
-                    // Render fabrics on UI (update DOM elements)
                     var fabricList = document.getElementById('fabricList');
-                    fabricList.innerHTML = ''; // Clear existing fabrics
+                    fabricList.innerHTML = '';
 
                     fabrics.forEach(fabric => {
                         var cardHtml = `
@@ -256,37 +235,11 @@
                             </div>
                         </div>
                     `;
-                        fabricList.innerHTML += cardHtml; // Append card to fabricList
+                        fabricList.innerHTML += cardHtml;
                     });
                 })
                 .catch(error => console.error('Error fetching fabrics:', error));
         }
-
-        function handleSortChange(event) {
-            renderFabrics();
-        }
-
-        function handleOrderChange(event) {
-            renderFabrics();
-        }
-
-        function handleTypeFilter(event) {
-            renderFabrics();
-        }
-
-        function handleDelete(id) {
-            fetch(`/fabric/delete/${id}`, {
-                method: 'DELETE',
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    console.log(`Deleted fabric with ID ${id}`);
-                })
-                .catch(error => console.error('Error deleting fabric:', error));
-        }
     </script>
 </body>
-
 </html>
