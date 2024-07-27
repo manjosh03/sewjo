@@ -27,10 +27,11 @@ public class User {
     public User() {
     }
 
-    public User(String name, String password, String email) {
+    public User(String name, String password, String email, String ProfilePicture) {
         this.password = password;
         this.email = email;
         this.name = name;
+        this.ProfilePicture = ProfilePicture;
         this.bio = "Add Bio";
         this.fabrics = new ArrayList<>();
         this.patterns = new ArrayList<>();
