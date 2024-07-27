@@ -1,4 +1,5 @@
 package com.sewjo.sewjo.Models;
+
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.name = name;
+        this.bio = "Add Bio";
         this.fabrics = new ArrayList<>();
         this.patterns = new ArrayList<>();
         this.projects = new ArrayList<>();
@@ -50,8 +52,6 @@ public class User {
     public String getBio() {
         return bio;
     }
-
-
 
     public void addFabric(Fabric fabric) {
         this.fabrics.add(fabric);
@@ -99,6 +99,10 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {

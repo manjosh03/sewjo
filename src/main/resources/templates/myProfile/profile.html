@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            background-size: cover;
+            color: #eaeaea;
+        }
+
+        .profile-card {
+            background-color: rgba(31, 31, 31, 0.9);
+            color: #eaeaea;
+            border-radius: 8px;
+            padding: 20px;
+            background: url('/css/sewjobackground.png') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.8;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+        }
+
+        .profile-card img {
+            border-radius: 50%;
+        }
+
+        .profile-card h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #121212;
+        }
+
+        .profile-card p {
+            font-size: 16px;
+            color: #121212;
+        }
+
+        .form-control {
+            background-color: #2a2a2a;
+            border: none;
+            color: #eaeaea;
+        }
+
+        .form-control::placeholder {
+            color: #888;
+        }
+
+        .btn-primary {
+            background-color: #2da0a8;
+            border-color: #2da0a8;
+        }
+
+        .btn-primary:hover {
+            background-color: #238e98;
+            border-color: #238e98;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">sewjo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu" aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse ms-auto" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="/homepage/view" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/fabric/view" class="nav-link">Fabrics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/pattern/view" class="nav-link">Patterns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/project/view" class="nav-link">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Community</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Measurements</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link active">My Profile</a></li>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link text-light">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5 pt-5">
+        <div class="profile-card mx-auto" style="max-width: 600px;">
+            <div class="card-body text-center">
+                <img src="https://via.placeholder.com/100" class="rounded-circle mb-3" alt="Profile Picture">
+                <h1 th:text="${user.name}">User's Name</h1>
+                <p>Email: <span th:text="${user.email}">user@example.com</span></p>
+                <p>Bio: <span th:text="${user.bio}">This is your bio</span></p>
+
+                <form action="/myProfile/updateBio" method="post" class="mt-3">
+                    <div class="mb-3">
+                        <textarea name="bio" class="form-control" placeholder="Add or update your bio"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-edit"></i> Update Bio</button>
+                </form>
+                <form action="/myProfile/updateName" method="post" class="mt-3">
+                    <div class="mb-3">
+                        <input type="text" name="name" class="form-control" placeholder="Update your name">
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-edit"></i> Update Name</button>
+                </form>
+                <form action="/myProfile/updatePassword" method="post" class="mt-3">
+                    <div class="mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Update your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-edit"></i> Update Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

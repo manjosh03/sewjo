@@ -1,6 +1,8 @@
 package com.sewjo.sewjo.Models;
+
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,12 +13,13 @@ public class Project {
     private String name;
     private String description;
     private String image;
-    private boolean isPublic;
+    private String type;
     private int progress;
+    private boolean shared;
     @ElementCollection
-    private List<Integer> patternIds;
+    private List<Integer> patternIds = new ArrayList<>();
     @ElementCollection
-    private List<Integer> fabricIds;
+    private List<Integer> fabricIds = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -24,27 +27,14 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name, String description, String image, User user) {
+    public Project(String name, String description, String image, User user, String type, int fabricId, int patternId) {
         this.name = name;
         this.description = description;
         this.image = image;
         this.user = user;
-    }
-
-    public boolean isPublic() {
-        return isPublic;
-    }
-
-    public void setPublic(boolean isPublic) {
-        this.isPublic = isPublic;
-    }
-
-    public int getProgress() {
-        return progress;
-    }
-
-    public void setProgress(int progress){
-        this.progress = progress;
+        this.type = type;
+        this.fabricIds.add(fabricId);
+        this.patternIds.add(patternId);
     }
 
     public String getName() {
@@ -71,16 +61,16 @@ public class Project {
         this.image = image;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public List<Integer> getPatternIds() {
         return patternIds;
-    }
-
-    public void addPatternId(int patternId) {
-        this.patternIds.add(patternId);
-    }
-
-    public void addFabricId(int fabricId) {
-        this.fabricIds.add(fabricId);
     }
 
     public void setPatternIds(List<Integer> patternIds) {
@@ -98,4 +88,9 @@ public class Project {
     public void setFabricIds(List<Integer> fabricIds) {
         this.fabricIds = fabricIds;
     }
+
+    public int getId() {
+        return id;
+    }
+
 }
