@@ -3,6 +3,7 @@ package com.sewjo.sewjo.Controllers;
 import java.util.List;
 import java.util.Map;
 
+import com.sewjo.sewjo.Interfaces.FabricInterface;
 import com.sewjo.sewjo.Models.*;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

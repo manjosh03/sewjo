@@ -1,14 +1,17 @@
 package com.sewjo.sewjo.Controllers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import com.sewjo.sewjo.Services.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import com.sewjo.sewjo.Models.User;
 import com.sewjo.sewjo.Models.UserRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +22,28 @@ public class UserController {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private FileStorageService fileStorageService;
+
+    @PostMapping("/users/uploadProfilePicture")
+    public String uploadProfilePicture(@RequestParam("file") MultipartFile file, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("session_user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        try {
+            String fileUrl = fileStorageService.uploadFile(file);
+            user.addProfilePicture(fileUrl);
+            userRepo.save(user);
+            model.addAttribute("user", user);
+            return "homepage/Homepage";
+        } catch (IOException e) {
+            model.addAttribute("uploadError", "File upload failed");
+            return "users/profile";
+        }
+    }
 
     @GetMapping("/login")
     public String getLogin(Model model, HttpServletRequest request, HttpSession session) {

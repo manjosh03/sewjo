@@ -37,6 +37,14 @@ public class User {
         this.projects = new ArrayList<>();
     }
 
+    public void addProfilePicture(String ProfilePicture) {
+        this.ProfilePicture = ProfilePicture;
+    }
+
+    public String getProfilePicture() {
+        return ProfilePicture;
+    }
+
     public void addBio(String bio) {
         this.bio = bio;
     }
