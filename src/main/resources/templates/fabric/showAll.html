@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +44,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: #343a40; /* Matching the navbar color */
+            background-color: #343a40;
+            /* Matching the navbar color */
             padding: 10px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -82,7 +84,7 @@
             appearance: none;
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23212121' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right 10px center/8px 10px;
             padding-right: 30px;
-            width: 200px; 
+            width: 200px;
             background-color: white;
             color: #495057;
         }
@@ -92,6 +94,7 @@
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
         <div class="container">
@@ -150,7 +153,7 @@
             <!-- Thymeleaf iteration to render fabric cards -->
             <div th:each="fabric:${fabrics}" class="col-lg-4 col-md-6 mb-4">
                 <div class="card bg-dark text-light">
-                    <img th:src="${fabric.getImage()}" class="card-img-top" alt="Fabric picture">
+                    <img th:src="${fabric.getImage()}" class="card-img-top rounded" alt="Fabric picture">
                     <div class="card-body text-center">
                         <h5 class="card-title" th:text="${fabric.name}">Fabric Name</h5>
                         <p class="card-text">
@@ -239,4 +242,5 @@
         }
     </script>
 </body>
+
 </html>
