@@ -27,7 +27,8 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name, String description, String image, User user, String type, int fabricId, int patternId) {
+    public Project(String name, String description, String image, User user, String type, int fabricId, int patternId,
+            boolean shared, int progress) {
         this.name = name;
         this.description = description;
         this.image = image;
@@ -35,6 +36,8 @@ public class Project {
         this.type = type;
         this.fabricIds.add(fabricId);
         this.patternIds.add(patternId);
+        this.shared = shared;
+        this.progress = progress;
     }
 
     public String getName() {
@@ -91,6 +94,14 @@ public class Project {
 
     public int getId() {
         return id;
+    }
+
+    public boolean isShared() {
+        return shared;
+    }
+
+    public void setShared(boolean shared) {
+        this.shared = shared;
     }
 
 }

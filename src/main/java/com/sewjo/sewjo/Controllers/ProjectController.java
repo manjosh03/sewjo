@@ -88,10 +88,13 @@ public class ProjectController {
             int fabricId = Integer.parseInt(newProject.get("fabricId"));
             int patternId = Integer.parseInt(newProject.get("patternId"));
             String type = newProject.get("type");
+            boolean shared = newProject.containsKey("shared");
+            int progress = Integer.parseInt(newProject.get("progress"));
+
             if (image == null) {
                 image = "https://via.placeholder.com/150";
             }
-            Project project = new Project(name, description, image, user, type, fabricId, patternId);
+            Project project = new Project(name, description, image, user, type, fabricId, patternId, shared, progress);
             projectRepo.save(project);
         } else {
             response.setStatus(401);
