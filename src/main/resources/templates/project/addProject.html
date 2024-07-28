@@ -99,7 +99,7 @@
             <div class="col-md-6 col-lg-4 form-wrapper">
                 <div class="form-container">
                     <h1 class="text-center mt-3 mb-4">New Project</h1>
-                    <form action="/project/add" method="post">
+                    <form action="/project/add" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name"
@@ -148,6 +148,11 @@
                         <div class="form-group">
                             <label for="progress" class="form-label">Progress</label>
                             <input type="range" class="form-range" min="0" max="100" id="progress" name="progress">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type">Image</label>
+                            <input type="file" name="file" class="form-control" accept=".jpeg,.jpg,.png" required>
                         </div>
 
                         <div class="form-group form-check form-switch">

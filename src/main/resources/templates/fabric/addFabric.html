@@ -50,6 +50,10 @@
             background-color: #fff;
             border-color: #fff;
         }
+
+        .form-group {
+            margin-top: 15px;
+        }
     </style>
 </head>
 
@@ -146,7 +150,7 @@
                         <div class="form-group">
                             <label for="image">Image</label>
                             <div class="input-group">
-                                <input type="file" id="imageFile" name="imageFile" class="form-control" >
+                                <input type="file" id="imageFile" name="imageFile" class="form-control">
                             </div>
                         </div>
                         <div class="d-grid gap-2 mt-3">
@@ -175,7 +179,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    document.getElementById('imageFile').addEventListener('change', function() {
+    document.getElementById('imageFile').addEventListener('change', function () {
         if (this.files.length > 0) {
             const file = this.files[0];
             const form = new FormData();
@@ -184,7 +188,7 @@
                 "url": "https://freeimage.host/api/1/upload",
                 "method": "POST",
                 "key": "6d207e02198a847aa98d0a2a901485a5",
-                "source": form
+                "source": form,
                 "action": "upload"
             };
 

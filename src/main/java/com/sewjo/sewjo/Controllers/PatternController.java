@@ -1,15 +1,20 @@
 package com.sewjo.sewjo.Controllers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import com.sewjo.sewjo.Interfaces.PatternInterface;
 import com.sewjo.sewjo.Models.*;
+import com.sewjo.sewjo.Services.FileStorageService;
+
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -20,6 +25,9 @@ public class PatternController {
 
     @Autowired
     private PatternRepo patternRepo;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @GetMapping("/pattern/view")
     public String getAllPatterns(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -58,23 +66,27 @@ public class PatternController {
     }
 
     @PostMapping("/pattern/add")
-    public String addPattern(@RequestParam Map<String, String> newPattern, HttpServletResponse response, HttpServletRequest request) {
+    public String addPattern(@RequestParam Map<String, String> newPattern, @RequestParam("file") MultipartFile file,
+            HttpServletResponse response, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId != null) {
             String name = newPattern.get("name");
             String type = newPattern.get("type");
             String description = newPattern.get("description");
-            String image = newPattern.get("image");
+            String image;
             int price = Integer.parseInt(newPattern.get("price"));
             User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-            if (image == null || image.isEmpty()) {
+            try {
+                String fileUrl = fileStorageService.uploadFile(file);
+                image = fileUrl;
+
+            } catch (IOException e) {
                 image = "https://via.placeholder.com/150";
             }
             Pattern pattern = new Pattern(name, type, description, image, price, user);
             patternRepo.save(pattern);
-        }
-        else{
+        } else {
             response.setStatus(401);
             return "redirect:/login";
         }
@@ -98,14 +110,15 @@ public class PatternController {
             response.setStatus(401);
             return "redirect:/pattern/view";
         }
-        System.out.println("DELETE pattern "+ id);
+        System.out.println("DELETE pattern " + id);
         patternRepo.deleteById(id);
         response.setStatus(200);
         return "redirect:/pattern/view";
     }
 
     @GetMapping("/pattern/{id}")
-    public String getPatternDetail(@PathVariable("id") int id, Model model, HttpServletResponse response, HttpServletRequest request) {
+    public String getPatternDetail(@PathVariable("id") int id, Model model, HttpServletResponse response,
+            HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {
@@ -120,7 +133,8 @@ public class PatternController {
     }
 
     @PostMapping("/pattern/update")
-    public String updatePattern(@RequestParam Map<String, String> updatedPattern, HttpServletResponse response, HttpServletRequest request) {
+    public String updatePattern(@RequestParam Map<String, String> updatedPattern, HttpServletResponse response,
+            HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {

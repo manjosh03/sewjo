@@ -1,15 +1,20 @@
 package com.sewjo.sewjo.Controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import com.sewjo.sewjo.Models.*;
+import com.sewjo.sewjo.Services.FileStorageService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +32,9 @@ public class ProjectController {
 
     @Autowired
     private PatternRepo patternRepo;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @GetMapping("/project/view")
     public String getAllProjects(HttpServletRequest request, Model model) {
@@ -77,14 +85,15 @@ public class ProjectController {
     }
 
     @PostMapping("/project/add")
-    public String addProject(@RequestParam Map<String, String> newProject, HttpServletResponse response,
+    public String addProject(@RequestParam Map<String, String> newProject, @RequestParam("file") MultipartFile file,
+            HttpServletResponse response,
             HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId != null) {
             String name = newProject.get("name");
             String description = newProject.get("description");
-            String image = newProject.get("image");
+            String image;
             User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
             int fabricId = Integer.parseInt(newProject.get("fabricId"));
             int patternId = Integer.parseInt(newProject.get("patternId"));
@@ -92,9 +101,14 @@ public class ProjectController {
             boolean shared = newProject.containsKey("shared");
             int progress = Integer.parseInt(newProject.get("progress"));
 
-            if (image == null) {
+            try {
+                String fileUrl = fileStorageService.uploadFile(file);
+                image = fileUrl;
+
+            } catch (IOException e) {
                 image = "https://via.placeholder.com/150";
             }
+
             Project project = new Project(name, description, image, user, type, fabricId, patternId, shared, progress);
             projectRepo.save(project);
         } else {
