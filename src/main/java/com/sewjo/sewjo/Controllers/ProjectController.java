@@ -48,6 +48,9 @@ public class ProjectController {
         List<Project> projects = projectRepo.findAllByUser(user);
 
         model.addAttribute("projects", projects);
+        model.addAttribute("fabricRepo", fabricRepo);
+        model.addAttribute("patternRepo", patternRepo);
+        model.addAttribute("user", user);
         return "project/showAll"; // Ensure this matches the Thymeleaf template name
     }
 

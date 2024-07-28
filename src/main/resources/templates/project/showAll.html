@@ -167,7 +167,12 @@
                         </h5>
                         <p class="card-text">
                             Type: <span th:text="${project.getType()}">Project Type</span><br>
-                            <!-- Progress: <span th:text="${project.getProgress()}">Project Progress</span> %<br> -->
+                            Fabric: <span
+                                th:text="${fabricRepo.findByIdAndUser(project.getFabricId(), user).getName()}">Project
+                                Fabric</span><br>
+                            Pattern: <span
+                                th:text="${patternRepo.findByIdAndUser(project.getPatternId(), user).getName()}">Project
+                                Pattern</span><br>
                             Description: <span th:text="${project.getDescription()}">Project Description</span><br>
                         <div class="progress-container" style="width: 80%; margin: 0 auto; margin-bottom: 25px;">
                             <div class="progress">
