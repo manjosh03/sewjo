@@ -22,6 +22,7 @@
 
         }
 
+
         .custom-btn {
             color: white;
             border-color: white;
@@ -161,9 +162,11 @@
                     <img th:src="${project.getImage()}" class="card-img-top rounded" alt="project picture">
                     <div class="card-body text-center">
                         <h5 class="card-title">
-                            <span th:text="${project.getName()}">Project Name</span>
-                            <i class="bi"
-                                th:classappend="${project.isShared() ? 'bi-unlock-fill' : 'bi-lock-fill'}"></i>
+                            <span class="align-bottom" th:text="${project.getName()}">Project Name</span>
+                            <span class="align-top">
+                                <i class="bi"
+                                    th:classappend="${project.isShared() ? 'bi-unlock-fill' : 'bi-lock-fill'}"></i>
+                            </span>
                         </h5>
                         <p class="card-text">
                             Type: <span th:text="${project.getType()}">Project Type</span><br>
