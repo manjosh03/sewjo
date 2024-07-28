@@ -92,6 +92,10 @@
         .filter-bar select option {
             color: #000;
         }
+
+        .progress-container {
+            margin-bottom: 25px;
+        }
     </style>
 </head>
 
@@ -157,9 +161,20 @@
                         <h5 class="card-title" th:text="${project.getName()}">Project Name</h5>
                         <p class="card-text">
                             Type: <span th:text="${project.getType()}">Project Type</span><br>
-                            Progress: <span th:text="${project.getProgress()}">Project Progress</span> %<br>
+                            <!-- Progress: <span th:text="${project.getProgress()}">Project Progress</span> %<br> -->
+
+
                             <span th:text="${project.isShared() ? 'Shared' : 'Not Shared'}"></span><br>
                             Description: <span th:text="${project.getDescription()}">Project Description</span><br>
+                        <div class="progress-container" style="width: 80%; margin: 0 auto; margin-bottom: 25px;">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                    th:aria-valuenow="${project.getProgress()}" aria-valuemin="0" aria-valuemax="100"
+                                    th:style="'width:' + ${project.getProgress()} + '%;'"
+                                    th:text="${project.getProgress()} + '%'">
+                                </div>
+                            </div>
+                        </div>
                         </p>
                         <div class="row">
                             <div class="col text-left">
