@@ -1,15 +1,20 @@
 package com.sewjo.sewjo.Controllers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import com.sewjo.sewjo.Interfaces.FabricInterface;
 import com.sewjo.sewjo.Models.*;
+import com.sewjo.sewjo.Services.FileStorageService;
+
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -20,6 +25,9 @@ public class FabricController {
 
     @Autowired
     private FabricRepo fabricRepo;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @GetMapping("/fabric/view")
     public String getAllFabrics(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -50,7 +58,7 @@ public class FabricController {
     @GetMapping("/fabric/edit-page")
     public String showEditPatternPage(@RequestParam("id") int id, Model model, HttpServletResponse response) {
         List<String> fabricTypes = FabricInterface.getFabricTypes();
-         model.addAttribute("fabricTypes", fabricTypes); // Corrected typo
+        model.addAttribute("fabricTypes", fabricTypes); // Corrected typo
         Fabric fabric = fabricRepo.findById(id);
         model.addAttribute("fabric", fabric);
         response.setStatus(200);
@@ -58,7 +66,8 @@ public class FabricController {
     }
 
     @PostMapping("/fabric/add")
-    public String addFabric(@RequestParam Map<String, String> newFabric, HttpServletResponse response, HttpServletRequest request) {
+    public String addFabric(@RequestParam Map<String, String> newFabric, @RequestParam("file") MultipartFile file,
+            HttpServletResponse response, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId != null) {
@@ -67,12 +76,18 @@ public class FabricController {
             int price = Integer.parseInt(newFabric.get("price"));
             int width = Integer.parseInt(newFabric.get("width"));
             int height = Integer.parseInt(newFabric.get("height"));
-            String image = newFabric.get("image");
+            String image;
             String colour = newFabric.get("colour");
             User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-            if (image == null || image.isEmpty()) {
+
+            try {
+                String fileUrl = fileStorageService.uploadFile(file);
+                image = fileUrl;
+
+            } catch (IOException e) {
                 image = "https://via.placeholder.com/150";
             }
+
             Fabric fabric = new Fabric(name, colour, width, height, price, type, user, image);
             fabricRepo.save(fabric);
         } else {
@@ -106,7 +121,8 @@ public class FabricController {
     }
 
     @GetMapping("/fabric/{id}")
-    public String getFabricDetail(@PathVariable("id") int id, Model model, HttpServletResponse response, HttpServletRequest request) {
+    public String getFabricDetail(@PathVariable("id") int id, Model model, HttpServletResponse response,
+            HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {
@@ -119,11 +135,11 @@ public class FabricController {
         response.setStatus(200);
         return "fabric/details";
 
-
     }
 
     @PostMapping("/fabric/update")
-    public String updateFabric(@RequestParam Map<String, String> updatedFabric, HttpServletResponse response, HttpServletRequest request) {
+    public String updateFabric(@RequestParam Map<String, String> updatedFabric,
+            @RequestParam("file") MultipartFile file, HttpServletResponse response, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {
@@ -142,11 +158,17 @@ public class FabricController {
         fabric.setHeight(Integer.parseInt(updatedFabric.get("height")));
         fabric.setPrice(Integer.parseInt(updatedFabric.get("price")));
         fabric.setType(updatedFabric.get("type"));
-        String image = updatedFabric.get("image");
-        if (image == null) {
-            image = "https://via.placeholder.com/150";
+
+        if (file != null && !file.isEmpty()) {
+            try {
+                String fileUrl = fileStorageService.uploadFile(file);
+                fabric.setImage(fileUrl);
+            } catch (IOException e) {
+                response.setStatus(500);
+                return "error";
+            }
         }
-        fabric.setImage(image);
+
         fabricRepo.save(fabric);
         response.setStatus(200);
         return "redirect:/fabric/view";
