@@ -120,7 +120,7 @@ public class ProjectController {
     }
 
     @PostMapping("/project/delete")
-    public String deleteproject(@RequestParam("id") int id, HttpServletResponse response, HttpServletRequest request) {
+    public String deleteProject(@RequestParam("id") int id, HttpServletResponse response, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {
