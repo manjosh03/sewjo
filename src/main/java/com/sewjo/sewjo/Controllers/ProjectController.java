@@ -75,11 +75,22 @@ public class ProjectController {
     }
 
     @GetMapping("/project/edit-page")
-    public String showEditProjectPage(@RequestParam("id") int id, Model model, HttpServletResponse response) {
+    public String showEditProjectPage(@RequestParam("id") int id, Model model, HttpServletResponse response,
+            HttpServletRequest request) {
         List<String> projectTypes = ProjectInterface.getProjectTypes();
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("projectTypes", projectTypes);
         Project project = projectRepo.findById(id);
+        List<Fabric> fabrics = fabricRepo.findAllByUser(user);
+        List<Pattern> patterns = patternRepo.findAllByUser(user);
         model.addAttribute("project", project);
+        model.addAttribute("fabrics", fabrics);
+        model.addAttribute("patterns", patterns);
         response.setStatus(200);
         return "project/editProject";
     }
@@ -116,6 +127,46 @@ public class ProjectController {
             return "redirect:/login";
         }
         response.setStatus(201);
+        return "redirect:/project/view";
+    }
+
+    @PostMapping("/project/edit")
+    public String editProject(@RequestParam Map<String, String> updatedProject,
+            @RequestParam("file") MultipartFile file, HttpServletResponse response,
+            HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
+            response.setStatus(401);
+            return "redirect:/login";
+        }
+        int id = Integer.parseInt(updatedProject.get("id"));
+        Project project = projectRepo.findById(id);
+        if (project.getUser().getId() != userId) {
+            response.setStatus(401);
+            return "redirect:/login";
+        }
+        project.setName(updatedProject.get("name"));
+        project.setType(updatedProject.get("type"));
+        project.setDescription(updatedProject.get("description"));
+        project.setFabricId(Integer.parseInt(updatedProject.get("fabricId")));
+        project.setPatternId(Integer.parseInt(updatedProject.get("patternId")));
+        project.setShared(updatedProject.containsKey("shared"));
+        project.setProgress(Integer.parseInt(updatedProject.get("progress")));
+
+        String image;
+
+        try {
+            String fileUrl = fileStorageService.uploadFile(file);
+            image = fileUrl;
+
+        } catch (IOException e) {
+            image = "https://via.placeholder.com/150";
+        }
+
+        project.setImage(image);
+        projectRepo.save(project);
+        response.setStatus(200);
         return "redirect:/project/view";
     }
 

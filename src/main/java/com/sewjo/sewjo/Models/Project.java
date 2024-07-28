@@ -72,24 +72,24 @@ public class Project {
         this.type = type;
     }
 
-    public List<Integer> getPatternIds() {
-        return patternIds;
+    public int getPatternId() {
+        return patternIds.get(0);
     }
 
-    public void setPatternIds(List<Integer> patternIds) {
-        this.patternIds = patternIds;
+    public void setPatternId(int patternId) {
+        patternIds.set(0, patternId);
     }
 
-    public List<Integer> getFabricIds() {
-        return fabricIds;
+    public int getFabricId() {
+        return fabricIds.get(0);
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setFabricIds(List<Integer> fabricIds) {
-        this.fabricIds = fabricIds;
+    public void setFabricId(int fabricId) {
+        fabricIds.set(0, fabricId);
     }
 
     public int getId() {
@@ -106,6 +106,11 @@ public class Project {
 
     public int getProgress() {
         return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+
     }
 
 }

@@ -124,7 +124,7 @@
                                 <option value="">Select Fabric</option>
                                 <th:block th:each="fabric : ${fabrics}">
                                     <option th:value="${fabric.getId()}" th:text="${fabric.getName()}"
-                                        th:selected="${fabric.getId() == project.fabricId}"></option>
+                                        th:selected="${fabric.getId() == project.getFabricId()}"></option>
                                 </th:block>
                             </select>
                         </div>
@@ -135,7 +135,7 @@
                                 <option value="">Select Pattern</option>
                                 <th:block th:each="pattern : ${patterns}">
                                     <option th:value="${pattern.getId()}" th:text="${pattern.getName()}"
-                                        th:selected="${pattern.getId() == project.patternId}"></option>
+                                        th:selected="${pattern.getId() == project.getPatternId()}"></option>
                                 </th:block>
                             </select>
                         </div>
