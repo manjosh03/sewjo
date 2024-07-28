@@ -154,17 +154,16 @@ public class ProjectController {
         project.setShared(updatedProject.containsKey("shared"));
         project.setProgress(Integer.parseInt(updatedProject.get("progress")));
 
-        String image;
-
-        try {
-            String fileUrl = fileStorageService.uploadFile(file);
-            image = fileUrl;
-
-        } catch (IOException e) {
-            image = "https://via.placeholder.com/150";
+        if (file != null && !file.isEmpty()) {
+            try {
+                String fileUrl = fileStorageService.uploadFile(file);
+                project.setImage(fileUrl);
+            } catch (IOException e) {
+                response.setStatus(500);
+                return "error";
+            }
         }
 
-        project.setImage(image);
         projectRepo.save(project);
         response.setStatus(200);
         return "redirect:/project/view";
