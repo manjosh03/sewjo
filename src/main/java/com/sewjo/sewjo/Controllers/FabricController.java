@@ -50,7 +50,7 @@ public class FabricController {
     @GetMapping("/fabric/edit-page")
     public String showEditPatternPage(@RequestParam("id") int id, Model model, HttpServletResponse response) {
         List<String> fabricTypes = FabricInterface.getFabricTypes();
-        model.addAttribute("farbicTypes", fabricTypes);
+         model.addAttribute("fabricTypes", fabricTypes); // Corrected typo
         Fabric fabric = fabricRepo.findById(id);
         model.addAttribute("fabric", fabric);
         response.setStatus(200);
