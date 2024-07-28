@@ -19,6 +19,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -103,5 +107,48 @@ public class FabricControllerTest {
                 .andExpect(redirectedUrl("/fabric/view"));
     }
 
-    // Add more tests for other endpoints similarly
+    @Test
+    void testGetFabricDetail_Success() throws Exception {
+        User user = new User();
+        user.setId(1);
+        Fabric fabric = new Fabric();
+
+        fabric.setUser(user);
+
+        when(fabricRepo.findByIdAndUser(1, user)).thenReturn(fabric);
+        when(userRepo.findById(1)).thenReturn(Optional.of(user).orElse(null));
+
+        mockMvc.perform(get("/fabric/1")
+                .sessionAttr("userId", 1))
+                .andExpect(status().isOk())
+                .andExpect(view().name("fabric/details"))
+                .andExpect(model().attributeExists("fabric"));
+    }
+        @Test
+    void testUpdateFabric_Success() throws Exception {
+        User user = new User();
+        user.setId(1);
+        Fabric fabric = new Fabric();
+
+        fabric.setUser(user);
+
+        when(fabricRepo.findById(1)).thenReturn(fabric);
+        when(userRepo.findById(1)).thenReturn(Optional.of(user).orElse(null));
+
+        mockMvc.perform(post("/fabric/update")
+                .sessionAttr("userId", 1)
+                .param("id", "1")
+                .param("name", "Updated Cotton")
+                .param("colour", "Red")
+                .param("width", "15")
+                .param("height", "25")
+                .param("price", "20")
+                .param("type", "Cotton")
+                .param("image", "updated-image-url"))
+                .andExpect(status().isOk())
+                .andExpect(redirectedUrl("/fabric/view"));
+
+        verify(fabricRepo, times(1)).save(any(Fabric.class));
+    }
+}
 }
