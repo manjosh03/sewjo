@@ -14,6 +14,8 @@ public class Project {
     private String description;
     private String image;
     private String type;
+    private int progress;
+    private boolean shared;
     @ElementCollection
     private List<Integer> patternIds = new ArrayList<>();
     @ElementCollection
@@ -25,7 +27,8 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name, String description, String image, User user, String type, int fabricId, int patternId) {
+    public Project(String name, String description, String image, User user, String type, int fabricId, int patternId,
+                   boolean shared, int progress) {
         this.name = name;
         this.description = description;
         this.image = image;
@@ -33,6 +36,8 @@ public class Project {
         this.type = type;
         this.fabricIds.add(fabricId);
         this.patternIds.add(patternId);
+        this.shared = shared;
+        this.progress = progress;
     }
 
     public String getName() {
@@ -79,16 +84,35 @@ public class Project {
         return fabricIds;
     }
 
+    public void setFabricIds(List<Integer> fabricIds) {
+        this.fabricIds = fabricIds;
+    }
+
     public User getUser() {
         return user;
     }
 
-    public void setFabricIds(List<Integer> fabricIds) {
-        this.fabricIds = fabricIds;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    public boolean isShared() {
+        return shared;
+    }
+
+    public void setShared(boolean shared) {
+        this.shared = shared;
     }
 
     public int getId() {
         return id;
     }
-
 }
