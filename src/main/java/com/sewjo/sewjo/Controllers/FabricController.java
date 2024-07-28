@@ -50,7 +50,7 @@ public class FabricController {
     @GetMapping("/fabric/edit-page")
     public String showEditPatternPage(@RequestParam("id") int id, Model model, HttpServletResponse response) {
         List<String> fabricTypes = FabricInterface.getFabricTypes();
-         model.addAttribute("fabricTypes", fabricTypes); // Corrected typo
+        model.addAttribute("fabricTypes", fabricTypes); // Corrected typo
         Fabric fabric = fabricRepo.findById(id);
         model.addAttribute("fabric", fabric);
         response.setStatus(200);
@@ -58,7 +58,8 @@ public class FabricController {
     }
 
     @PostMapping("/fabric/add")
-    public String addFabric(@RequestParam Map<String, String> newFabric, HttpServletResponse response, HttpServletRequest request) {
+    public String addFabric(@RequestParam Map<String, String> newFabric, HttpServletResponse response,
+            HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId != null) {
@@ -106,7 +107,8 @@ public class FabricController {
     }
 
     @GetMapping("/fabric/{id}")
-    public String getFabricDetail(@PathVariable("id") int id, Model model, HttpServletResponse response, HttpServletRequest request) {
+    public String getFabricDetail(@PathVariable("id") int id, Model model, HttpServletResponse response,
+            HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {
@@ -119,11 +121,11 @@ public class FabricController {
         response.setStatus(200);
         return "fabric/details";
 
-
     }
 
     @PostMapping("/fabric/update")
-    public String updateFabric(@RequestParam Map<String, String> updatedFabric, HttpServletResponse response, HttpServletRequest request) {
+    public String updateFabric(@RequestParam Map<String, String> updatedFabric, HttpServletResponse response,
+            HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {
