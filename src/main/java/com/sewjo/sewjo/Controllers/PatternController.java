@@ -133,7 +133,8 @@ public class PatternController {
     }
 
     @PostMapping("/pattern/update")
-    public String updatePattern(@RequestParam Map<String, String> updatedPattern, HttpServletResponse response,
+    public String updatePattern(@RequestParam Map<String, String> updatedPattern,
+            @RequestParam("file") MultipartFile file, HttpServletResponse response,
             HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
@@ -151,11 +152,16 @@ public class PatternController {
         pattern.setType(updatedPattern.get("type"));
         pattern.setDescription(updatedPattern.get("description"));
         pattern.setPrice(Integer.parseInt(updatedPattern.get("price")));
-        String image = updatedPattern.get("image");
-        if (image == null) {
-            image = "https://via.placeholder.com/150";
+
+        if (file != null && !file.isEmpty()) {
+            try {
+                String fileUrl = fileStorageService.uploadFile(file);
+                pattern.setImage(fileUrl);
+            } catch (IOException e) {
+                response.setStatus(500);
+                return "error";
+            }
         }
-        pattern.setImage(image);
         patternRepo.save(pattern);
         response.setStatus(200);
         return "redirect:/pattern/view";
