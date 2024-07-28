@@ -44,7 +44,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: #343a40; /* Changed to match navbar color */
+            background-color: #343a40;
+            /* Changed to match navbar color */
             padding: 10px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -83,13 +84,13 @@
             appearance: none;
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23212121' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right 10px center/8px 10px;
             padding-right: 30px;
-            width: 200px; 
-            background-color: white; 
-            color: #495057; 
+            width: 200px;
+            background-color: white;
+            color: #495057;
         }
 
         .filter-bar select option {
-            color: #000; 
+            color: #000;
         }
     </style>
 </head>
@@ -156,6 +157,8 @@
                         <h5 class="card-title" th:text="${project.getName()}">Project Name</h5>
                         <p class="card-text">
                             Type: <span th:text="${project.getType()}">Project Type</span><br>
+                            Progress: <span th:text="${project.getProgress()}">Project Progress</span> %<br>
+                            <span th:text="${project.isShared() ? 'Shared' : 'Not Shared'}"></span><br>
                             Description: <span th:text="${project.getDescription()}">Project Description</span><br>
                         </p>
                         <div class="row">

@@ -104,4 +104,8 @@ public class Project {
         this.shared = shared;
     }
 
+    public int getProgress() {
+        return progress;
+    }
+
 }

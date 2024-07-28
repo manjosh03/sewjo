@@ -38,6 +38,7 @@ public class ProjectController {
         }
         User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         List<Project> projects = projectRepo.findAllByUser(user);
+
         model.addAttribute("projects", projects);
         return "project/showAll"; // Ensure this matches the Thymeleaf template name
     }
