@@ -78,11 +78,10 @@ public class PatternController {
             int price = Integer.parseInt(newPattern.get("price"));
             User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
             try {
-                String fileUrl = fileStorageService.uploadFile(file);
-                image = fileUrl;
-
+                image = fileStorageService.uploadFile(file);
             } catch (IOException e) {
                 image = "https://via.placeholder.com/150";
+
             }
             Pattern pattern = new Pattern(name, type, description, image, price, user);
             patternRepo.save(pattern);

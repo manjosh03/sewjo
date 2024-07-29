@@ -81,9 +81,7 @@ public class FabricController {
             User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
             try {
-                String fileUrl = fileStorageService.uploadFile(file);
-                image = fileUrl;
-
+                image = fileStorageService.uploadFile(file);
             } catch (IOException e) {
                 image = "https://via.placeholder.com/150";
             }
