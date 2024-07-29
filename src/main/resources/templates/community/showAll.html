@@ -147,7 +147,7 @@
                         Description: <span th:text="${project.getDescription()}">Project Description</span><br>
                     </p>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped active" role="progressbar"
+                        <div class="progress-bar progress-bar-striped progress-bar-animated active" role="progressbar"
                              th:aria-valuenow="${project.getProgress()}" aria-valuemin="0" aria-valuemax="100"
                              th:style="'width:' + ${project.getProgress()} + '%;'"
                              th:text="${project.getProgress()} + '%'">
