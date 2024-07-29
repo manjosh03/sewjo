@@ -140,18 +140,22 @@
         </div>
 
         <div class="filter-bar">
-            <input type="text" id="filterText" placeholder="Enter filter text">
-            <select id="filterBy">
-                <option value="name">Name</option>
-                <option value="color">Color</option>
-                <option value="type">Type</option>
+            <input type="text" id="filterText" placeholder="Search fabric">
+            <select id="filterBy" onchange="filterFabrics()">
+                <option value="">Select Type</option>
+                <th:block th:each="type : ${fabricTypes}">
+                    <option th:value="${type}" th:text="${type}"></option>
+                </th:block>
             </select>
-            <button type="button" onclick="renderFabrics()">Filter</button>
+            <!-- <button type="button" onclick="renderFabrics()">Filter</button> -->
         </div>
+
+
 
         <div class="row flex-grow-1" id="fabricList">
             <!-- Thymeleaf iteration to render fabric cards -->
-            <div th:each="fabric:${fabrics}" class="col-lg-4 col-md-6 mb-4">
+            <div th:each="fabric:${fabrics}" class="col-lg-4 col-md-6 mb-4 fabric-card"
+                th:data-type="${fabric.getType()}">
                 <div class="card bg-dark text-light">
                     <img th:src="${fabric.getImage()}" class="card-img-top rounded" alt="Fabric picture">
                     <div class="card-body text-center">
@@ -194,52 +198,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <script>
-        function renderFabrics() {
-            var filterText = document.getElementById('filterText').value;
-            var filterBy = document.getElementById('filterBy').value;
+        function filterFabrics() {
+            const filterType = document.getElementById("filterBy").value.toLowerCase();
+            const fabrics = document.querySelectorAll(".fabric-card");
 
-            var url = `/fabric/view?filterBy=${filterBy}&filterText=${filterText}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(fabrics => {
-                    var fabricList = document.getElementById('fabricList');
-                    fabricList.innerHTML = '';
-
-                    fabrics.forEach(fabric => {
-                        var cardHtml = `
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card bg-dark text-light">
-                                <img src="http://via.placeholder.com/150" class="card-img-top" alt="Fabric picture">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">${fabric.name}</h5>
-                                    <p class="card-text">
-                                        Color: ${fabric.color}<br>
-                                        Width: ${fabric.width}<br>
-                                        Height: ${fabric.height}<br>
-                                        Price: ${fabric.price}<br>
-                                        Type: ${fabric.type}
-                                    </p>
-                                    <div class="row">
-                                        <div class="col text-left">
-                                            <button type="button" class="btn btn-sm btn-secondary">Edit</button>
-                                        </div>
-                                        <div class="col text-right">
-                                            <form th:action="@{/fabric/delete}" method="post">
-                                                <input type="hidden" name="id" th:value="${fabric.id}" />
-                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                        fabricList.innerHTML += cardHtml;
-                    });
-                })
-                .catch(error => console.error('Error fetching fabrics:', error));
+            fabrics.forEach(fabric => {
+                const fabricType = fabric.getAttribute("data-type").toLowerCase();
+                if (filterType === "" || fabricType.includes(filterType)) {
+                    fabric.style.display = "block";
+                } else {
+                    fabric.style.display = "none";
+                }
+            });
         }
+
+
     </script>
 </body>
 
