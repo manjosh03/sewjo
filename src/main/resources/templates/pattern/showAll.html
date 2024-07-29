@@ -44,7 +44,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: #343a40; /* Matching the navbar color */
+            background-color: #343a40;
+            /* Matching the navbar color */
             padding: 10px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -83,13 +84,13 @@
             appearance: none;
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23212121' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right 10px center/8px 10px;
             padding-right: 30px;
-            width: 200px; 
-            background-color: white; 
+            width: 200px;
+            background-color: white;
             color: #495057;
         }
 
         .filter-bar select option {
-            color: #000; 
+            color: #000;
         }
     </style>
 </head>
@@ -139,19 +140,22 @@
         </div>
 
         <div class="filter-bar">
-            <input type="text" id="filterText" placeholder="Enter filter text">
-            <select id="filterBy" onchange="handleSortChange()">
-                <option value="name">Name</option>
-                <option value="type">Type</option>
+            <input type="text" id="filterText" placeholder="Search pattern">
+            <select id="filterBy" onchange="filterPatterns()">
+                <option value="">Select Type</option>
+                <th:block th:each="type : ${patternTypes}">
+                    <option th:value="${type}" th:text="${type}"></option>
+                </th:block>
             </select>
-            <button type="button" onclick="renderPatterns()">Filter</button>
+            <!-- <button type="button" onclick="renderPatterns()">Filter</button> -->
         </div>
 
         <div class="row flex-grow-1" id="patternList">
             <!-- Thymeleaf iteration to render pattern cards -->
-            <div th:each="pattern:${patterns}" class="col-lg-4 col-md-6 mb-4">
+            <div th:each="pattern:${patterns}" class="col-lg-4 col-md-6 mb-4 pattern-card"
+                th:data-type="${pattern.getType()}">
                 <div class="card bg-dark text-light">
-                    <img th:src="${pattern.getImage()}" class="card-img-top" alt="Pattern picture">
+                    <img th:src="${pattern.getImage()}" class="card-img-top rounded" alt="Pattern picture">
                     <div class="card-body text-center">
                         <h5 class="card-title" th:text="${pattern.getName()}">Pattern Name</h5>
                         <p class="card-text">
@@ -190,57 +194,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <script>
-        function renderPatterns() {
-            var filterText = document.getElementById('filterText').value;
-            var filterBy = document.getElementById('filterBy').value;
 
-            var url = `/pattern/view?filterBy=${filterBy}&filterText=${filterText}`;
 
-            fetch(url)
-                .then(response => response.json())
-                .then(patterns => {
-                    var patternList = document.getElementById('patternList');
-                    patternList.innerHTML = '';
+        function filterPatterns() {
+            const filterType = document.getElementById("filterBy").value.toLowerCase();
+            const patterns = document.querySelectorAll(".pattern-card");
 
-                    patterns.forEach(pattern => {
-                        var cardHtml = `
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="card bg-dark text-light">
-                                    <img src="${pattern.getImage()}" class="card-img-top" alt="Pattern picture">
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">${pattern.getName()}</h5>
-                                        <p class="card-text">
-                                            Type: ${pattern.getType()}<br>
-                                            Description: ${pattern.getDescription()}<br>
-                                            Price: ${pattern.getPrice()}<br>
-                                        </p>
-                                        <div class="row">
-                                            <div class="col text-left">
-                                                <form action="/pattern/edit-page/${pattern.id}" method="get">
-                                                    <input type="hidden" name="id" value="${pattern.id}" />
-                                                    <button type="submit" class="btn btn-sm btn-secondary">Edit</button>
-                                                </form>
-                                            </div>
-                                            <div class="col text-right">
-                                                <form action="/pattern/delete" method="post">
-                                                    <input type="hidden" name="id" value="${pattern.id}" />
-                                                    <button type="submit" class="btn btn-sm btn-danger"
-                                                        onclick="return confirm('Are you sure you want to delete this pattern?')">Delete</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        patternList.innerHTML += cardHtml;
-                    });
-                })
-                .catch(error => console.error('Error fetching patterns:', error));
-        }
-
-        function handleSortChange(event) {
-            renderPatterns();
+            patterns.forEach(pattern => {
+                const patternType = pattern.getAttribute("data-type").toLowerCase();
+                if (filterType === "" || patternType.includes(filterType)) {
+                    pattern.style.display = "block";
+                } else {
+                    pattern.style.display = "none";
+                }
+            });
         }
 
         function handleDelete(id) {
