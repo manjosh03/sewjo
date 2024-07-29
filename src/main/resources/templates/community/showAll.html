@@ -89,6 +89,16 @@
         .filter-bar select option {
             color: #000;
         }
+
+        .username-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -137,17 +147,18 @@
 
     <div class="row flex-grow-1" id="projectList">
         <!-- Thymeleaf iteration to render project cards -->
-        <div th:each="project:${projects}" class="col-lg-4 col-md-6 mb-4">
+        <div th:each="project : ${projects}" class="col-lg-4 col-md-6 mb-4">
             <div class="card bg-dark text-light">
-                <img th:src="${project.getImage()}" class="card-img-top" alt="project picture">
-                <div class="card-body text-center">
-                    <h5 class="card-title" th:text="${project.getName()}">Project Name</h5>
+                <div class="card-body position-relative text-center">
+                    <div class="username-overlay" th:text="${project.user.name}">Username</div>
+                    <img th:src="${project.getImage()}" class="card-img-top" alt="project picture">
+                    <h5 class="card-title mt-3" th:text="${project.getName()}">Project Name</h5>
                     <p class="card-text">
                         Type: <span th:text="${project.getType()}">Project Type</span><br>
                         Description: <span th:text="${project.getDescription()}">Project Description</span><br>
                     </p>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated active" role="progressbar"
+                        <div class="progress-bar progress-bar-striped active" role="progressbar"
                              th:aria-valuenow="${project.getProgress()}" aria-valuemin="0" aria-valuemax="100"
                              th:style="'width:' + ${project.getProgress()} + '%;'"
                              th:text="${project.getProgress()} + '%'">
