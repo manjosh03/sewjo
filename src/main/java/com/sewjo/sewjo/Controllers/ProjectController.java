@@ -39,6 +39,7 @@ public class ProjectController {
     @GetMapping("/project/view")
     public String getAllProjects(HttpServletRequest request, Model model) {
         System.out.println("Getting all projects");
+        List<String> projectTypes = ProjectInterface.getProjectTypes();
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {
@@ -51,6 +52,7 @@ public class ProjectController {
         model.addAttribute("fabricRepo", fabricRepo);
         model.addAttribute("patternRepo", patternRepo);
         model.addAttribute("user", user);
+        model.addAttribute("projectTypes", projectTypes);
         return "project/showAll"; // Ensure this matches the Thymeleaf template name
     }
 

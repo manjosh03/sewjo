@@ -147,17 +147,20 @@
         </div>
 
         <div class="filter-bar">
-            <input type="text" id="filterText" placeholder="Enter filter text">
-            <select id="filterBy" onchange="handleSortChange()">
-                <option value="name">Name</option>
-                <option value="type">Type</option>
+            <input type="text" id="filterText" placeholder="Search project">
+            <select id="filterBy" onchange="filterProjects()">
+                <option value="">Select Type</option>
+                <th:block th:each="type : ${projectTypes}">
+                    <option th:value="${type}" th:text="${type}"></option>
+                </th:block>
             </select>
-            <button type="button" onclick="renderProjects()">Filter</button>
+            <!-- <button type="button" onclick="renderProjects()">Filter</button> -->
         </div>
 
         <div class="row flex-grow-1" id="projectList">
             <!-- Thymeleaf iteration to render project cards -->
-            <div th:each="project:${projects}" class="col-lg-4 col-md-6 mb-4">
+            <div th:each="project:${projects}" class="col-lg-4 col-md-6 mb-4 project-card"
+                th:data-type="${project.getType()}">
                 <div class="card bg-dark text-light">
                     <img th:src="${project.getImage()}" class="card-img-top rounded" alt="project picture">
                     <div class="card-body text-center">
@@ -218,56 +221,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <script>
-        function renderProjects() {
-            var filterText = document.getElementById('filterText').value;
-            var filterBy = document.getElementById('filterBy').value;
+        function filterProjects() {
+            const filterType = document.getElementById("filterBy").value.toLowerCase();
+            const projects = document.querySelectorAll(".project-card");
 
-            var url = `/project/view?filterBy=${filterBy}&filterText=${filterText}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(projects => {
-                    var projectList = document.getElementById('projectList');
-                    projectList.innerHTML = '';
-
-                    projects.forEach(project => {
-                        var cardHtml = `
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="card bg-dark text-light">
-                                    <img src="${project.getImage()}" class="card-img-top" alt="project picture">
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">${project.getName()}</h5>
-                                        <p class="card-text">
-                                            Type: ${project.getType()}<br>
-                                            Description: ${project.getDescription()}<br>
-                                        </p>
-                                        <div class="row">
-                                            <div class="col text-left">
-                                                <form action="/project/edit-page/${project.id}" method="get">
-                                                    <input type="hidden" name="id" value="${project.id}" />
-                                                    <button type="submit" class="btn btn-sm btn-secondary">Edit</button>
-                                                </form>
-                                            </div>
-                                            <div class="col text-right">
-                                                <form action="/project/delete" method="post">
-                                                    <input type="hidden" name="id" value="${project.id}" />
-                                                    <button type="submit" class="btn btn-sm btn-danger"
-                                                        onclick="return confirm('Are you sure you want to delete this project?')">Delete</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        projectList.innerHTML += cardHtml;
-                    });
-                })
-                .catch(error => console.error('Error fetching projects:', error));
-        }
-
-        function handleSortChange(event) {
-            renderProjects();
+            projects.forEach(project => {
+                const projectType = project.getAttribute("data-type").toLowerCase();
+                if (filterType === "" || projectType.includes(filterType)) {
+                    project.style.display = "block";
+                } else {
+                    project.style.display = "none";
+                }
+            });
         }
     </script>
 </body>
