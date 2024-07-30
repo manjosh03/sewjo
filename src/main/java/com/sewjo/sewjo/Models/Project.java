@@ -27,7 +27,8 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name, String description, String image, User user, String type, int fabricId, int patternId) {
+    public Project(String name, String description, String image, User user, String type, int fabricId, int patternId,
+            boolean shared, int progress) {
         this.name = name;
         this.description = description;
         this.image = image;
@@ -35,6 +36,8 @@ public class Project {
         this.type = type;
         this.fabricIds.add(fabricId);
         this.patternIds.add(patternId);
+        this.shared = shared;
+        this.progress = progress;
     }
 
     public String getName() {
@@ -69,28 +72,45 @@ public class Project {
         this.type = type;
     }
 
-    public List<Integer> getPatternIds() {
-        return patternIds;
+    public int getPatternId() {
+        return patternIds.get(0);
     }
 
-    public void setPatternIds(List<Integer> patternIds) {
-        this.patternIds = patternIds;
+    public void setPatternId(int patternId) {
+        patternIds.set(0, patternId);
     }
 
-    public List<Integer> getFabricIds() {
-        return fabricIds;
+    public int getFabricId() {
+        return fabricIds.get(0);
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setFabricIds(List<Integer> fabricIds) {
-        this.fabricIds = fabricIds;
+    public void setFabricId(int fabricId) {
+        fabricIds.set(0, fabricId);
     }
 
     public int getId() {
         return id;
+    }
+
+    public boolean isShared() {
+        return shared;
+    }
+
+    public void setShared(boolean shared) {
+        this.shared = shared;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+
     }
 
 }

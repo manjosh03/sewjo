@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/homepage.css}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <style>
         .card-img-top {
             width: 150px;
@@ -18,7 +19,9 @@
             display: block;
             margin: auto;
             margin-top: 30px;
+
         }
+
 
         .custom-btn {
             color: white;
@@ -38,6 +41,63 @@
 
         .form-control {
             color: #000;
+        }
+
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #343a40;
+            /* Changed to match navbar color */
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-bar input,
+        .filter-bar select,
+        .filter-bar button {
+            margin-right: 10px;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            padding: 8px;
+            font-size: 14px;
+            color: #495057;
+        }
+
+        .filter-bar button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .filter-bar button:hover {
+            background-color: #0056b3;
+        }
+
+        .filter-bar input::placeholder {
+            color: #6c757d;
+        }
+
+        .filter-bar select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23212121' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right 10px center/8px 10px;
+            padding-right: 30px;
+            width: 200px;
+            background-color: white;
+            color: #495057;
+        }
+
+        .filter-bar select option {
+            color: #000;
+        }
+
+        .progress-container {
+            margin-bottom: 25px;
         }
     </style>
 </head>
@@ -69,10 +129,7 @@
                         <a href="/project/view" class="nav-link active">Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Community</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Measurements</a>
+                        <a href="/community/view" class="nav-link">Community</a>
                     </li>
                     <li class="nav-item"><a href="/myProfile/profile" class="nav-link">My Profile</a></li>
                     <li class="nav-item">
@@ -89,65 +146,63 @@
             <a th:href="@{/project/add-page}" class="btn btn-outline-primary custom-btn">Add New Project</a>
         </div>
 
-        <div class="d-flex">
-            <div class="form-container">
-                <form id="sortForm">
-                    <div class="mb-3">
-                        <label for="projectName" class="form-label">Project Name:</label>
-                        <input type="text" id="projectName" class="form-control" placeholder="Enter name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="sortBy" class="form-label">Sort by:</label>
-                        <select class="form-control" id="sortBy" onchange="handleSortChange()">
-                            <option value="name">Name</option>
-                            <option value="price">Price</option>
-                            <option value="type">Type</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="sortOrder" class="form-label">Sort order:</label>
-                        <select class="form-control" id="sortOrder" onchange="handleOrderChange()">
-                            <option value="asc">Ascending</option>
-                            <option value="desc">Descending</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="filterByType" class="form-label">Filter by Type:</label>
-                        <select class="form-control" id="filterByType" onchange="handleTypeFilter()">
-                            <th:block th:each="type : ${projectTypes}">
-                                <option th:value="${type}" th:text="${type}"></option>
-                            </th:block>
-                        </select>
-                    </div>
-                    <button type="button" class="btn btn-primary" onclick="renderProjects()">Sort</button>
-                </form>
-            </div>
+        <div class="filter-bar">
+            <input type="text" id="filterText" placeholder="Search project">
+            <select id="filterBy" onchange="filterProjects()">
+                <option value="">Select Type</option>
+                <th:block th:each="type : ${projectTypes}">
+                    <option th:value="${type}" th:text="${type}"></option>
+                </th:block>
+            </select>
+            <!-- <button type="button" onclick="renderProjects()">Filter</button> -->
+        </div>
 
-            <div class="row flex-grow-1" id="projectList">
-                <!-- Thymeleaf iteration to render project cards -->
-                <div th:each="project:${[projects]}" class="col-lg-4 col-md-6 mb-4">
-                    <div class="card bg-dark text-light">
-                        <img th:src="${project.getImage()}" class="card-img-top" alt="project picture">
-                        <div class="card-body text-center">
-                            <h5 class="card-title" th:text="${project.getName()}">Project Name</h5>
-                            <p class="card-text">
-                                Type: <span th:text="${project.getType()}">Project Type</span><br>
-                                Description: <span th:text="${project.getDescription()}">Project Description</span><br>
-                            </p>
-                            <div class="row">
-                                <div class="col text-left">
-                                    <form th:action="@{/project/edit-page}" method="get">
-                                        <input type="hidden" name="id" th:value="${project.getId()}" />
-                                        <button type="submit" class="btn btn-sm btn-secondary">Edit</button>
-                                    </form>
+        <div class="row flex-grow-1" id="projectList">
+            <!-- Thymeleaf iteration to render project cards -->
+            <div th:each="project:${projects}" class="col-lg-4 col-md-6 mb-4 project-card"
+                th:data-type="${project.getType()}">
+                <div class="card bg-dark text-light">
+                    <img th:src="${project.getImage()}" class="card-img-top rounded" alt="project picture">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">
+                            <span class="align-bottom" th:text="${project.getName()}">Project Name</span>
+                            <span class="align-top">
+                                <i class="bi"
+                                    th:classappend="${project.isShared() ? 'bi-unlock-fill' : 'bi-lock-fill'}"></i>
+                            </span>
+                        </h5>
+                        <p class="card-text">
+                            Type: <span th:text="${project.getType()}">Project Type</span><br>
+                            Fabric: <span
+                                th:text="${fabricRepo.findByIdAndUser(project.getFabricId(), user).getName()}">Project
+                                Fabric</span><br>
+                            Pattern: <span
+                                th:text="${patternRepo.findByIdAndUser(project.getPatternId(), user).getName()}">Project
+                                Pattern</span><br>
+                            Description: <span th:text="${project.getDescription()}">Project Description</span><br>
+                        <div class="progress-container" style="width: 80%; margin: 0 auto; margin-bottom: 25px;">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                    th:aria-valuenow="${project.getProgress()}" aria-valuemin="0" aria-valuemax="100"
+                                    th:style="'width:' + ${project.getProgress()} + '%;'"
+                                    th:text="${project.getProgress()} + '%'">
                                 </div>
-                                <div class="col text-right">
-                                    <form th:action="@{/project/delete}" method="post">
-                                        <input type="hidden" name="id" th:value="${project.getId()}" />
-                                        <button type="submit" class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Are you sure you want to delete this project?')">Delete</button>
-                                    </form>
-                                </div>
+                            </div>
+                        </div>
+                        </p>
+                        <div class="row">
+                            <div class="col text-left">
+                                <form th:action="@{/project/edit-page}" method="get">
+                                    <input type="hidden" name="id" th:value="${project.getId()}" />
+                                    <button type="submit" class="btn btn-sm btn-secondary">Edit</button>
+                                </form>
+                            </div>
+                            <div class="col text-right">
+                                <form th:action="@{/project/delete}" method="post">
+                                    <input type="hidden" name="id" th:value="${project.getId()}" />
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Are you sure you want to delete this project?')">Delete</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -166,89 +221,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <script>
-        function renderProjects() {
-            // Fetch selected values from UI
-            var sortBy = document.getElementById('sortBy').value;
-            var sortOrder = document.getElementById('sortOrder').value;
-            var filterType = document.getElementById('filterByType').value;
-            var projectName = document.getElementById('projectName').value;
+        function filterProjects() {
+            const filterType = document.getElementById("filterBy").value.toLowerCase();
+            const projects = document.querySelectorAll(".project-card");
 
-            // Construct URL with query parameters
-            var url = '/project/view?sort=' + sortBy + '&order=' + sortOrder;
-            if (filterType) {
-                url += '&type=' + filterType;
-            }
-            if (projectName) {
-                url += '&name=' + projectName;
-            }
-
-            // Fetch projects from backend using fetch API
-            fetch(url)
-                .then(response => response.json())
-                .then(projects => {
-                    // Render projects on UI (update DOM elements)
-                    var projectList = document.getElementById('projectList');
-                    projectList.innerHTML = ''; // Clear existing projects
-
-                    projects.forEach(project => {
-                        var cardHtml = `
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card bg-dark text-light">
-                                <img src="${project.getImage()}" class="card-img-top" alt="project picture">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">${project.getName()}</h5>
-                                    <p class="card-text">
-                                        Type: ${project.getType()}<br>
-                                        Description: ${project.getDescription()}<br>
-                                        Price: ${project.getPrice()}<br>
-                                    </p>
-                                    <div class="row">
-                                        <div class="col text-left">
-                                            <form action="/project/edit-page/${project.id}" method="get">
-                                                <input type="hidden" name="id" value="${project.id}" />
-                                                <button type="submit" class="btn btn-sm btn-secondary">Edit</button>
-                                            </form>
-                                        </div>
-                                        <div class="col text-right">
-                                            <form action="/project/delete" method="post">
-                                                <input type="hidden" name="id" value="${project.id}" />
-                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                        projectList.innerHTML += cardHtml; // Append card to projectList
-                    });
-                })
-                .catch(error => console.error('Error fetching projects:', error));
-        }
-
-        function handleSortChange(event) {
-            renderprojects();
-        }
-
-        function handleOrderChange(event) {
-            renderprojects();
-        }
-
-        function handleTypeFilter(event) {
-            renderprojects();
-        }
-
-        function handleDelete(id) {
-            fetch(`/project/delete/${id}`, {
-                method: 'DELETE',
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    console.log(`Deleted project with ID ${id}`);
-                })
-                .catch(error => console.error('Error deleting project:', error));
+            projects.forEach(project => {
+                const projectType = project.getAttribute("data-type").toLowerCase();
+                if (filterType === "" || projectType.includes(filterType)) {
+                    project.style.display = "block";
+                } else {
+                    project.style.display = "none";
+                }
+            });
         }
     </script>
 </body>

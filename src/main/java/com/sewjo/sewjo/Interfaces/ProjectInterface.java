@@ -1,4 +1,4 @@
-package com.sewjo.sewjo.Models;
+package com.sewjo.sewjo.Interfaces;
 
 import java.util.ArrayList;
 import java.util.List;

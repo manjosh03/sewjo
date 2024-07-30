@@ -14,7 +14,7 @@ public class FileStorageService {
 
     public String uploadFile(MultipartFile file) throws IOException {
         Bucket bucket = StorageClient.getInstance().bucket("sewjo-4d3f7.appspot.com");
-        String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
+        String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
         Blob blob = bucket.create(fileName, file.getBytes(), file.getContentType());
         String mediaLink = blob.getMediaLink();
         return mediaLink;

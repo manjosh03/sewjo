@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Properties;
 
 @Entity
 @Table(name = "Users")
