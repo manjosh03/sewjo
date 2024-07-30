@@ -6,7 +6,6 @@ import com.sewjo.sewjo.Models.User;
 import com.sewjo.sewjo.Models.UserRepo;
 
 import com.sewjo.sewjo.Models.PatternRepo;
-import com.sewjo.sewjo.Controllers.FabricController;
 import com.sewjo.sewjo.Controllers.PatternController;
 
 import com.sewjo.sewjo.Services.FileStorageService;
