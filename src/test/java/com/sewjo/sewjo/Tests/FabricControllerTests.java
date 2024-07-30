@@ -1,8 +1,8 @@
 package com.sewjo.sewjo.Tests;
 
-import com.sewjo.sewjo.Controllers.FabricController;
 import com.sewjo.sewjo.Models.Fabric;
 import com.sewjo.sewjo.Models.User;
+import com.sewjo.sewjo.Controllers.FabricController;
 
 import com.sewjo.sewjo.Models.UserRepo; // Import the User class
 import com.sewjo.sewjo.Models.FabricRepo; // Import the Fabric class
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class FabricControllerTest {
+public class FabricControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -53,7 +53,7 @@ public class FabricControllerTest {
 
         User user = new User();
         user.setId(1);
-        Mockito.when(userRepo.findById(1)).thenReturn(Optional.of(user).orElse(null));
+        Mockito.when(userRepo.findById(1)).thenReturn(Optional.of(user));
         Mockito.when(fabricRepo.findAllByUser(user)).thenReturn(Collections.emptyList());
 
         mockMvc.perform(get("/fabric/view").session(session))
@@ -92,7 +92,7 @@ public class FabricControllerTest {
 
         User user = new User();
         user.setId(1);
-        Mockito.when(userRepo.findById(1)).thenReturn(Optional.of(user).orElse(null));
+        Mockito.when(userRepo.findById(1)).thenReturn(Optional.of(user));
 
         mockMvc.perform(post("/fabric/add").session(session)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -116,7 +116,7 @@ public class FabricControllerTest {
         fabric.setUser(user);
 
         when(fabricRepo.findByIdAndUser(1, user)).thenReturn(fabric);
-        when(userRepo.findById(1)).thenReturn(Optional.of(user).orElse(null));
+        when(userRepo.findById(1)).thenReturn(Optional.of(user));
 
         mockMvc.perform(get("/fabric/1")
                 .sessionAttr("userId", 1))
@@ -124,7 +124,8 @@ public class FabricControllerTest {
                 .andExpect(view().name("fabric/details"))
                 .andExpect(model().attributeExists("fabric"));
     }
-        @Test
+
+    @Test
     void testUpdateFabric_Success() throws Exception {
         User user = new User();
         user.setId(1);
@@ -133,7 +134,7 @@ public class FabricControllerTest {
         fabric.setUser(user);
 
         when(fabricRepo.findById(1)).thenReturn(fabric);
-        when(userRepo.findById(1)).thenReturn(Optional.of(user).orElse(null));
+        when(userRepo.findById(1)).thenReturn(Optional.of(user));
 
         mockMvc.perform(post("/fabric/update")
                 .sessionAttr("userId", 1)
@@ -150,5 +151,4 @@ public class FabricControllerTest {
 
         verify(fabricRepo, times(1)).save(any(Fabric.class));
     }
-}
 }

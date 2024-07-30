@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.sewjo.sewjo.Models.Fabric; // Import the Fabric class
 import com.sewjo.sewjo.Models.User; // Import the User class
 
-class FabricTest {
+class FabricTests {
 
     @Test
     void testFabricGettersAndSetters() {
