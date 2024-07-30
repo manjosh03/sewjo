@@ -27,9 +27,10 @@ public class UserController {
     private FileStorageService fileStorageService;
 
     @PostMapping("/myProfile/uploadProfilePicture")
-    public String uploadProfilePicture(@RequestParam("file") MultipartFile file, HttpSession session, Model model) {
+    public String uploadProfilePicture(@RequestParam("file") MultipartFile file, HttpSession session, Model model, HttpServletResponse response) {
         User user = (User) session.getAttribute("session_user");
         if (user == null) {
+            response.setStatus(401);
             return "redirect:/login";
         }
 
@@ -38,15 +39,18 @@ public class UserController {
             user.addProfilePicture(fileUrl);
             userRepo.save(user);
             model.addAttribute("user", user);
-            return "myProfile/profile";
+            response.setStatus(200);
+            return "redirect:/myProfile/view";
         } catch (IOException e) {
-            model.addAttribute("uploadError", "File upload failed");
-            return "myProfile/profile";
+            user.addProfilePicture("https://via.placeholder.com/150");
+            userRepo.save(user);
+            model.addAttribute("Error", "File upload failed");
+            return "redirect:/myProfile/view";
         }
     }
 
     @GetMapping("/login")
-    public String getLogin(Model model, HttpServletRequest request, HttpSession session) {
+    public String getLogin(Model model,  HttpSession session) {
         User user = (User) session.getAttribute("session_user");
         if (user == null) {
             return "users/login";
