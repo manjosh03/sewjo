@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-import com.sewjo.sewjo.Models.*;
+import com.sewjo.sewjo.Models.Project;
+import com.sewjo.sewjo.Models.ProjectRepo;
+import com.sewjo.sewjo.Models.UserRepo;
+
+import java.util.List;
 
 @Controller
 public class CommunityController {
@@ -22,9 +26,7 @@ public class CommunityController {
     private UserRepo userRepo;
 
     @GetMapping("/community/view")
-    public String getAllCommunityProjects(HttpServletRequest request, HttpServletResponse response, Model model,
-            @RequestParam(value = "filterBy", required = false) String filterBy,
-            @RequestParam(value = "filterText", required = false) String filterText) {
+    public String getAllCommunityProjects(HttpServletRequest request, HttpServletResponse response, Model model) {
         System.out.println("Getting all community projects");
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
@@ -33,20 +35,8 @@ public class CommunityController {
             return "redirect:/login";
         }
 
-        // List<Project> projects;
-        // if (filterBy != null && filterText != null && !filterText.isEmpty()) {
-        // if ("name".equalsIgnoreCase(filterBy)) {
-        // projects = projectRepo.findByNameContainingIgnoreCase(filterText);
-        // } else if ("type".equalsIgnoreCase(filterBy)) {
-        // projects = projectRepo.findByTypeContainingIgnoreCase(filterText);
-        // } else {
-        // projects = projectRepo.findAll();
-        // }
-        // } else {
-        // projects = projectRepo.findAll();
-        // }
-
-        // model.addAttribute("projects", projects);
+        List<Project> projects = projectRepo.findAllByShared(true);
+        model.addAttribute("projects", projects);
 
         return "community/showAll";
     }

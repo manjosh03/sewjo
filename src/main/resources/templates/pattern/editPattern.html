@@ -50,6 +50,10 @@
             background-color: #fff;
             border-color: #fff;
         }
+
+        .form-group {
+            margin-top: 15px;
+        }
     </style>
 </head>
 
@@ -95,7 +99,7 @@
             <div class="col-md-6 col-lg-4 form-wrapper">
                 <div class="form-container">
                     <h1 class="text-center mt-3 mb-4">Edit Pattern</h1>
-                    <form action="/pattern/update" method="post">
+                    <form action="/pattern/update" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" th:value="${pattern.getId()}" />
                         <div class="form-group">
                             <label for="name">Name</label>
@@ -125,6 +129,10 @@
                                     <option th:value="${type}" th:text="${type}"></option>
                                 </th:block>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Image</label>
+                            <input type="file" name="file" class="form-control" accept=".jpeg,.jpg,.png">
                         </div>
                         <div class="d-grid gap-2 mt-3">
                             <input class="btn btn-primary btn-lg" type="submit" value="Save">
