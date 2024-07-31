@@ -145,9 +145,17 @@
         <h1 class="mb-0">Community Projects</h1>
     </div>
 
+    <div class="filter-bar">
+        <input type="text" id="searchInput" placeholder="Search projects">
+        <select id="filterType">
+            <option value="">All Types</option>
+            <option th:each="type : ${projectTypes}" th:value="${type}" th:text="${type}"></option>
+        </select>
+    </div>
+
     <div class="row flex-grow-1" id="projectList">
         <!-- Thymeleaf iteration to render project cards -->
-        <div th:each="project : ${projects}" class="col-lg-4 col-md-6 mb-4">
+        <div th:each="project : ${projects}" class="col-lg-4 col-md-6 mb-4 project-card" th:data-type="${project.getType()}">
             <div class="card bg-dark text-light">
                 <div class="card-body position-relative text-center">
                     <div class="username-overlay" th:text="${project.user.name}">Username</div>
@@ -178,6 +186,37 @@
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const filterType = document.getElementById('filterType');
+        const projectCards = document.querySelectorAll('.project-card');
+    
+        function filterProjects() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedType = filterType.value.toLowerCase();
+    
+            projectCards.forEach(card => {
+                const projectName = card.querySelector('.card-title').textContent.toLowerCase();
+                const projectDescription = card.querySelector('.card-text').textContent.toLowerCase();
+                const projectType = card.getAttribute('data-type').toLowerCase();
+    
+                const matchesSearch = projectName.includes(searchTerm) || projectDescription.includes(searchTerm);
+                const matchesType = selectedType === '' || projectType === selectedType;
+    
+                if (matchesSearch && matchesType) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    
+        searchInput.addEventListener('input', filterProjects);
+        filterType.addEventListener('change', filterProjects);
+    });
+    </script>
 </body>
 
 </html>

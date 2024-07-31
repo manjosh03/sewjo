@@ -147,14 +147,13 @@
         </div>
 
         <div class="filter-bar">
-            <input type="text" id="filterText" placeholder="Search project">
-            <select id="filterBy" onchange="filterProjects()">
+            <input type="text" id="filterText" placeholder="Search pattern">
+            <select id="filterBy">
                 <option value="">Select Type</option>
                 <th:block th:each="type : ${projectTypes}">
                     <option th:value="${type}" th:text="${type}"></option>
                 </th:block>
             </select>
-            <!-- <button type="button" onclick="renderProjects()">Filter</button> -->
         </div>
 
         <div class="row flex-grow-1" id="projectList">
@@ -220,7 +219,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
-    <script>
+   <!--<script>
         function filterProjects() {
             const filterType = document.getElementById("filterBy").value.toLowerCase();
             const projects = document.querySelectorAll(".project-card");
@@ -234,6 +233,37 @@
                 }
             });
         }
+    </script>
+    -->
+    <script>
+        function filterProjects() {
+            const filterType = document.getElementById("filterBy").value.toLowerCase();
+            const searchText = document.getElementById("filterText").value.toLowerCase();
+            const projects = document.querySelectorAll(".project-card");
+    
+            projects.forEach(project => {
+                const projectType = project.getAttribute("data-type").toLowerCase();
+                const projectName = project.querySelector(".card-title").textContent.toLowerCase();
+                const projectDetails = project.querySelector(".card-text").textContent.toLowerCase();
+    
+                const matchesType = filterType === "" || projectType.includes(filterType);
+                const matchesSearch = searchText === "" || projectName.includes(searchText) || projectDetails.includes(searchText);
+    
+                if (matchesType && matchesSearch) {
+                    project.style.display = "block";
+                } else {
+                    project.style.display = "none";
+                }
+            });
+        }
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById("filterText");
+            const typeSelect = document.getElementById("filterBy");
+    
+            searchInput.addEventListener('input', filterProjects);
+            typeSelect.addEventListener('change', filterProjects);
+        });
     </script>
 </body>
 

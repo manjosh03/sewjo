@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String getLogin(Model model, HttpServletRequest request, HttpSession session) {
+    public String getLogin(Model model, HttpSession session) {
         User user = (User) session.getAttribute("session_user");
         if (user == null) {
             return "users/login";
