@@ -99,4 +99,9 @@ public class Pattern {
 
     public void setUser(User user) {
     }
+
+    public void setId(int id) {
+        this.id = id;
+        // used for tests only
+    }
 }
