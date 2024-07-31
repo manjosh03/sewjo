@@ -141,13 +141,12 @@
 
         <div class="filter-bar">
             <input type="text" id="filterText" placeholder="Search fabric">
-            <select id="filterBy" onchange="filterFabrics()">
+            <select id="filterBy">
                 <option value="">Select Type</option>
                 <th:block th:each="type : ${fabricTypes}">
                     <option th:value="${type}" th:text="${type}"></option>
                 </th:block>
             </select>
-            <!-- <button type="button" onclick="renderFabrics()">Filter</button> -->
         </div>
 
 
@@ -200,19 +199,32 @@
     <script>
         function filterFabrics() {
             const filterType = document.getElementById("filterBy").value.toLowerCase();
+            const searchText = document.getElementById("filterText").value.toLowerCase();
             const fabrics = document.querySelectorAll(".fabric-card");
-
+    
             fabrics.forEach(fabric => {
                 const fabricType = fabric.getAttribute("data-type").toLowerCase();
-                if (filterType === "" || fabricType.includes(filterType)) {
+                const fabricName = fabric.querySelector(".card-title").textContent.toLowerCase();
+                const fabricDetails = fabric.querySelector(".card-text").textContent.toLowerCase();
+    
+                const matchesType = filterType === "" || fabricType.includes(filterType);
+                const matchesSearch = searchText === "" || fabricName.includes(searchText) || fabricDetails.includes(searchText);
+    
+                if (matchesType && matchesSearch) {
                     fabric.style.display = "block";
                 } else {
                     fabric.style.display = "none";
                 }
             });
         }
-
-
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById("filterText");
+            const typeSelect = document.getElementById("filterBy");
+    
+            searchInput.addEventListener('input', filterFabrics);
+            typeSelect.addEventListener('change', filterFabrics);
+        });
     </script>
 </body>
 

@@ -162,7 +162,7 @@ public class FabricController {
                 String fileUrl = fileStorageService.uploadFile(file);
                 fabric.setImage(fileUrl);
             } catch (IOException e) {
-                response.setStatus(500);
+                // response.setStatus(500);
                 return "error";
             }
         }
