@@ -34,6 +34,11 @@ public class Fabric {
         this.image = image;
     }
 
+    public void setId(int id) {
+        this.id = id;
+        // for testing only
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
