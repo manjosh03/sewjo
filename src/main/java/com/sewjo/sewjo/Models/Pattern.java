@@ -97,4 +97,6 @@ public class Pattern {
         return user;
     }
 
+    public void setUser(User user) {
+    }
 }
