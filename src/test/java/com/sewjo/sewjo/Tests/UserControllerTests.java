@@ -1,5 +1,8 @@
 package com.sewjo.sewjo.Tests;
 
+import com.sewjo.sewjo.Models.Fabric;
+import com.sewjo.sewjo.Models.FabricRepo;
+
 import com.sewjo.sewjo.Models.User;
 import com.sewjo.sewjo.Models.UserRepo;
 import com.sewjo.sewjo.Controllers.UserController;
@@ -10,6 +13,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +38,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@WebMvcTest(UserController.class)
+
 public class UserControllerTests {
+
+    @Autowired
+    private MockMvc mockMvc;
 
     @Mock
     private UserRepo userRepo;
@@ -52,9 +69,20 @@ public class UserControllerTests {
     private User user;
 
     @BeforeEach
-    void setUp() {
+    void setupUser() {
         MockitoAnnotations.openMocks(this);
         user = new User("John Doe", "password123", "john@example.com", "profilePic.jpg");
+        when(session.getAttribute("session_user")).thenReturn(user);
+
+    }
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        Fabric fabric = new Fabric("Test", "Blue", 10, 20, 30, "Cotton", user, "https://via.placeholder.com/150");
+        user = new User("test", "test", "test", "test");
+        user.setId(1);
+        fabric.setUser(user);
     }
 
     @Test
@@ -74,7 +102,9 @@ public class UserControllerTests {
     void testUploadProfilePictureUserNotLoggedIn() {
         when(session.getAttribute("session_user")).thenReturn(null);
 
-        String viewName = userController.uploadProfilePicture(file, session, model);
+        MvcResult result = mockMvc.perform(get("/fabric/view"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
 
         assertEquals("redirect:/login", viewName);
     }

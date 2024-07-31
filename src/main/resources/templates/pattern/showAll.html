@@ -139,7 +139,7 @@
             <a th:href="@{/pattern/add-page}" class="btn btn-outline-primary custom-btn">Add New Pattern</a>
         </div>
 
-        <div class="filter-bar">
+      <!--  <div class="filter-bar">
             <input type="text" id="filterText" placeholder="Search pattern">
             <select id="filterBy" onchange="filterPatterns()">
                 <option value="">Select Type</option>
@@ -147,8 +147,19 @@
                     <option th:value="${type}" th:text="${type}"></option>
                 </th:block>
             </select>
-            <!-- <button type="button" onclick="renderPatterns()">Filter</button> -->
+            //<button type="button" onclick="renderPatterns()">Filter</button> 
+        </div> -->
+
+        <div class="filter-bar">
+            <input type="text" id="filterText" placeholder="Search pattern">
+            <select id="filterBy">
+                <option value="">Select Type</option>
+                <th:block th:each="type : ${patternTypes}">
+                    <option th:value="${type}" th:text="${type}"></option>
+                </th:block>
+            </select>
         </div>
+
 
         <div class="row flex-grow-1" id="patternList">
             <!-- Thymeleaf iteration to render pattern cards -->
@@ -193,7 +204,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
-    <script>
+   <!--- <script>
 
 
         function filterPatterns() {
@@ -223,6 +234,38 @@
                 })
                 .catch(error => console.error('Error deleting pattern:', error));
         }
+    </script>
+    -->
+
+    <script>
+        function filterPatterns() {
+            const filterType = document.getElementById("filterBy").value.toLowerCase();
+            const searchText = document.getElementById("filterText").value.toLowerCase();
+            const patterns = document.querySelectorAll(".pattern-card");
+    
+            patterns.forEach(pattern => {
+                const patternType = pattern.getAttribute("data-type").toLowerCase();
+                const patternName = pattern.querySelector(".card-title").textContent.toLowerCase();
+                const patternDetails = pattern.querySelector(".card-text").textContent.toLowerCase();
+    
+                const matchesType = filterType === "" || patternType.includes(filterType);
+                const matchesSearch = searchText === "" || patternName.includes(searchText) || patternDetails.includes(searchText);
+    
+                if (matchesType && matchesSearch) {
+                    pattern.style.display = "block";
+                } else {
+                    pattern.style.display = "none";
+                }
+            });
+        }
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById("filterText");
+            const typeSelect = document.getElementById("filterBy");
+    
+            searchInput.addEventListener('input', filterPatterns);
+            typeSelect.addEventListener('change', filterPatterns);
+        });
     </script>
 </body>
 
