@@ -10,7 +10,7 @@ class FabricTests {
 
     @Test
     void testFabricGettersAndSetters() {
-        User user = new User(); // Assuming you have a User class
+        User user = new User();
         Fabric fabric = new Fabric("Cotton", "Blue", 100, 200, 1500, "Plain", user, "image.jpg");
 
         assertEquals("Cotton", fabric.getName());
