@@ -169,6 +169,6 @@ public class FabricController {
 
         fabricRepo.save(fabric);
         response.setStatus(200);
-        return "redirect:/fabric/view";
+        return "redirect:fabric/view";
     }
 }
