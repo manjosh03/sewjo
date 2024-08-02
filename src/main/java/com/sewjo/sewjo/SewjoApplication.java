@@ -17,7 +17,7 @@ public class SewjoApplication {
 	public static void main(String[] args)  {
 		try {
 			if (FirebaseApp.getApps().isEmpty()) {
-				FileInputStream serviceAccount = new FileInputStream("src/main/resources/static/serviceAccountKey.json");
+				FileInputStream serviceAccount = new FileInputStream("/app/serviceAccountKey.json");
 
 				FirebaseOptions options = new FirebaseOptions.Builder()
 						.setCredentials(GoogleCredentials.fromStream(serviceAccount))
