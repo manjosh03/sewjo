@@ -157,15 +157,15 @@ public class FabricController {
         fabric.setPrice(Integer.parseInt(updatedFabric.get("price")));
         fabric.setType(updatedFabric.get("type"));
 
-        // if (file != null && !file.isEmpty()) {
-        // try {
-        // String fileUrl = fileStorageService.uploadFile(file);
-        // fabric.setImage(fileUrl);
-        // } catch (IOException e) {
-        // response.setStatus(500);
-        // return "error";
-        // }
-        // }
+        if (file != null && !file.isEmpty()) {
+            try {
+                String fileUrl = fileStorageService.uploadFile(file);
+                fabric.setImage(fileUrl);
+            } catch (IOException e) {
+                response.setStatus(500);
+                return "error";
+            }
+        }
 
         fabricRepo.save(fabric);
         response.setStatus(200);
